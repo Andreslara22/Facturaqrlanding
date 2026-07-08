@@ -58,7 +58,8 @@
   .nav nav{margin-left:auto;display:flex;align-items:center;gap:26px}
   .nav nav a{font-family:'Poppins';font-weight:700;font-size:14px;color:var(--ink-2)}
   .nav nav a:hover{color:var(--blue)}
-  .nav .cta{margin-left:2px}
+  .nav .cta{margin-left:2px;color:#fff}
+  .nav .cta:hover{color:#fff}
   .nav .burger{display:none;margin-left:auto;background:none;border:0;font-size:26px;cursor:pointer;color:var(--ink)}
   @media(max-width:820px){.nav nav{display:none}.nav .burger{display:block}}
 
@@ -339,7 +340,7 @@
       <a class="navlink" href="#beneficios">Beneficios</a>
       <a class="navlink" href="#panel">Panel</a>
       <a class="navlink" href="#precio">Precio</a>
-      <a class="btn btn-blue cta" href="https://portal.facturaqr.app/?c=demo2&amp;demo=1" target="_blank" rel="noopener">Ver demo</a>
+      <a class="btn btn-blue cta" href="https://portal.facturaqr.app/?c=ejemplo&amp;demo=1" target="_blank" rel="noopener">Ver demo</a>
     </nav>
     <button class="burger" aria-label="Abrir menú" onclick="document.getElementById('mm').classList.add('on')">☰</button>
   </div>
@@ -353,7 +354,7 @@
     <a href="#panel" onclick="document.getElementById('mm').classList.remove('on')">Panel</a>
     <a href="#precio" onclick="document.getElementById('mm').classList.remove('on')">Precio</a>
     <a href="#faq" onclick="document.getElementById('mm').classList.remove('on')">Preguntas</a>
-    <a class="btn btn-blue" href="https://portal.facturaqr.app/?c=demo2&amp;demo=1" target="_blank" rel="noopener">Ver demo en vivo</a>
+    <a class="btn btn-blue" href="https://portal.facturaqr.app/?c=ejemplo&amp;demo=1" target="_blank" rel="noopener">Ver demo en vivo</a>
   </div>
 </div>
 
@@ -366,7 +367,7 @@
         <h1>Tus clientes se facturan solos con una <span class="hl">foto de su ticket</span>.</h1>
         <p class="lead">Pon un QR en tu mostrador. Tu cliente toma la foto, escribe su RFC y recibe su factura por correo en menos de un minuto. Sin filas, sin capturar datos, sin que tu personal pierda el turno.</p>
         <div class="cta-row">
-          <a class="btn btn-blue" href="https://portal.facturaqr.app/?c=demo2&amp;demo=1" target="_blank" rel="noopener">Ver demo en vivo →</a>
+          <a class="btn btn-blue" href="https://portal.facturaqr.app/?c=ejemplo&amp;demo=1" target="_blank" rel="noopener">Ver demo en vivo →</a>
           <a class="btn btn-ghost" href="#precio">Quiero FacturaQR para mi negocio</a>
         </div>
         <div class="trust">
@@ -494,7 +495,7 @@
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> Reenvía o cancela con motivo SAT en un clic</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> Aviso automático cuando tu CSD está por vencer</li>
         </ul>
-        <a class="btn btn-dark" href="https://portal.facturaqr.app/?c=demo2&amp;demo=1" target="_blank" rel="noopener" style="margin-top:26px">Probar el flujo completo →</a>
+        <a class="btn btn-dark" href="https://portal.facturaqr.app/?c=ejemplo&amp;demo=1" target="_blank" rel="noopener" style="margin-top:26px">Probar el flujo completo →</a>
       </div>
       <div class="dash reveal">
         <div class="top"><i></i><i></i><i></i></div>
@@ -651,7 +652,7 @@
       </div>
       <div class="ft-col">
         <h4>Recursos</h4>
-        <a href="https://portal.facturaqr.app/?c=demo2&amp;demo=1" target="_blank" rel="noopener">Ver demo</a>
+        <a href="https://portal.facturaqr.app/?c=ejemplo&amp;demo=1" target="_blank" rel="noopener">Ver demo</a>
         <a href="#faq">Preguntas frecuentes</a>
         <a href="https://portal.facturaqr.app/" target="_blank" rel="noopener">Entrar al portal</a>
       </div>
