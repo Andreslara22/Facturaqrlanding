@@ -2,6 +2,9 @@
 # El HTML/PHP no se cachea (para que los cambios se vean al instante).
 # Los assets estáticos sí pueden cachearse.
 
+# El home es index.php (dinámico) para que SiteGround no lo cachee.
+DirectoryIndex index.php index.html
+
 <IfModule mod_headers.c>
   <FilesMatch "\.(html|php)$">
     Header set Cache-Control "no-cache, no-store, must-revalidate, max-age=0"
