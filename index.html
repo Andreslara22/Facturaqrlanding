@@ -12,6 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js')</script>
 <style>
   :root{
     --ink:#0F172A; --ink-2:#1E293B; --mute:#64748B; --mute-2:#94A3B8;
@@ -104,16 +105,20 @@
   .float.f2{bottom:6%;right:-14px;animation:bob 5.6s ease-in-out .6s infinite}
   @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
 
-  /* ── entrada del hero ── */
-  @keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
-  .hero .eyebrow,.hero h1,.hero .lead,.hero .cta-row,.hero .trust,.hero .mock{animation:rise .7s cubic-bezier(.2,.8,.2,1) both}
-  .hero h1{animation-delay:.06s}.hero .lead{animation-delay:.12s}.hero .cta-row{animation-delay:.18s}.hero .trust{animation-delay:.24s}.hero .mock{animation-delay:.14s}
-  .stamp{animation:sello .5s .5s cubic-bezier(.2,1.6,.4,1) both}
+  /* ── entrada del hero (con JS; sin JS el contenido siempre queda visible) ── */
+  .js .hero .eyebrow,.js .hero h1,.js .hero .lead,.js .hero .cta-row,.js .hero .trust,.js .hero .mock{opacity:0;transform:translateY(20px)}
+  .js .hero.in .eyebrow,.js .hero.in h1,.js .hero.in .lead,.js .hero.in .cta-row,.js .hero.in .trust,.js .hero.in .mock{opacity:1;transform:none;transition:opacity .6s cubic-bezier(.2,.8,.2,1),transform .6s cubic-bezier(.2,.8,.2,1)}
+  .js .hero.in h1{transition-delay:.07s}.js .hero.in .lead{transition-delay:.14s}.js .hero.in .cta-row{transition-delay:.21s}.js .hero.in .trust{transition-delay:.28s}.js .hero.in .mock{transition-delay:.12s}
+  .stamp{animation:sello .5s .9s cubic-bezier(.2,1.6,.4,1) both}
 
-  /* ── hero en móvil: apilar, quitar empalmes ── */
+  /* ── hero en móvil: apilar, quitar empalmes, separar CTAs ── */
   @media(max-width:860px){
-    .hero .wrap{grid-template-columns:1fr;gap:26px;padding-top:30px;padding-bottom:40px}
-    .mock{max-width:290px;margin-top:6px}
+    .hero .wrap{grid-template-columns:1fr;gap:22px;padding-top:26px;padding-bottom:38px}
+    .hero h1{margin:12px 0 14px}
+    .hero .cta-row{flex-direction:column;gap:14px;margin-top:24px}
+    .hero .cta-row .btn{width:100%}
+    .trust{margin-top:22px;gap:10px 20px}
+    .mock{max-width:280px;margin-top:12px}
     .float{display:none}
   }
 
@@ -268,7 +273,21 @@
 
   .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
   .reveal.in{opacity:1;transform:none}
-  @media(prefers-reduced-motion:reduce){*{animation:none!important}.reveal{opacity:1;transform:none;transition:none}.hero h1 .hl::after{transform:none}html{scroll-behavior:auto}}
+
+  /* ── afinar márgenes en pantallas chicas ── */
+  @media(max-width:520px){
+    .wrap{padding:0 18px}
+    section{padding:42px 0}
+    .sec-head{margin-bottom:28px}
+    .hero h1{font-size:clamp(28px,8.4vw,40px)}
+    .cards{gap:14px}.steps{gap:14px}.tiers{gap:16px}
+    .fcard{padding:22px 18px}.cartel{padding:26px 20px}
+    .final .fgrid{gap:22px}
+    footer.ft nav{gap:14px 18px}
+  }
+  @media(prefers-reduced-motion:reduce){*{animation:none!important}.reveal{opacity:1;transform:none;transition:none}.hero h1 .hl::after{transform:none}
+    .js .hero .eyebrow,.js .hero h1,.js .hero .lead,.js .hero .cta-row,.js .hero .trust,.js .hero .mock{opacity:1!important;transform:none!important;transition:none!important}
+    html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
@@ -624,6 +643,12 @@
 
 <script>
   var reduce = matchMedia('(prefers-reduced-motion:reduce)').matches || !('IntersectionObserver' in window);
+
+  // entrada del hero (siempre termina visible)
+  (function(){ var h=document.querySelector('.hero'); if(!h)return;
+    if(reduce){h.classList.add('in');return;}
+    requestAnimationFrame(function(){requestAnimationFrame(function(){h.classList.add('in');});});
+  })();
 
   // scroll reveal
   (function(){
