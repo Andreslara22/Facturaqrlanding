@@ -1,0 +1,12 @@
+# FacturaQR landing — control de caché
+# El HTML/PHP no se cachea (para que los cambios se vean al instante).
+# Los assets estáticos sí pueden cachearse.
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html|php)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate, max-age=0"
+    Header set Pragma "no-cache"
+    # SiteGround: no guardar en Dynamic Cache
+    Header set X-Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>
