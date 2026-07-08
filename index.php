@@ -257,12 +257,21 @@
   @media(max-width:820px){.fgrid{grid-template-columns:1fr;gap:26px}.frow{grid-template-columns:1fr}}
 
   /* footer */
-  footer.ft{background:#0B1220;color:#8FA0BC;padding:44px 0 30px}
-  footer.ft .wrap{display:flex;flex-wrap:wrap;gap:24px;align-items:center}
-  footer.ft nav{display:flex;gap:22px;margin-left:auto;flex-wrap:wrap}
-  footer.ft a{font-weight:700;font-size:13.5px;color:#B6C2D9}
-  footer.ft a:hover{color:#fff}
-  .ft .copy{width:100%;border-top:1px solid #1E293B;margin-top:22px;padding-top:20px;font-size:12.5px;color:#64748B;font-weight:600}
+  footer.ft{background:#0B1220;color:#8FA0BC;padding:58px 0 26px}
+  .ft-grid{display:grid;grid-template-columns:1.7fr 1fr 1fr 1.2fr;gap:34px}
+  .ft-brand .wm{color:#fff;margin-bottom:14px}
+  .ft-brand p{font-size:13.5px;line-height:1.65;color:#8FA0BC;font-weight:600;max-width:34ch;margin-bottom:18px}
+  .ft-wapp{display:inline-flex;align-items:center;gap:9px;background:rgba(37,99,235,.16);border:1px solid rgba(37,99,235,.32);color:#cfe0ff;font-family:'Poppins';font-weight:800;font-size:13.5px;padding:9px 15px;border-radius:100px}
+  .ft-wapp svg{width:17px;height:17px;color:#25D366}
+  .ft-wapp:hover{background:rgba(37,99,235,.26);color:#fff}
+  .ft-col h4{font-family:'Poppins';font-weight:800;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#5f6f8c;margin-bottom:15px}
+  .ft-col a{display:block;font-weight:700;font-size:13.5px;color:#B6C2D9;margin-bottom:11px}
+  .ft-col a:hover{color:#fff}
+  .ft-bottom{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center;justify-content:space-between;border-top:1px solid #1E293B;margin-top:42px;padding-top:22px}
+  .ft-bottom p{font-size:12.5px;color:#64748B;font-weight:600}
+  .ft-bottom .mini{display:flex;gap:18px}.ft-bottom .mini a{font-size:12.5px;color:#8FA0BC;font-weight:700}.ft-bottom .mini a:hover{color:#fff}
+  @media(max-width:820px){.ft-grid{grid-template-columns:1fr 1fr;gap:26px}.ft-brand{grid-column:1/-1}}
+  @media(max-width:520px){.ft-grid{grid-template-columns:1fr}.ft-bottom{flex-direction:column;align-items:flex-start;gap:10px}}
 
   /* mobile menu */
   .mmenu{display:none;position:fixed;inset:0;z-index:60;background:rgba(15,23,42,.5)}
@@ -624,21 +633,43 @@
 
 <footer class="ft on-dark">
   <div class="wrap">
-    <a class="wm" href="#top">
-      <span class="qmark"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#qr"/></svg></span>
-      Factura<span class="t2">QR</span>
-    </a>
-    <nav>
-      <a href="#como">Cómo funciona</a>
-      <a href="#beneficios">Beneficios</a>
-      <a href="#precio">Precio</a>
-      <a href="#faq">Preguntas</a>
-      <a href="aviso-privacidad.html">Privacidad</a>
-      <a href="terminos.html">Términos</a>
-      <a href="https://wa.me/526141062426" target="_blank" rel="noopener">WhatsApp 614 106 2426</a>
-      <a href="https://portal.facturaqr.app/" target="_blank" rel="noopener">Entrar al portal</a>
-    </nav>
-    <div class="copy">© 2026 FacturaQR · Autofacturación CFDI 4.0 · Hecho en México. Los logos y marcas de cada comercio pertenecen a sus dueños. · <a href="aviso-privacidad.html" style="color:#B6C2D9">Aviso de Privacidad</a> · <a href="terminos.html" style="color:#B6C2D9">Términos y Condiciones</a></div>
+    <div class="ft-grid">
+      <div class="ft-brand">
+        <a class="wm" href="#top"><span class="qmark"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#qr"/></svg></span>Factura<span class="t2">QR</span></a>
+        <p>Autofacturación con una foto del ticket. Tus clientes se facturan solos y tú dejas de perder el mostrador.</p>
+        <a class="ft-wapp" href="https://wa.me/526141062426" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.9.9.9-2.8-.2-.3A8 8 0 1 1 12 20zm4.4-6c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1-.2.2-.6.8-.8 1-.1.1-.3.1-.5 0-.7-.3-1.3-.6-1.9-1.4-.4-.5-.7-1.1-.8-1.3-.1-.2 0-.4.1-.5l.4-.4.2-.4v-.4c0-.1-.5-1.3-.7-1.7-.2-.4-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.7.7-.9 1.6-.6 2.6.3 1 .9 2 .9 2.1.1.1 1.7 2.7 4.2 3.7 2.1.9 2.5.7 3 .7.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1z"/></svg>
+          614 106 2426
+        </a>
+      </div>
+      <div class="ft-col">
+        <h4>Producto</h4>
+        <a href="#como">Cómo funciona</a>
+        <a href="#beneficios">Beneficios</a>
+        <a href="#panel">Panel de control</a>
+        <a href="#precio">Precio</a>
+      </div>
+      <div class="ft-col">
+        <h4>Recursos</h4>
+        <a href="https://portal.facturaqr.app/?c=demo2&amp;demo=1" target="_blank" rel="noopener">Ver demo</a>
+        <a href="#faq">Preguntas frecuentes</a>
+        <a href="https://portal.facturaqr.app/" target="_blank" rel="noopener">Entrar al portal</a>
+      </div>
+      <div class="ft-col">
+        <h4>Contacto y legal</h4>
+        <a href="#contacto">Solicitar demo</a>
+        <a href="https://wa.me/526141062426" target="_blank" rel="noopener">WhatsApp 614 106 2426</a>
+        <a href="aviso-privacidad.html">Aviso de Privacidad</a>
+        <a href="terminos.html">Términos y Condiciones</a>
+      </div>
+    </div>
+    <div class="ft-bottom">
+      <p>© 2026 FacturaQR · Autofacturación CFDI 4.0 · Hecho en México 🇲🇽</p>
+      <div class="mini">
+        <a href="aviso-privacidad.html">Privacidad</a>
+        <a href="terminos.html">Términos</a>
+      </div>
+    </div>
   </div>
 </footer>
 
