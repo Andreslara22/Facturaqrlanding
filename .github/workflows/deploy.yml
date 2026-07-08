@@ -1,0 +1,28 @@
+name: Deploy a facturaqr.app
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Sube la landing al docroot del apex facturaqr.app en SiteGround.
+      # OJO: confirma server-dir en Site Tools → File Manager (ver README).
+      - name: Subir por FTPS a SiteGround
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: ./
+          server-dir: public_html/
+          exclude: |
+            **/.git*
+            **/.github/**
+            README.md
