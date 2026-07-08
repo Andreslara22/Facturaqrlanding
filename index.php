@@ -1,4 +1,4 @@
-<?php header("Cache-Control: no-cache, no-store, must-revalidate"); header("Pragma: no-cache"); ?>
+<?php header("Cache-Control: no-cache, no-store, must-revalidate"); header("Pragma: no-cache"); if (session_status() !== PHP_SESSION_ACTIVE) @session_start(); ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
