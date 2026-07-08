@@ -10,6 +10,9 @@
 <meta property="og:title" content="FacturaQR — Autofacturación con una foto del ticket">
 <meta property="og:description" content="Pon un QR en tu mostrador y deja que tus clientes se facturen solos. CFDI 4.0 válido ante el SAT, en menos de un minuto.">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://facturaqr.app/">
+<meta property="og:locale" content="es_MX">
+<link rel="canonical" href="https://facturaqr.app/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -146,6 +149,51 @@
   .step p{color:var(--mute);font-weight:600;font-size:14.5px}
   .step .arrow{position:absolute;top:44px;right:-13px;width:26px;height:26px;color:var(--mute-2);z-index:2}
   @media(max-width:780px){.steps{grid-template-columns:1fr}.step .arrow{display:none}}
+
+  /* compare: sin / con FacturaQR */
+  .vs{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:stretch}
+  .vs-col{border-radius:20px;padding:28px 26px;border:1px solid var(--line);background:#fff;display:flex;flex-direction:column}
+  .vs-col h3{font-family:'Poppins';font-weight:900;font-size:19px;letter-spacing:-.01em;display:flex;align-items:center;gap:10px}
+  .vs-col .tag{font-family:'Poppins';font-weight:800;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;padding:5px 12px;border-radius:100px}
+  .vs-col.bad .tag{background:var(--paper-2);color:var(--mute)}
+  .vs-col.bad h3{color:var(--ink-2)}
+  .vs-col ul{list-style:none;display:flex;flex-direction:column;gap:14px;margin-top:20px;flex:1}
+  .vs-col li{display:flex;gap:11px;font-weight:700;font-size:14.5px;line-height:1.5}
+  .vs-col li svg{width:19px;height:19px;flex:none;margin-top:2px}
+  .vs-col.bad li{color:var(--mute)}
+  .vs-col.bad li svg{color:#F87171}
+  .vs-col.good{background:radial-gradient(420px 260px at 100% 0%,rgba(37,99,235,.30),transparent 60%),var(--ink);color:#fff;border-color:var(--ink);box-shadow:var(--shadow)}
+  .vs-col.good .tag{background:rgba(37,99,235,.28);color:#B9CEFF}
+  .vs-col.good li{color:#DCE3F1}
+  .vs-col.good li svg{color:#5B8CFF}
+  @media(max-width:780px){.vs{grid-template-columns:1fr}}
+
+  /* giros / verticales */
+  .giros{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .giro{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px 20px;text-align:center;transition:transform .16s ease,box-shadow .16s ease}
+  .giro:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+  .giro .em{display:grid;place-items:center;width:52px;height:52px;margin:0 auto 13px;border-radius:14px;background:var(--blue-soft);font-size:26px}
+  .giro b{display:block;font-family:'Poppins';font-weight:800;font-size:15.5px;margin-bottom:7px}
+  .giro p{color:var(--mute);font-weight:600;font-size:13.5px}
+  @media(max-width:820px){.giros{grid-template-columns:1fr 1fr}}
+  @media(max-width:460px){.giros{grid-template-columns:1fr}}
+
+  /* seguridad / confianza */
+  .safe{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--paper)}
+  .safe .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;padding:30px 22px}
+  .safe-item{display:flex;gap:12px;align-items:flex-start}
+  .safe-item .sic{width:38px;height:38px;border-radius:11px;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center;flex:none}
+  .safe-item .sic svg{width:20px;height:20px}
+  .safe-item b{display:block;font-family:'Poppins';font-weight:800;font-size:14px;margin-bottom:2px}
+  .safe-item span{font-size:12.5px;color:var(--mute);font-weight:600;line-height:1.45}
+  @media(max-width:820px){.safe .wrap{grid-template-columns:1fr 1fr}}
+  @media(max-width:460px){.safe .wrap{grid-template-columns:1fr}}
+
+  /* botón flotante de WhatsApp */
+  .wa-fab{position:fixed;right:18px;bottom:18px;z-index:55;width:56px;height:56px;border-radius:50%;background:#25D366;color:#fff;display:grid;place-items:center;box-shadow:0 12px 30px rgba(37,211,102,.45);transition:transform .15s ease,box-shadow .15s ease}
+  .wa-fab:hover{transform:scale(1.07);box-shadow:0 16px 36px rgba(37,211,102,.55)}
+  .wa-fab svg{width:30px;height:30px}
+  @media(max-width:520px){.wa-fab{width:52px;height:52px;right:14px;bottom:14px}}
 
   /* benefits */
   .bg-paper{background:var(--paper-2)}
@@ -440,6 +488,37 @@
     </div>
   </section>
 
+  <!-- COMPARE: SIN / CON -->
+  <section id="compara">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Antes y después</span>
+        <h2>Deja atrás la facturación de mostrador.</h2>
+        <p class="lead">El cambio se nota el mismo día que pegas tu QR en la caja.</p>
+      </div>
+      <div class="vs">
+        <div class="vs-col bad reveal">
+          <h3><span class="tag">Sin FacturaQR</span></h3>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M18 6 6 18M6 6l12 12"/></svg> Tu cajero captura RFC, correo y uso de CFDI a mano, con la fila esperando.</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M18 6 6 18M6 6l12 12"/></svg> Errores de dedo: facturas rechazadas, refacturaciones y clientes molestos.</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M18 6 6 18M6 6l12 12"/></svg> «Mándenos su ticket por correo y mañana le enviamos su factura.»</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M18 6 6 18M6 6l12 12"/></svg> Facturas regadas en correos y carpetas, sin control ni respaldo.</li>
+          </ul>
+        </div>
+        <div class="vs-col good reveal">
+          <h3><span class="tag">Con FacturaQR</span></h3>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> Tu cliente escanea el QR y se factura solo, desde su mesa o desde su casa.</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> La IA lee el ticket sin errores y cada folio se factura una sola vez.</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> CFDI 4.0 timbrado y enviado por correo en menos de un minuto.</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> Todo queda en tu panel: busca, filtra, descarga en CSV/ZIP y cancela.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- BENEFITS -->
   <section id="beneficios" class="bg-paper clip">
     <div class="blob b2"></div>
@@ -513,6 +592,24 @@
     </div>
   </section>
 
+  <!-- GIROS -->
+  <section id="giros" class="bg-tint clip">
+    <div class="blob b1"></div>
+    <div class="wrap">
+      <div class="sec-head" style="margin-inline:auto;text-align:center">
+        <span class="eyebrow">Para tu giro</span>
+        <h2>Si entregas ticket, FacturaQR es para ti.</h2>
+        <p class="lead" style="margin-inline:auto">El mismo QR funciona igual de bien en un restaurante que en una gasolinera o una tienda.</p>
+      </div>
+      <div class="giros">
+        <div class="giro reveal"><span class="em">🍽️</span><b>Restaurantes y cafeterías</b><p>El comensal se factura desde su mesa, sin detener al mesero ni hacer fila en caja.</p></div>
+        <div class="giro reveal"><span class="em">⛽</span><b>Gasolineras</b><p>El QR va en la bomba o en el ticket: el cliente factura sin bajarse del coche.</p></div>
+        <div class="giro reveal"><span class="em">🛍️</span><b>Tiendas y farmacias</b><p>Se acaba la fila de atención a clientes y las capturas de RFC en el mostrador.</p></div>
+        <div class="giro reveal"><span class="em">🔧</span><b>Talleres y servicios</b><p>Entregas el ticket y listo: tu cliente se factura cuando quiera, hasta desde su casa.</p></div>
+      </div>
+    </div>
+  </section>
+
   <!-- PRICING -->
   <section id="precio" class="bg-paper">
     <div class="wrap">
@@ -574,6 +671,28 @@
       <p class="price-foot">Precios en pesos mexicanos (MXN), facturables mensualmente. ¿Tu operación no cabe en un plan? <a href="https://wa.me/526141062426" target="_blank" rel="noopener" style="color:var(--blue);font-weight:800">Hablemos y te armamos uno a tu medida.</a></p>
     </div>
   </section>
+
+  <!-- SEGURIDAD / CONFIANZA -->
+  <div class="safe">
+    <div class="wrap">
+      <div class="safe-item reveal">
+        <span class="sic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></span>
+        <div><b>Timbrado con PAC autorizado</b><span>CFDI 4.0 real, con validez ante el SAT.</span></div>
+      </div>
+      <div class="safe-item reveal">
+        <span class="sic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+        <div><b>Conexión cifrada</b><span>Tus datos y los de tus clientes viajan protegidos (HTTPS/TLS).</span></div>
+      </div>
+      <div class="safe-item reveal">
+        <span class="sic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2l-2 2m-7.6 7.6a5.5 5.5 0 1 1-7.78 7.78 5.5 5.5 0 0 1 7.78-7.78zm0 0L19 3m-3 3 2 2"/></svg></span>
+        <div><b>Tu CSD, resguardado</b><span>Tu Certificado de Sello Digital se guarda de forma segura.</span></div>
+      </div>
+      <div class="safe-item reveal">
+        <span class="sic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><rect x="4" y="3" width="16" height="18" rx="2"/></svg></span>
+        <div><b>Cada folio, una sola vez</b><span>Sin duplicados: un ticket no se puede facturar dos veces.</span></div>
+      </div>
+    </div>
+  </div>
 
   <!-- FAQ -->
   <section id="faq" class="bg-tint">
@@ -673,6 +792,25 @@
     </div>
   </div>
 </footer>
+
+<a class="wa-fab" href="https://wa.me/526141062426?text=Quiero%20FacturaQR%20para%20mi%20negocio" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.9.9.9-2.8-.2-.3A8 8 0 1 1 12 20zm4.4-6c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1-.2.2-.6.8-.8 1-.1.1-.3.1-.5 0-.7-.3-1.3-.6-1.9-1.4-.4-.5-.7-1.1-.8-1.3-.1-.2 0-.4.1-.5l.4-.4.2-.4v-.4c0-.1-.5-1.3-.7-1.7-.2-.4-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.7.7-.9 1.6-.6 2.6.3 1 .9 2 .9 2.1.1.1 1.7 2.7 4.2 3.7 2.1.9 2.5.7 3 .7.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1z"/></svg>
+</a>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "¿Mis clientes tienen que registrarse o bajar una app?", "acceptedAnswer": {"@type": "Answer", "text": "No. Escanean el QR, se abre una página web, toman la foto de su ticket y ponen su RFC. Nada de cuentas ni instalaciones."}},
+    {"@type": "Question", "name": "¿Las facturas son válidas ante el SAT?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. Emitimos CFDI 4.0 timbrado a través de un PAC autorizado. El cliente recibe el PDF y el XML, igual que cualquier factura formal."}},
+    {"@type": "Question", "name": "¿Qué necesito para empezar?", "acceptedAnswer": {"@type": "Answer", "text": "Tu RFC, tu régimen fiscal y tu Certificado de Sello Digital (CSD) del SAT. Lo subes una vez desde tu panel y quedas listo para timbrar."}},
+    {"@type": "Question", "name": "¿Y si la foto del ticket sale borrosa?", "acceptedAnswer": {"@type": "Answer", "text": "La IA avisa cuando no puede leer el folio o el total y le pide al cliente otra foto. Además, cada folio solo se puede facturar una vez, para evitar duplicados."}},
+    {"@type": "Question", "name": "¿Puedo cancelar una factura?", "acceptedAnswer": {"@type": "Answer", "text": "Sí, desde tu panel, eligiendo el motivo de cancelación del SAT. También puedes reenviar la factura al correo del cliente cuando lo necesites."}},
+    {"@type": "Question", "name": "¿Funciona para varias sucursales?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. Cada negocio tiene su propio portal, su QR y su marca, y tú los administras todos desde una sola cuenta."}}
+  ]
+}
+</script>
 
 <script>
   var reduce = matchMedia('(prefers-reduced-motion:reduce)').matches || !('IntersectionObserver' in window);
