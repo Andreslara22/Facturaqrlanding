@@ -636,7 +636,7 @@
       <a href="aviso-privacidad.html">Privacidad</a>
       <a href="terminos.html">Términos</a>
       <a href="https://wa.me/526141062426" target="_blank" rel="noopener">WhatsApp 614 106 2426</a>
-      <a href="https://portal.facturaqr.app/api/panel.php?c=demo2" target="_blank" rel="noopener">Entrar al portal</a>
+      <a href="https://portal.facturaqr.app/" target="_blank" rel="noopener">Entrar al portal</a>
     </nav>
     <div class="copy">© 2026 FacturaQR · Autofacturación CFDI 4.0 · Hecho en México. Los logos y marcas de cada comercio pertenecen a sus dueños. · <a href="aviso-privacidad.html" style="color:#B6C2D9">Aviso de Privacidad</a> · <a href="terminos.html" style="color:#B6C2D9">Términos y Condiciones</a></div>
   </div>
