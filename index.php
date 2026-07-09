@@ -686,7 +686,7 @@
           <p class="tsub">Lo esencial para dejar de facturar a mano en el mostrador.</p>
           <ul>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <span><b>1</b> comercio / punto de venta</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <span>Hasta <b>500</b> facturas al mes</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <span>Hasta <b>1,000</b> facturas al mes</span></li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> Lectura de tickets con IA</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> Timbrado CFDI 4.0 + envío por correo</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> Panel de facturas (consulta y cancelación)</li>
@@ -703,7 +703,7 @@
           <p class="tsub">Para negocios con varias cajas o sucursales y más volumen.</p>
           <ul>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <span>Hasta <b>3</b> comercios / sucursales</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <span>Hasta <b>1,000</b> facturas al mes</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <span>Hasta <b>3,000</b> facturas al mes</span></li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <b>Todo lo de Local</b>, más:</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <span><b>Tu marca</b> en portal, cartel y correos (logo y colores)</span></li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> Descarga masiva en CSV y ZIP (PDF + XML)</li>
@@ -880,8 +880,8 @@
   "description": "Autofacturación por QR: tus clientes toman foto de su ticket, ponen su RFC y reciben su CFDI 4.0 por correo en menos de un minuto. Lectura de tickets con IA y timbrado con PAC autorizado.",
   "url": "https://facturaqr.app/",
   "offers": [
-    {"@type": "Offer", "name": "Local", "price": "5000", "priceCurrency": "MXN", "description": "1 comercio · hasta 500 facturas/mes"},
-    {"@type": "Offer", "name": "Comercio", "price": "8000", "priceCurrency": "MXN", "description": "Hasta 3 sucursales · 1,000 facturas/mes · marca propia"},
+    {"@type": "Offer", "name": "Local", "price": "5000", "priceCurrency": "MXN", "description": "1 comercio · hasta 1,000 facturas/mes"},
+    {"@type": "Offer", "name": "Comercio", "price": "8000", "priceCurrency": "MXN", "description": "Hasta 3 sucursales · 3,000 facturas/mes · marca propia"},
     {"@type": "Offer", "name": "Cadena", "price": "15000", "priceCurrency": "MXN", "description": "Sucursales y facturas ilimitadas"}
   ]
 }
