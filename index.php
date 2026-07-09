@@ -75,7 +75,10 @@
   .hero h1 .hl{color:var(--blue);position:relative;white-space:nowrap}
   .hero h1 .hl::after{content:"";position:absolute;left:0;right:0;bottom:.06em;height:.16em;background:rgba(37,99,235,.22);border-radius:3px;z-index:-1;transform:scaleX(0);transform-origin:left;animation:draw .55s .6s cubic-bezier(.4,0,.2,1) forwards}
   @keyframes draw{to{transform:scaleX(1)}}
+  .regalo{display:inline-flex;align-items:center;gap:7px;margin-top:22px;background:#FEF3C7;color:#92400E;border:1px solid #FDE68A;border-radius:100px;padding:8px 15px;font-family:'Poppins';font-weight:700;font-size:13px}
+  .regalo b{font-weight:800}
   .hero .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+  .regalo + .cta-row{margin-top:14px}
   .trust{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:26px;color:var(--mute);font-weight:700;font-size:13.5px}
   .trust span{display:inline-flex;align-items:center;gap:7px}
   .trust svg{width:16px;height:16px;color:var(--ok);flex:none}
@@ -111,8 +114,8 @@
   @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
 
   /* ── entrada del hero (con JS; sin JS el contenido siempre queda visible) ── */
-  .js .hero .eyebrow,.js .hero h1,.js .hero .lead,.js .hero .cta-row,.js .hero .trust,.js .hero .mock{opacity:0;transform:translateY(20px)}
-  .js .hero.in .eyebrow,.js .hero.in h1,.js .hero.in .lead,.js .hero.in .cta-row,.js .hero.in .trust,.js .hero.in .mock{opacity:1;transform:none;transition:opacity .6s cubic-bezier(.2,.8,.2,1),transform .6s cubic-bezier(.2,.8,.2,1)}
+  .js .hero .eyebrow,.js .hero h1,.js .hero .lead,.js .hero .regalo,.js .hero .cta-row,.js .hero .trust,.js .hero .mock{opacity:0;transform:translateY(20px)}
+  .js .hero.in .eyebrow,.js .hero.in h1,.js .hero.in .lead,.js .hero.in .regalo,.js .hero.in .cta-row,.js .hero.in .trust,.js .hero.in .mock{opacity:1;transform:none;transition:opacity .6s cubic-bezier(.2,.8,.2,1),transform .6s cubic-bezier(.2,.8,.2,1)}
   .js .hero.in h1{transition-delay:.07s}.js .hero.in .lead{transition-delay:.14s}.js .hero.in .cta-row{transition-delay:.21s}.js .hero.in .trust{transition-delay:.28s}.js .hero.in .mock{transition-delay:.12s}
   .stamp{animation:sello .5s .9s cubic-bezier(.2,1.6,.4,1) both}
 
@@ -345,7 +348,7 @@
     footer.ft nav{gap:14px 18px}
   }
   @media(prefers-reduced-motion:reduce){*{animation:none!important}.reveal{opacity:1;transform:none;transition:none}.hero h1 .hl::after{transform:none}
-    .js .hero .eyebrow,.js .hero h1,.js .hero .lead,.js .hero .cta-row,.js .hero .trust,.js .hero .mock{opacity:1!important;transform:none!important;transition:none!important}
+    .js .hero .eyebrow,.js .hero h1,.js .hero .lead,.js .hero .regalo,.js .hero .cta-row,.js .hero .trust,.js .hero .mock{opacity:1!important;transform:none!important;transition:none!important}
     html{scroll-behavior:auto}}
 </style>
 </head>
@@ -415,14 +418,15 @@
         <span class="eyebrow">Autofacturación · CFDI 4.0</span>
         <h1>Tus clientes se facturan solos con una <span class="hl">foto de su ticket</span>.</h1>
         <p class="lead">Pon un QR en tu mostrador. Tu cliente toma la foto, escribe su RFC y recibe su factura por correo en menos de un minuto. Sin filas, sin capturar datos, sin que tu personal pierda el turno.</p>
+        <div class="regalo">🎁 <b>10 facturas gratis</b> al registrarte · sin tarjeta</div>
         <div class="cta-row">
-          <a class="btn btn-blue" href="https://portal.facturaqr.app/registro.php" target="_blank" rel="noopener">10 facturas gratis →</a>
+          <a class="btn btn-blue" href="https://portal.facturaqr.app/registro.php" target="_blank" rel="noopener">Registro gratis →</a>
           <a class="btn btn-ghost" href="https://portal.facturaqr.app/?c=ejemplo&amp;demo=1" target="_blank" rel="noopener">Ver demo en vivo</a>
         </div>
         <div class="trust">
           <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> CFDI 4.0 timbrado ante el SAT</span>
           <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> Tu cliente no instala nada</span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> 10 facturas gratis, sin tarjeta</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> Listo en minutos</span>
         </div>
       </div>
 
