@@ -422,7 +422,7 @@
         <div class="regalo">🎁<span><b>10 facturas gratis</b> al registrarte · sin tarjeta</span></div>
         <div class="cta-row">
           <a class="btn btn-blue" href="https://portal.facturaqr.app/registro.php" target="_blank" rel="noopener">Registro gratis →</a>
-          <a class="btn btn-ghost" href="https://portal.facturaqr.app/?c=ejemplo&amp;demo=1" target="_blank" rel="noopener">Ver demo en vivo</a>
+          <a class="btn btn-dark" href="https://portal.facturaqr.app/?c=ejemplo&amp;demo=1" target="_blank" rel="noopener">Ver demo en vivo</a>
         </div>
         <div class="trust">
           <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> CFDI 4.0 timbrado ante el SAT</span>
