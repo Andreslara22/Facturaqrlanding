@@ -34,7 +34,7 @@
      · CONV_SIGNUP: etiqueta de la conversión "Clic a registro"      (AW-XXXXXXXXXX/bbbbbbbb) -->
 <script>
   window.FQ_ANALYTICS = {
-    GA4_ID:      'G-XXXXXXXXXX',
+    GA4_ID:      'G-QY5N3VNCTR',
     ADS_ID:      'AW-XXXXXXXXXX',
     CONV_LEAD:   'AW-XXXXXXXXXX/aaaaaaaa',
     CONV_SIGNUP: 'AW-XXXXXXXXXX/bbbbbbbb'
