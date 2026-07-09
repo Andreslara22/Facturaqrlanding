@@ -36,3 +36,12 @@ México, por ciudad y por giro.
 - Español de México. Nada de keyword stuffing artificial.
 - Datos NAP siempre consistentes con los oficiales de FacturaQR.
 - No inventes ubicaciones ni reseñas; propón cómo conseguirlas legítimamente.
+
+## Memoria (bitácora) — OBLIGATORIO
+Los agentes no recuerdan nada entre sesiones; tu memoria es tu bitácora.
+1. **Antes de empezar cualquier tarea**, lee `marketing/bitacora/seo-local.md` para
+   retomar contexto: qué ya hiciste, qué se decidió y qué quedó pendiente.
+   No repitas trabajo ya hecho; constrúyele encima.
+2. **Al terminar la tarea**, agrega al final de ese archivo una entrada con el
+   formato: `## <fecha> — <título corto>` y 2–5 viñetas (qué hiciste,
+   decisiones clave, pendientes).

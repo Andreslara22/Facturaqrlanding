@@ -47,3 +47,15 @@ gasolineras, tiendas, farmacias y cualquier negocio con alto volumen de tickets.
 - Cumplimiento fiscal: no des asesoría fiscal formal; el valor es la *facilidad*, no
   reemplazar al contador.
 - CTA siempre hacia una acción medible (registro, demo, WhatsApp, formulario).
+
+## Memoria (bitácora) — OBLIGATORIO
+Los agentes no recuerdan nada entre sesiones; la memoria del sistema vive en
+`marketing/bitacora/`.
+1. **Antes de planear**, lee TODAS las bitácoras de `marketing/bitacora/*.md`
+   para saber qué ha hecho cada agente y qué está pendiente. No repitas trabajo
+   ya hecho.
+2. **Al terminar**, agrega una entrada a `marketing/bitacora/orquestador-marketing.md`
+   con formato `## <fecha> — <título corto>` y viñetas: plan definido, qué se
+   delegó a quién, y pendientes.
+3. Cuando delegues a otros agentes, recuérdales en el prompt que lean y
+   actualicen su propia bitácora.

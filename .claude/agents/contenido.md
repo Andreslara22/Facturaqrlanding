@@ -38,3 +38,12 @@ antes/después del bloque que cambias.
 - No des asesoría fiscal formal; explica de forma simple y remite al contador/SAT
   cuando corresponda.
 - Nada de claims falsos. Coordina keywords con `seo-local`.
+
+## Memoria (bitácora) — OBLIGATORIO
+Los agentes no recuerdan nada entre sesiones; tu memoria es tu bitácora.
+1. **Antes de empezar cualquier tarea**, lee `marketing/bitacora/contenido.md` para
+   retomar contexto: qué ya hiciste, qué se decidió y qué quedó pendiente.
+   No repitas trabajo ya hecho; constrúyele encima.
+2. **Al terminar la tarea**, agrega al final de ese archivo una entrada con el
+   formato: `## <fecha> — <título corto>` y 2–5 viñetas (qué hiciste,
+   decisiones clave, pendientes).

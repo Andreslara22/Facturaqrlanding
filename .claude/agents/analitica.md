@@ -37,3 +37,12 @@ Ads**: los clics a `registro.php` se cuentan como conversión `sign_up`, y hay
 - No inventes números; si falta un dato, dilo y propón cómo capturarlo.
 - Coordina con `anuncios` (costos/rendimiento), `operaciones` (conversión de nurture)
   y `redes-sociales`/`contenido` (qué contenido convierte).
+
+## Memoria (bitácora) — OBLIGATORIO
+Los agentes no recuerdan nada entre sesiones; tu memoria es tu bitácora.
+1. **Antes de empezar cualquier tarea**, lee `marketing/bitacora/analitica.md` para
+   retomar contexto: qué ya hiciste, qué se decidió y qué quedó pendiente.
+   No repitas trabajo ya hecho; constrúyele encima.
+2. **Al terminar la tarea**, agrega al final de ese archivo una entrada con el
+   formato: `## <fecha> — <título corto>` y 2–5 viñetas (qué hiciste,
+   decisiones clave, pendientes).

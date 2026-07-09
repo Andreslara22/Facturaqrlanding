@@ -61,6 +61,7 @@
   }
 
   *{box-sizing:border-box}
+  [hidden]{display:none !important}
   html,body{margin:0;padding:0}
   body{
     background:var(--paper);
@@ -125,15 +126,10 @@
     border-radius:6px;padding:3px 8px;display:inline-flex;align-items:center;gap:5px;
   }
   .chip svg{width:13px;height:13px;flex:none}
-  .desc{
-    max-height:0;overflow:hidden;opacity:0;
-    transition:max-height .28s ease, opacity .28s ease;
-    font-size:12.5px;color:var(--ink-soft);text-align:center;
-  }
-  .card.open .desc{max-height:180px;opacity:1;margin-top:2px}
-  .desc code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px}
-  .hint{font-size:10.5px;color:var(--ink-soft);opacity:.65}
-  .card.open .hint{display:none}
+  .hint{font-size:10.5px;color:var(--ink-soft);opacity:.7}
+  .layer .hint{display:block;text-align:center;margin:10px 0 0}
+  .layer[data-agente]{cursor:pointer}
+  .layer[data-agente]:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
 
   .c-rosa {background:var(--rosa); border-color:var(--rosa-b)}
   .c-verde{background:var(--verde);border-color:var(--verde-b)}
@@ -150,7 +146,6 @@
     width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;
     border-top:7px solid var(--line);transform:translateX(-4px);
   }
-  /* orquestación → 3 columnas */
   .conn1 .v.stub{left:50%;top:0;height:24px}
   .conn1 .h.bar{left:16%;right:16%;top:24px}
   .conn1 .v.d1{left:16%;top:24px;height:22px}
@@ -159,7 +154,6 @@
   .conn1 .a.a1{left:16%;top:46px}
   .conn1 .a.a2{left:50%;top:46px}
   .conn1 .a.a3{left:84%;top:46px}
-  /* 3 columnas → 2 columnas */
   .conn2 .v.r1{left:16%;top:0;height:26px}
   .conn2 .v.r2{left:50%;top:0;height:26px}
   .conn2 .v.r3{left:84%;top:0;height:26px}
@@ -168,7 +162,6 @@
   .conn2 .v.d2{left:69.5%;top:26px;height:20px}
   .conn2 .a.a1{left:30.5%;top:46px}
   .conn2 .a.a2{left:69.5%;top:46px}
-  /* 2 columnas → capa de datos (con píldora) */
   .conn3{height:86px}
   .conn3 .v.r1{left:30.5%;top:0;height:22px}
   .conn3 .v.r2{left:69.5%;top:0;height:22px}
@@ -183,14 +176,86 @@
     box-shadow:2px 3px 0 rgba(0,0,0,.15);
   }
 
-  /* ── Capa de datos ── */
   .data .layer-items{gap:14px 34px}
 
   footer{margin-top:34px;text-align:center;font-size:12.5px;color:var(--ink-soft)}
   footer a{color:var(--blue);font-weight:700;text-decoration:none}
   footer a:hover{text-decoration:underline}
 
-  /* ── Móvil: apilar y simplificar conectores ── */
+  /* ── Chat (command box) ── */
+  .overlay{position:fixed;inset:0;background:rgba(15,18,26,.5);z-index:50;display:none}
+  .overlay.on{display:block}
+  .chat{
+    position:fixed;z-index:60;left:50%;top:50%;transform:translate(-50%,-50%);
+    width:min(580px,calc(100vw - 16px));height:min(680px,calc(100dvh - 20px));
+    display:none;flex-direction:column;background:var(--card);
+    border:2px dashed var(--line);border-radius:12px;
+    box-shadow:5px 7px 0 rgba(0,0,0,.2);
+  }
+  .chat.on{display:flex}
+  .chat-head{
+    display:flex;align-items:center;gap:9px;padding:11px 12px;
+    border-bottom:2px dashed var(--line);border-radius:10px 10px 0 0;
+  }
+  .chat-head .who{flex:1;min-width:0}
+  .chat-head h3{font-family:var(--hand);margin:0;font-size:18px;letter-spacing:.3px;line-height:1.2}
+  .chat-head .meta{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:2px}
+  .chat-head .meta span{
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px;
+    color:var(--ink-soft);background:var(--chip);border:1px solid var(--chip-line);
+    border-radius:14px;padding:1px 7px;
+  }
+  .icon-btn{
+    width:32px;height:32px;flex:none;border:1.5px solid var(--chip-line);border-radius:8px;
+    background:var(--chip);color:var(--ink);cursor:pointer;
+    display:inline-flex;align-items:center;justify-content:center;padding:0;
+  }
+  .icon-btn svg{width:16px;height:16px}
+  .icon-btn:hover{border-color:var(--line)}
+  .icon-btn:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+  .chat-body{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
+  .msg{max-width:86%;padding:9px 12px;border-radius:12px;font-size:14px;overflow-wrap:break-word}
+  .msg p{margin:0 0 8px}
+  .msg p:last-child{margin:0}
+  .msg.user{align-self:flex-end;background:var(--pill);color:var(--pill-ink);border-bottom-right-radius:3px}
+  .msg.bot{align-self:flex-start;background:var(--paper);border:1px solid var(--chip-line);border-bottom-left-radius:3px}
+  .msg.err{align-self:center;background:transparent;border:1.5px dashed var(--coral);color:var(--coral);font-size:12.5px;text-align:center}
+  .msg.note{align-self:center;background:transparent;border:none;color:var(--ink-soft);font-size:12px;text-align:center;padding:2px}
+  .msg code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;background:var(--chip);border:1px solid var(--chip-line);border-radius:5px;padding:0 4px}
+  .typing{align-self:flex-start;display:flex;gap:4px;padding:12px 14px}
+  .typing b{width:7px;height:7px;border-radius:50%;background:var(--ink-soft);animation:tp 1s infinite}
+  .typing b:nth-child(2){animation-delay:.18s}
+  .typing b:nth-child(3){animation-delay:.36s}
+  @keyframes tp{0%,60%,100%{opacity:.25;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+  .chat-form{display:flex;gap:8px;padding:11px 12px;border-top:2px dashed var(--line);align-items:flex-end}
+  .chat-form textarea{
+    flex:1;resize:none;border:1.5px solid var(--chip-line);border-radius:10px;
+    background:var(--paper);color:var(--ink);font-family:var(--body);font-size:14px;
+    padding:10px 12px;height:44px;max-height:130px;line-height:1.4;
+  }
+  .chat-form textarea:focus{outline:2px solid var(--blue);outline-offset:1px}
+  .send{
+    height:44px;padding:0 16px;border:none;border-radius:10px;flex:none;
+    background:var(--pill);color:var(--pill-ink);font-family:var(--hand);
+    font-size:15px;font-weight:700;cursor:pointer;letter-spacing:.4px;
+  }
+  .send:disabled{opacity:.5;cursor:default}
+  .send:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+  /* setup de API key */
+  .setup{padding:22px;display:flex;flex-direction:column;gap:12px;overflow-y:auto}
+  .setup h4{font-family:var(--hand);margin:0;font-size:17px}
+  .setup p{margin:0;font-size:13.5px;color:var(--ink-soft)}
+  .setup input{
+    border:1.5px solid var(--chip-line);border-radius:10px;background:var(--paper);
+    color:var(--ink);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+    font-size:13px;padding:11px 12px;
+  }
+  .setup input:focus{outline:2px solid var(--blue);outline-offset:1px}
+  .setup .send{align-self:flex-start;padding:0 22px}
+  .setup a{color:var(--blue);font-weight:700}
+  .setup small{font-size:11.5px;color:var(--ink-soft)}
+
+  /* ── Móvil ── */
   @media (max-width:680px){
     .row-3,.row-2{grid-template-columns:1fr;max-width:420px;margin:0 auto}
     .conn{height:40px}
@@ -205,9 +270,12 @@
     .pill{top:auto;bottom:6px}
     .conn3::before{height:88px}
     .conn3::after{top:88px}
+    .chat{width:100vw;height:100dvh;left:0;top:0;transform:none;border-radius:0;border-left:none;border-right:none}
+    .chat-head{border-radius:0}
   }
   @media (prefers-reduced-motion: reduce){
-    .card,.desc{transition:none}
+    .card{transition:none}
+    .typing b{animation:none}
   }
 </style>
 </head>
@@ -219,15 +287,15 @@
       <path d="M12 3v18M4.2 7.5l15.6 9M19.8 7.5l-15.6 9"/>
     </svg>
     <h1>Sistema de Marketing <span>FacturaQR</span> — Agentes IA</h1>
-    <p class="sub">7 agentes en <code>.claude/agents/</code> · toca cada caja para ver qué hace</p>
+    <p class="sub">7 agentes en <code>.claude/agents/</code> · toca una caja para <b>chatear</b> con su agente</p>
   </header>
 
   <!-- ═══ Capa de orquestación ═══ -->
-  <section class="layer" id="orq" role="button" tabindex="0" aria-expanded="false">
+  <section class="layer" data-agente="orquestador-marketing" role="button" tabindex="0" aria-haspopup="dialog">
     <p class="layer-title">Capa de Orquestación</p>
     <div class="layer-items">
       <div class="item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.8" aria-hidden="true"><path d="M7.5 12a4 4 0 1 1 4-4M16.5 12a4 4 0 1 0-4-4" transform="translate(0 4)"/><path d="M4 12c0-2.2 1.8-4 4-4 1.7 0 3.2 1.1 3.8 2.6M20 12c0-2.2-1.8-4-4-4-1.7 0-3.2 1.1-3.8 2.6M4 12c0 2.2 1.8 4 4 4 1.7 0 3.2-1.1 3.8-2.6M20 12c0 2.2-1.8 4-4 4-1.7 0-3.2-1.1-3.8-2.6"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.8" aria-hidden="true"><path d="M4 12c0-2.2 1.8-4 4-4 1.7 0 3.2 1.1 3.8 2.6M20 12c0-2.2-1.8-4-4-4-1.7 0-3.2 1.1-3.8 2.6M4 12c0 2.2 1.8 4 4 4 1.7 0 3.2-1.1 3.8-2.6M20 12c0 2.2-1.8 4-4 4-1.7 0-3.2-1.1-3.8-2.6"/></svg>
         <small>Orquestación<br>siempre activa</small>
       </div>
       <div class="item">
@@ -236,7 +304,7 @@
       </div>
       <div class="item">
         <svg viewBox="0 0 24 24" fill="none" stroke="var(--ink-soft)" stroke-width="1.8" aria-hidden="true"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/></svg>
-        <small>Memoria de contexto<br>(base vectorial)</small>
+        <small>Memoria de contexto<br>(bitácora)</small>
       </div>
       <div class="item">
         <svg viewBox="0 0 24 24" fill="none" stroke="var(--ink-soft)" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h11M4 17h13"/></svg>
@@ -247,8 +315,7 @@
         <small>Router de webhooks</small>
       </div>
     </div>
-    <p class="desc"><b>orquestador-marketing</b> — descompone el objetivo, delega por canal y consolida el plan. Úsalo para campañas amplias. · <code>orquestador-marketing.md</code></p>
-    <p class="hint" style="text-align:center;margin:8px 0 0">toca para ver el agente</p>
+    <span class="hint">toca para chatear con el orquestador</span>
   </section>
 
   <div class="conn conn1" aria-hidden="true">
@@ -259,7 +326,7 @@
 
   <!-- ═══ Canales ═══ -->
   <div class="row row-3">
-    <div class="card c-rosa" role="button" tabindex="0" aria-expanded="false">
+    <div class="card c-rosa" data-agente="redes-sociales" role="button" tabindex="0" aria-haspopup="dialog">
       <h2>Redes Sociales</h2>
       <span class="agent-tag">redes-sociales</span>
       <div class="chips">
@@ -268,11 +335,10 @@
         <span class="chip"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 3c.4 2.2 1.8 3.9 4 4.3v3.1c-1.5 0-2.9-.5-4-1.3v6.3c0 3.6-2.5 6.1-5.9 6.1A5.8 5.8 0 0 1 5 15.7c0-3.3 2.6-5.9 6-5.7v3.2c-1.6-.3-2.9.8-2.9 2.4 0 1.5 1.1 2.6 2.6 2.6 1.7 0 2.8-1.2 2.8-3.1V3h3.1Z"/></svg>TikTok</span>
         <span class="chip"><svg viewBox="0 0 24 24" fill="#FF0000" aria-hidden="true"><rect x="2.5" y="6" width="19" height="12.5" rx="3.5"/><path d="M10.4 9.4v5.7l5-2.85-5-2.85Z" fill="#fff"/></svg>YouTube</span>
       </div>
-      <p class="desc">Reels, guiones de TikTok, carruseles, calendario y copies. Gancho: la fila para facturar y los RFC mal capturados. · <code>redes-sociales.md</code></p>
-      <span class="hint">toca para ver el agente</span>
+      <span class="hint">toca para chatear</span>
     </div>
 
-    <div class="card c-verde" role="button" tabindex="0" aria-expanded="false">
+    <div class="card c-verde" data-agente="seo-local" role="button" tabindex="0" aria-haspopup="dialog">
       <h2>SEO Local</h2>
       <span class="agent-tag">seo-local</span>
       <div class="chips">
@@ -280,11 +346,10 @@
         <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="#34A853" stroke-width="2" aria-hidden="true"><path d="M12 21s-6.5-6.2-6.5-11a6.5 6.5 0 0 1 13 0c0 4.8-6.5 11-6.5 11Z"/><circle cx="12" cy="9.8" r="2.2"/></svg>Google Maps</span>
         <span class="chip"><svg viewBox="0 0 24 24" fill="#F4B400" aria-hidden="true"><path d="m12 3 2.5 5.6 6 .6-4.5 4.1 1.3 5.9L12 16.1l-5.3 3.1 1.3-5.9L3.5 9.2l6-.6L12 3Z"/></svg>Reseñas</span>
       </div>
-      <p class="desc">Optimiza GBP, Maps y reseñas. Posiciona «autofacturación &lt;ciudad&gt;» y «cómo facturar en &lt;negocio&gt;». · <code>seo-local.md</code></p>
-      <span class="hint">toca para ver el agente</span>
+      <span class="hint">toca para chatear</span>
     </div>
 
-    <div class="card c-arena" role="button" tabindex="0" aria-expanded="false">
+    <div class="card c-arena" data-agente="anuncios" role="button" tabindex="0" aria-haspopup="dialog">
       <h2>Anuncios</h2>
       <span class="agent-tag">anuncios</span>
       <div class="chips">
@@ -292,8 +357,7 @@
         <span class="chip"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m14.2 4.5 5.4 15" stroke="#4285F4" stroke-width="3.4" stroke-linecap="round"/><path d="m9.8 4.5-5.4 15" stroke="#34A853" stroke-width="3.4" stroke-linecap="round"/><circle cx="4.6" cy="19.2" r="1.9" fill="#FBBC05"/></svg>Google Ads</span>
         <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-8M21 20H3"/></svg>Conversión</span>
       </div>
-      <p class="desc">Campañas de pago: estructura, segmentación por giro, copies y optimización hacia el registro. · <code>anuncios.md</code></p>
-      <span class="hint">toca para ver el agente</span>
+      <span class="hint">toca para chatear</span>
     </div>
   </div>
 
@@ -306,7 +370,7 @@
 
   <!-- ═══ Contenido + Operaciones ═══ -->
   <div class="row row-2">
-    <div class="card c-azul" role="button" tabindex="0" aria-expanded="false">
+    <div class="card c-azul" data-agente="contenido" role="button" tabindex="0" aria-haspopup="dialog">
       <h2>Contenido</h2>
       <span class="agent-tag">contenido</span>
       <div class="chips">
@@ -314,11 +378,10 @@
         <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="#21759B" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m6.5 8.5 3 8.5 2.5-6.5 2.5 6.5 3-8.5"/></svg>Blog / CMS</span>
         <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 4h9l4 4v12H6V4Z"/><path d="M9 12h7M9 15.5h7M9 8.5h3"/></svg>Copy de landing</span>
       </div>
-      <p class="desc">Artículos SEO, guías («cómo facturar un ticket con foto»), FAQs y copy de <code>index.php</code>. · <code>contenido.md</code></p>
-      <span class="hint">toca para ver el agente</span>
+      <span class="hint">toca para chatear</span>
     </div>
 
-    <div class="card c-lila" role="button" tabindex="0" aria-expanded="false">
+    <div class="card c-lila" data-agente="operaciones" role="button" tabindex="0" aria-haspopup="dialog">
       <h2>Operaciones</h2>
       <span class="agent-tag">operaciones</span>
       <div class="chips">
@@ -326,8 +389,7 @@
         <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="#1A82E2" stroke-width="2" aria-hidden="true"><path d="M3 7h18v11H3V7Z"/><path d="m3 7 9 6.5L21 7"/></svg>SendGrid Email</span>
         <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="9" cy="8.5" r="3"/><path d="M3.5 19c.6-3 2.9-4.7 5.5-4.7s4.9 1.7 5.5 4.7"/><circle cx="17" cy="9.5" r="2.3"/><path d="M15.6 14.6c2.5-.4 4.5 1 5 4"/></svg>CRM</span>
       </div>
-      <p class="desc">Nurture por SMS y email: bienvenida, onboarding del QR, recuperación de registros y reactivación. · <code>operaciones.md</code></p>
-      <span class="hint">toca para ver el agente</span>
+      <span class="hint">toca para chatear</span>
     </div>
   </div>
 
@@ -340,7 +402,7 @@
   </div>
 
   <!-- ═══ Capa de datos y reportes ═══ -->
-  <section class="layer data" role="button" tabindex="0" aria-expanded="false">
+  <section class="layer data" data-agente="analitica" role="button" tabindex="0" aria-haspopup="dialog">
     <p class="layer-title">Datos y Reportes</p>
     <div class="layer-items">
       <div class="item">
@@ -348,7 +410,7 @@
         <small>Base de datos CRM</small>
       </div>
       <div class="item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M7 14v-3M11 14V8M15 14v-5M19 22H5" transform="translate(0 -1)"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M7 13v-3M11 13V7M15 13V8"/></svg>
         <small>Dashboard analítico<br>(GA4 + Ads)</small>
       </div>
       <div class="item">
@@ -356,8 +418,7 @@
         <small>Reporte del dueño<br>(semanal / mensual)</small>
       </div>
     </div>
-    <p class="desc"><b>analitica</b> — KPIs, dashboard y resumen ejecutivo: qué pasó, qué funcionó y 3 recomendaciones. · <code>analitica.md</code></p>
-    <p class="hint" style="text-align:center;margin:8px 0 0">toca para ver el agente</p>
+    <span class="hint">toca para chatear con analítica</span>
   </section>
 
   <footer>
@@ -365,17 +426,289 @@
   </footer>
 </div>
 
+<!-- ═══ Command box (chat) ═══ -->
+<div class="overlay" id="ov"></div>
+<div class="chat" id="chat" role="dialog" aria-modal="true" aria-labelledby="chatTitle">
+  <div class="chat-head" id="chatHead">
+    <div class="who">
+      <h3 id="chatTitle">Agente</h3>
+      <div class="meta"><span id="chatTag"></span><span id="chatModelo"></span></div>
+    </div>
+    <button class="icon-btn" id="btnGuardar" title="Guardar en memoria y empezar conversación nueva" aria-label="Guardar en memoria y empezar conversación nueva">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 4h11l3 3v13H5V4Z"/><path d="M8 4v5h7V4M8 20v-6h8v6"/></svg>
+    </button>
+    <button class="icon-btn" id="btnExportar" title="Descargar toda la memoria (JSON)" aria-label="Descargar toda la memoria">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 4v11M7.5 11 12 15.5 16.5 11M4 19.5h16"/></svg>
+    </button>
+    <button class="icon-btn" id="btnKey" title="Cambiar API key" aria-label="Cambiar API key">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="8" cy="14" r="4"/><path d="M11 11 20 4M16 8l2.5 2.5M13.5 6.5 16 9"/></svg>
+    </button>
+    <button class="icon-btn" id="btnCerrar" title="Cerrar" aria-label="Cerrar chat">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+    </button>
+  </div>
+
+  <!-- setup de API key -->
+  <div class="setup" id="setup" hidden>
+    <h4>Conecta tu API key de Anthropic</h4>
+    <p>Para chatear con los agentes se usa la API de Claude con <b>tu</b> llave.
+       Créala en <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">console.anthropic.com</a>
+       y pégala aquí.</p>
+    <input type="password" id="keyInput" placeholder="sk-ant-..." autocomplete="off">
+    <button class="send" id="keyGuardar">Guardar</button>
+    <small>La llave se guarda <b>solo en este navegador</b> (localStorage). Nunca se sube al servidor de FacturaQR ni al repo. Puedes cambiarla o borrarla con el botón de la llave.</small>
+  </div>
+
+  <div class="chat-body" id="chatBody" hidden></div>
+
+  <form class="chat-form" id="chatForm" hidden>
+    <textarea id="chatInput" placeholder="Escríbele al agente… (Enter envía, Shift+Enter salto de línea)" rows="1"></textarea>
+    <button class="send" id="chatSend" type="submit">Enviar</button>
+  </form>
+</div>
+
 <script>
-  document.querySelectorAll('[role="button"]').forEach(function(el){
-    function toggle(){
-      el.classList.toggle('open');
-      el.setAttribute('aria-expanded', el.classList.contains('open') ? 'true' : 'false');
+(function(){
+  'use strict';
+
+  /* ══ Definición de agentes (mismos prompts que .claude/agents/) ══ */
+  var BASE = 'FacturaQR es autofacturación CFDI 4.0 para negocios en México: el negocio pone un QR en el mostrador; el cliente toma foto de su ticket, escribe su RFC y recibe su factura por correo en menos de un minuto. Público: restaurantes, cafeterías, gasolineras, tiendas, farmacias. Habla en español de México, cercano y profesional. No prometas funciones que el producto no tiene ni des asesoría fiscal formal. CTA hacia acciones medibles (registro en facturaqr.app, demo, WhatsApp, formulario).';
+
+  var AGENTES = {
+    'orquestador-marketing': {
+      titulo:'Orquestador de Marketing', clase:'', modelo:'claude-opus-4-8',
+      sistema: 'Eres el orquestador de marketing de FacturaQR. Piensas como Head of Growth: aclaras el objetivo (awareness, leads, activación o retención), descompones en tareas por canal (redes sociales, SEO local, anuncios, contenido, operaciones, analítica), y entregas planes accionables: qué se hace, en qué canal, con qué mensaje y cómo se mide. Mantienes coherencia de marca en todos los canales. ' + BASE
+    },
+    'redes-sociales': {
+      titulo:'Redes Sociales', clase:'c-rosa', modelo:'claude-sonnet-5',
+      sistema: 'Eres el agente de redes sociales orgánicas de FacturaQR (Facebook, Instagram, TikTok, YouTube). Produces reels, guiones con gancho en los primeros 2 segundos, carruseles, calendarios y copies. Ganchos que funcionan: la fila para facturar a fin de mes, RFCs mal capturados, el flujo real foto-a-factura en menos de un minuto. Para cada pieza entrega: plataforma, gancho, guion o copy completo, CTA, hashtags MX y nota de producción. ' + BASE
+    },
+    'seo-local': {
+      titulo:'SEO Local', clase:'c-verde', modelo:'claude-sonnet-5',
+      sistema: 'Eres el agente de SEO local de FacturaQR. Optimizas Google Business Profile (categoría, descripción, servicios, publicaciones, Q&A), Google Maps (consistencia NAP), estrategia de reseñas (guiones para pedirlas y plantillas de respuesta) y keywords locales: autofacturación + ciudad, facturación electrónica + ciudad, cómo facturar en + negocio. Entregas textos listos para pegar, con título, meta description y encabezados cuando aplique. ' + BASE
+    },
+    'anuncios': {
+      titulo:'Anuncios', clase:'c-arena', modelo:'claude-sonnet-5',
+      sistema: 'Eres el agente de publicidad de pago de FacturaQR (Meta Ads y Google Ads). Diseñas campañas hacia leads y registros: estructura campaña-conjunto-anuncio, segmentación por giro, copies completos (primario, titular, descripción), keywords de alta intención para Search, negativas, y plan de optimización. La conversión principal es el registro en el portal (evento sign_up) o el lead por formulario. ' + BASE
+    },
+    'contenido': {
+      titulo:'Contenido', clase:'c-azul', modelo:'claude-sonnet-5',
+      sistema: 'Eres el agente de contenido de FacturaQR. Escribes artículos de blog optimizados para SEO (H1, intro con el dolor, H2/H3 escaneables, CTA, meta title y meta description), guías como "cómo facturar un ticket con foto", FAQs que rompen objeciones (validez SAT, precio, instalación) y copy de landing. Beneficio antes que característica; frases cortas; una idea central y un CTA por pieza. Entregas texto final listo para publicar. ' + BASE
+    },
+    'operaciones': {
+      titulo:'Operaciones', clase:'c-lila', modelo:'claude-sonnet-5',
+      sistema: 'Eres el agente de operaciones y nurture de FacturaQR (SMS con Twilio, email con SendGrid, CRM). Diseñas flujos con trigger, canal, timing y copy completo: nurture de lead nuevo, onboarding del QR, recuperación de registros incompletos y reactivación. SMS cortos con un CTA y opt-out; emails con asunto, preheader y cuerpo escaneable. Defines estados de CRM (nuevo, contactado, demo, registrado, activo, churn). ' + BASE
+    },
+    'analitica': {
+      titulo:'Analítica y Reportes', clase:'', modelo:'claude-sonnet-5',
+      sistema: 'Eres el agente de analítica de FacturaQR. La landing tiene GA4 (G-QY5N3VNCTR) y conversiones de Google Ads: clics a registro.php cuentan como sign_up. Sigues KPIs de adquisición (sesiones, fuente, costo por lead), conversión (leads, sign_up, tasa), activación y retención. Entregas definiciones de dashboard, reportes ejecutivos de una página (qué pasó, qué funcionó, 3 recomendaciones) y diagnósticos con hipótesis. Nunca inventes números: si falta un dato, dilo y propón cómo capturarlo. ' + BASE
     }
-    el.addEventListener('click', toggle);
+  };
+
+  /* ══ Estado y memoria (localStorage) ══ */
+  var LS_KEY = 'fq_agentes_key', LS_MEM = 'fq_agentes_mem';
+  var mem; try { mem = JSON.parse(localStorage.getItem(LS_MEM) || '{}'); } catch(e){ mem = {}; }
+  var actual = null, ocupado = false;
+
+  function M(id){ if(!mem[id]) mem[id] = { msgs:[], bitacora:[] }; return mem[id]; }
+  function guardarMem(){ try { localStorage.setItem(LS_MEM, JSON.stringify(mem)); } catch(e){} }
+  function fecha(){ return new Date().toLocaleDateString('es-MX', { day:'numeric', month:'short', year:'numeric' }); }
+
+  /* ══ Referencias de UI ══ */
+  var $ = function(id){ return document.getElementById(id); };
+  var ov=$('ov'), chat=$('chat'), head=$('chatHead'), titulo=$('chatTitle'), tag=$('chatTag'),
+      modelo=$('chatModelo'), setup=$('setup'), keyInput=$('keyInput'), body=$('chatBody'),
+      form=$('chatForm'), input=$('chatInput'), send=$('chatSend');
+
+  /* ══ Render de mensajes (markdown mínimo, HTML escapado) ══ */
+  function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function md(s){
+    var h = esc(s);
+    h = h.replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>');
+    h = h.replace(/`([^`]+)`/g, '<code>$1</code>');
+    var lineas = h.split('\n').map(function(l){
+      var m = l.match(/^\s*[-*•]\s+(.*)/);
+      return m ? '• ' + m[1] : l;
+    });
+    return '<p>' + lineas.join('\n').replace(/\n{2,}/g, '</p><p>').replace(/\n/g, '<br>') + '</p>';
+  }
+  function burbuja(rol, texto){
+    var d = document.createElement('div');
+    d.className = 'msg ' + rol;
+    d.innerHTML = (rol === 'note' || rol === 'err') ? esc(texto) : md(texto);
+    body.appendChild(d);
+    body.scrollTop = body.scrollHeight;
+    return d;
+  }
+  function pintarHistorial(){
+    body.innerHTML = '';
+    var m = M(actual);
+    if (location.hostname.indexOf('claude') > -1) {
+      burbuja('err', 'Estás viendo el Artifact (solo demo visual): su seguridad bloquea llamadas a la API. Abre facturaqr.app/agentes.html para chatear de verdad.');
+    }
+    if (m.bitacora.length) {
+      burbuja('note', 'Este agente recuerda ' + m.bitacora.length + ' trabajo(s) anteriores de su bitácora.');
+    }
+    if (!m.msgs.length) {
+      burbuja('note', 'Conversación nueva con ' + AGENTES[actual].titulo + '. Todo lo que hablen se guarda en este navegador.');
+    }
+    m.msgs.forEach(function(x){ burbuja(x.role === 'user' ? 'user' : 'bot', x.content); });
+  }
+
+  /* ══ Abrir / cerrar ══ */
+  function abrir(id){
+    actual = id;
+    var a = AGENTES[id];
+    titulo.textContent = a.titulo;
+    tag.textContent = id;
+    modelo.textContent = a.modelo;
+    head.className = 'chat-head ' + a.clase;
+    ov.classList.add('on'); chat.classList.add('on');
+    var hayKey = !!localStorage.getItem(LS_KEY);
+    setup.hidden = hayKey; body.hidden = !hayKey; form.hidden = !hayKey;
+    if (hayKey) { pintarHistorial(); input.focus(); } else { keyInput.focus(); }
+  }
+  function cerrar(){
+    ov.classList.remove('on'); chat.classList.remove('on'); actual = null;
+  }
+  document.querySelectorAll('[data-agente]').forEach(function(el){
+    el.addEventListener('click', function(){ abrir(el.getAttribute('data-agente')); });
     el.addEventListener('keydown', function(ev){
-      if (ev.key === 'Enter' || ev.key === ' '){ ev.preventDefault(); toggle(); }
+      if (ev.key === 'Enter' || ev.key === ' '){ ev.preventDefault(); abrir(el.getAttribute('data-agente')); }
     });
   });
+  ov.addEventListener('click', cerrar);
+  $('btnCerrar').addEventListener('click', cerrar);
+  document.addEventListener('keydown', function(ev){ if (ev.key === 'Escape' && chat.classList.contains('on')) cerrar(); });
+
+  /* ══ API key ══ */
+  $('keyGuardar').addEventListener('click', function(){
+    var k = keyInput.value.trim();
+    if (!k) { keyInput.focus(); return; }
+    localStorage.setItem(LS_KEY, k);
+    keyInput.value = '';
+    setup.hidden = true; body.hidden = false; form.hidden = false;
+    pintarHistorial(); input.focus();
+  });
+  $('btnKey').addEventListener('click', function(){
+    setup.hidden = false; body.hidden = true; form.hidden = true; keyInput.focus();
+  });
+
+  /* ══ Llamada a la API de Claude ══ */
+  function sistemaDe(id){
+    var a = AGENTES[id], m = M(id);
+    var s = a.sistema;
+    var entradas = [];
+    if (id === 'orquestador-marketing') {
+      Object.keys(AGENTES).forEach(function(k){
+        (mem[k] && mem[k].bitacora || []).slice(-4).forEach(function(b){
+          entradas.push('[' + k + ' · ' + b.f + '] ' + b.t);
+        });
+      });
+    } else {
+      m.bitacora.slice(-8).forEach(function(b){ entradas.push('[' + b.f + '] ' + b.t); });
+    }
+    if (entradas.length) {
+      s += '\n\n## Memoria: bitácora de trabajos anteriores\nRetoma este contexto; no repitas trabajo ya hecho, constrúyele encima.\n' + entradas.join('\n');
+    }
+    return s;
+  }
+  function llamarAPI(id, mensajes, sistema, maxTokens){
+    return fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        'x-api-key': localStorage.getItem(LS_KEY) || '',
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: AGENTES[id].modelo,
+        max_tokens: maxTokens || 1500,
+        system: sistema,
+        messages: mensajes
+      })
+    }).then(function(r){
+      if (!r.ok) return r.json().catch(function(){ return {}; }).then(function(e){
+        var msg = (e.error && e.error.message) || ('HTTP ' + r.status);
+        if (r.status === 401) msg = 'API key inválida o vencida — cámbiala con el botón de la llave.';
+        if (r.status === 429) msg = 'Límite de uso alcanzado, espera un momento.';
+        throw new Error(msg);
+      });
+      return r.json();
+    }).then(function(d){
+      return (d.content || []).filter(function(c){ return c.type === 'text'; })
+                              .map(function(c){ return c.text; }).join('\n');
+    });
+  }
+
+  /* ══ Enviar mensaje ══ */
+  form.addEventListener('submit', function(ev){
+    ev.preventDefault();
+    var texto = input.value.trim();
+    if (!texto || ocupado || !actual) return;
+    var id = actual, m = M(id);
+    m.msgs.push({ role:'user', content: texto });
+    guardarMem();
+    burbuja('user', texto);
+    input.value = ''; input.style.height = '44px';
+    ocupado = true; send.disabled = true;
+    var tp = document.createElement('div');
+    tp.className = 'typing'; tp.innerHTML = '<b></b><b></b><b></b>';
+    body.appendChild(tp); body.scrollTop = body.scrollHeight;
+
+    llamarAPI(id, m.msgs.slice(-16), sistemaDe(id))
+      .then(function(resp){
+        m.msgs.push({ role:'assistant', content: resp });
+        guardarMem();
+        tp.remove();
+        burbuja('bot', resp);
+      })
+      .catch(function(e){
+        tp.remove();
+        burbuja('err', 'Error: ' + e.message);
+      })
+      .finally(function(){ ocupado = false; send.disabled = false; if (actual === id) input.focus(); });
+  });
+  input.addEventListener('keydown', function(ev){
+    if (ev.key === 'Enter' && !ev.shiftKey) { ev.preventDefault(); form.requestSubmit(); }
+  });
+  input.addEventListener('input', function(){
+    input.style.height = '44px';
+    input.style.height = Math.min(input.scrollHeight, 130) + 'px';
+  });
+
+  /* ══ Guardar en bitácora y abrir conversación nueva ══ */
+  $('btnGuardar').addEventListener('click', function(){
+    if (!actual || ocupado) return;
+    var id = actual, m = M(id);
+    if (!m.msgs.length) { burbuja('note', 'No hay conversación que guardar todavía.'); return; }
+    ocupado = true; send.disabled = true;
+    burbuja('note', 'Guardando resumen en la bitácora…');
+    var conv = m.msgs.slice(-30);
+    conv.push({ role:'user', content:'Resume en máximo 5 líneas qué se trabajó, decidió o entregó en esta conversación, para tu bitácora. Solo el resumen, sin introducción.' });
+    llamarAPI(id, conv, 'Eres ' + AGENTES[id].titulo + ' de FacturaQR resumiendo tu propio trabajo para recordarlo después.', 400)
+      .then(function(resumen){
+        m.bitacora.push({ f: fecha(), t: resumen });
+        m.msgs = [];
+        guardarMem();
+        pintarHistorial();
+        burbuja('note', 'Guardado. El agente recordará esto en futuras conversaciones.');
+      })
+      .catch(function(e){ burbuja('err', 'No se pudo guardar: ' + e.message); })
+      .finally(function(){ ocupado = false; send.disabled = false; });
+  });
+
+  /* ══ Exportar memoria ══ */
+  $('btnExportar').addEventListener('click', function(){
+    var blob = new Blob([JSON.stringify(mem, null, 2)], { type:'application/json' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'memoria-agentes-facturaqr.json';
+    a.click();
+    URL.revokeObjectURL(a.href);
+  });
+})();
 </script>
 </body>
 </html>

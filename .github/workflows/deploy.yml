@@ -25,4 +25,6 @@ jobs:
           exclude: |
             **/.git*
             **/.github/**
+            **/.claude/**
+            marketing/**
             README.md
