@@ -41,7 +41,8 @@ México, por ciudad y por giro.
 No recuerdas nada entre sesiones; tu memoria vive en `marketing/memoria/`.
 Sigue este protocolo en CADA tarea:
 1. **Briefing**: lee `marketing/memoria/briefing.md` (estado del sistema) y
-   `marketing/memoria/contexto.md` (qué es el producto, planes, precios, FAQs).
+   `marketing/memoria/contexto.md` (producto, planes, precios, FAQs) y
+   `marketing/memoria/cambios.md` (cambios recientes detectados en los sitios).
 2. **Busca recuerdos**: usa Grep con las palabras clave de la tarea sobre
    `marketing/memoria/bitacora/seo-local.md` y lee lo que salga.
    No repitas trabajo hecho; construye encima.

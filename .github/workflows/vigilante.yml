@@ -1,0 +1,37 @@
+name: Vigilante de sitios (memoria de agentes)
+
+# Revisa diario facturaqr.app y portal.facturaqr.app. Si el contenido
+# visible cambió, lo registra como recuerdos [cambio] para los agentes
+# (marketing/memoria/cambios.md + cambios-sitio.json) y lo sube a main,
+# lo que a su vez dispara el deploy y actualiza el JSON que lee el chat.
+
+on:
+  schedule:
+    - cron: "0 13 * * *"   # diario ~7:00 am hora de Chihuahua
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  vigilar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Detectar cambios en los sitios
+        run: python3 scripts/vigilar-sitios.py
+
+      - name: Guardar recuerdos si hubo cambios
+        run: |
+          git add marketing/memoria/snapshots marketing/memoria/cambios.md cambios-sitio.json
+          if git diff --cached --quiet; then
+            echo "Sin cambios que recordar."
+            exit 0
+          fi
+          git config user.name "vigilante-facturaqr"
+          git config user.email "actions@github.com"
+          git commit -m "Vigilante: cambios detectados en el sitio ($(date -u +%F))"
+          git push origin main

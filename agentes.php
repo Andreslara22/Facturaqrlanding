@@ -581,6 +581,13 @@
       form=$('chatForm'), input=$('chatInput'), send=$('chatSend'),
       ctxPanel=$('ctxPanel'), ctxInput=$('ctxInput');
   var LS_CTX = 'fq_agentes_ctx';
+
+  /* cambios recientes del sitio (los genera el vigilante en GitHub Actions) */
+  var cambiosSitio = [];
+  fetch('cambios-sitio.json', { cache: 'no-store' })
+    .then(function(r){ return r.ok ? r.json() : []; })
+    .then(function(j){ if (Array.isArray(j)) cambiosSitio = j; })
+    .catch(function(){});
   function vista(cual){  // 'setup' | 'ctx' | 'chat'
     setup.hidden = cual !== 'setup';
     ctxPanel.hidden = cual !== 'ctx';
@@ -686,6 +693,15 @@
     var s = AGENTES[id].sistema;
     var ctx = localStorage.getItem(LS_CTX);
     if (ctx) s += '\n\n## Contexto adicional del negocio (escrito por el dueño; siempre vigente)\n' + ctx;
+    if (cambiosSitio.length) {
+      var cs = cambiosSitio.slice(0, 10).map(function(c){
+        var lineas = (c.agregado || []).map(function(l){ return '+ ' + l; })
+          .concat((c.quitado || []).map(function(l){ return '- ' + l; }));
+        return '- ' + c.fecha + ' · ' + c.pagina + ' (' + (c.resumen || '').split(' · ')[0] + ')' +
+               (lineas.length ? ': ' + lineas.slice(0, 4).join(' | ') : '');
+      });
+      s += '\n\n## Cambios recientes detectados en facturaqr.app y portal.facturaqr.app\nDetectados automáticamente comparando el contenido publicado. Tenlos en cuenta: reflejan el estado más nuevo del producto y pueden actualizar lo dicho arriba.\n' + cs.join('\n');
+    }
     var recs = recuerdosRelevantes(id, consulta || '', 8);
     if (recs.length) {
       var lineas = recs.map(function(x){
