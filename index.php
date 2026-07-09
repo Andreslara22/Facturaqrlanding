@@ -388,7 +388,7 @@
       <a class="navlink" href="#beneficios">Beneficios</a>
       <a class="navlink" href="#panel">Panel</a>
       <a class="navlink" href="#precio">Precio</a>
-      <a class="btn btn-blue cta" href="https://portal.facturaqr.app/?c=ejemplo&amp;demo=1" target="_blank" rel="noopener">Ver demo</a>
+      <a class="btn btn-blue cta" href="https://portal.facturaqr.app/registro.php" target="_blank" rel="noopener">Prueba gratis</a>
     </nav>
     <button class="burger" aria-label="Abrir menú" onclick="document.getElementById('mm').classList.add('on')">☰</button>
   </div>
@@ -402,7 +402,8 @@
     <a href="#panel" onclick="document.getElementById('mm').classList.remove('on')">Panel</a>
     <a href="#precio" onclick="document.getElementById('mm').classList.remove('on')">Precio</a>
     <a href="#faq" onclick="document.getElementById('mm').classList.remove('on')">Preguntas</a>
-    <a class="btn btn-blue" href="https://portal.facturaqr.app/?c=ejemplo&amp;demo=1" target="_blank" rel="noopener">Ver demo en vivo</a>
+    <a href="https://portal.facturaqr.app/?c=ejemplo&amp;demo=1" target="_blank" rel="noopener">Ver demo en vivo</a>
+    <a class="btn btn-blue" href="https://portal.facturaqr.app/registro.php" target="_blank" rel="noopener">Probar gratis — 10 facturas</a>
   </div>
 </div>
 
@@ -415,13 +416,13 @@
         <h1>Tus clientes se facturan solos con una <span class="hl">foto de su ticket</span>.</h1>
         <p class="lead">Pon un QR en tu mostrador. Tu cliente toma la foto, escribe su RFC y recibe su factura por correo en menos de un minuto. Sin filas, sin capturar datos, sin que tu personal pierda el turno.</p>
         <div class="cta-row">
-          <a class="btn btn-blue" href="https://portal.facturaqr.app/?c=ejemplo&amp;demo=1" target="_blank" rel="noopener">Ver demo en vivo →</a>
-          <a class="btn btn-ghost" href="#precio">Quiero FacturaQR para mi negocio</a>
+          <a class="btn btn-blue" href="https://portal.facturaqr.app/registro.php" target="_blank" rel="noopener">Empieza gratis — 10 facturas de regalo →</a>
+          <a class="btn btn-ghost" href="https://portal.facturaqr.app/?c=ejemplo&amp;demo=1" target="_blank" rel="noopener">Ver demo en vivo</a>
         </div>
         <div class="trust">
           <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> CFDI 4.0 timbrado ante el SAT</span>
           <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> Tu cliente no instala nada</span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> Listo en minutos</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> 10 facturas gratis, sin tarjeta</span>
         </div>
       </div>
 
@@ -669,7 +670,7 @@
         </div>
 
       </div>
-      <p class="price-foot">Precios en pesos mexicanos (MXN), facturables mensualmente. ¿Tu operación no cabe en un plan? <a href="https://wa.me/526141062426" target="_blank" rel="noopener" style="color:var(--blue);font-weight:800">Hablemos y te armamos uno a tu medida.</a></p>
+      <p class="price-foot"><a href="https://portal.facturaqr.app/registro.php" target="_blank" rel="noopener" style="color:var(--blue);font-weight:800">Pruébalo gratis con 10 facturas antes de elegir plan →</a><br>Precios en pesos mexicanos (MXN), facturables mensualmente. ¿Tu operación no cabe en un plan? <a href="https://wa.me/526141062426" target="_blank" rel="noopener" style="color:var(--blue);font-weight:800">Hablemos y te armamos uno a tu medida.</a></p>
     </div>
   </section>
 
@@ -720,7 +721,8 @@
       <div class="fcopy">
         <span class="eyebrow">Empieza hoy</span>
         <h2>Pon a tus clientes a facturar solos.</h2>
-        <p class="lead">Déjanos tus datos y te contactamos para dar de alta tu comercio, subir tu marca y entregarte tu QR listo para el mostrador.</p>
+        <p class="lead">Crea tu cuenta en 2 minutos y estrena tu portal hoy mismo con <b style="color:#fff">10 facturas de prueba gratis</b> — sin tarjeta y sin compromiso. ¿Prefieres que te contactemos? Déjanos tus datos.</p>
+        <div style="margin-top:22px"><a class="btn btn-white" href="https://portal.facturaqr.app/registro.php" target="_blank" rel="noopener">Crear mi cuenta gratis →</a></div>
         <a class="wapp" href="https://wa.me/526141062426?text=Quiero%20FacturaQR%20para%20mi%20negocio" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.9.9.9-2.8-.2-.3A8 8 0 1 1 12 20zm4.4-6c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1-.2.2-.6.8-.8 1-.1.1-.3.1-.5 0-.7-.3-1.3-.6-1.9-1.4-.4-.5-.7-1.1-.8-1.3-.1-.2 0-.4.1-.5l.4-.4.2-.4v-.4c0-.1-.5-1.3-.7-1.7-.2-.4-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.7.7-.9 1.6-.6 2.6.3 1 .9 2 .9 2.1.1.1 1.7 2.7 4.2 3.7 2.1.9 2.5.7 3 .7.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1z"/></svg>
           o escríbenos por WhatsApp <b>614 106 2426</b>
