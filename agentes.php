@@ -23,7 +23,7 @@
   html{-webkit-tap-highlight-color:transparent}
   .card,.layer[data-agente],.icon-btn,.send,.chip{touch-action:manipulation}
   [hidden]{display:none !important}
-  html,body{margin:0;padding:0}
+  html,body{margin:0;padding:0;overflow-x:clip}
   body{
     background:var(--bg); color:var(--ink);
     font-family:var(--body); line-height:1.5;
