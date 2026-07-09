@@ -8,6 +8,7 @@ registrar resultados.
 ## Estructura
 | Archivo | Rol (equivalente en code-recall) |
 |---------|----------------------------------|
+| `contexto.md` | Fuente de verdad del producto: qué es, planes, precios, FAQs |
 | `briefing.md` | Estado compacto del sistema; se lee SIEMPRE primero (`get_briefing`) |
 | `reglas.md` | Guardrails: Debe / No debe / Preguntar antes (`check_rules`) |
 | `bitacora/<agente>.md` | Recuerdos tipados, una línea por recuerdo (`store_observation` / `record_outcome`) |

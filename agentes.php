@@ -441,6 +441,9 @@
     <button class="icon-btn" id="btnExportar" title="Descargar toda la memoria (JSON)" aria-label="Descargar toda la memoria">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 4v11M7.5 11 12 15.5 16.5 11M4 19.5h16"/></svg>
     </button>
+    <button class="icon-btn" id="btnCtx" title="Contexto del negocio (lo ven todos los agentes)" aria-label="Editar contexto del negocio">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 3h9l4 4v14H6V3Z"/><path d="M9.5 12h6M9.5 15.5h6M9.5 8.5h3"/></svg>
+    </button>
     <button class="icon-btn" id="btnKey" title="Cambiar API key" aria-label="Cambiar API key">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="8" cy="14" r="4"/><path d="M11 11 20 4M16 8l2.5 2.5M13.5 6.5 16 9"/></svg>
     </button>
@@ -460,6 +463,18 @@
     <small>La llave se guarda <b>solo en este navegador</b> (localStorage). Nunca se sube al servidor de FacturaQR ni al repo. Puedes cambiarla o borrarla con el botón de la llave.</small>
   </div>
 
+  <!-- editor de contexto del negocio -->
+  <div class="setup" id="ctxPanel" hidden>
+    <h4>Contexto de tu negocio</h4>
+    <p>Los agentes ya conocen todo lo que dice facturaqr.app (producto, planes,
+       precios, FAQs). Escribe aquí lo que <b>no</b> está en la página y quieras
+       que todos recuerden siempre: promociones vigentes, ciudades objetivo,
+       clientes actuales, presupuesto de marketing, tono preferido, etc.</p>
+    <textarea id="ctxInput" rows="8" placeholder="Ej. Estamos enfocados en Chihuahua y Ciudad Juárez. Ya tenemos 3 restaurantes clientes. Presupuesto de ads: $10,000/mes. Promo de lanzamiento: primer mes al 2x1..." style="border:1.5px solid var(--chip-line);border-radius:10px;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:13.5px;padding:11px 12px;resize:vertical"></textarea>
+    <button class="send" id="ctxGuardar">Guardar contexto</button>
+    <small>Se guarda en este navegador y se inyecta en el prompt de <b>todos</b> los agentes, en cada mensaje.</small>
+  </div>
+
   <div class="chat-body" id="chatBody" hidden></div>
 
   <form class="chat-form" id="chatForm" hidden>
@@ -473,7 +488,14 @@
   'use strict';
 
   /* ══ Definición de agentes (mismos prompts que .claude/agents/) ══ */
-  var BASE = 'FacturaQR es autofacturación CFDI 4.0 para negocios en México: el negocio pone un QR en el mostrador; el cliente toma foto de su ticket, escribe su RFC y recibe su factura por correo en menos de un minuto. Público: restaurantes, cafeterías, gasolineras, tiendas, farmacias. Habla en español de México, cercano y profesional. No prometas funciones que el producto no tiene ni des asesoría fiscal formal. CTA hacia acciones medibles (registro en facturaqr.app, demo, WhatsApp, formulario).';
+  var BASE = 'CONTEXTO DEL PRODUCTO (fuente de verdad, extraído de facturaqr.app):\n' +
+    'FacturaQR es autofacturación CFDI 4.0 para negocios en México. El negocio pone un QR en su mostrador; el cliente lo escanea (sin app ni registro), toma foto de su ticket, la IA lee folio/fecha/subtotal/IVA/total, pone su RFC y correo, y recibe PDF + XML timbrados en menos de un minuto.\n' +
+    'Características: timbrado real vía PAC autorizado (válido ante el SAT); cada folio se factura UNA sola vez (sin duplicados); si la foto sale borrosa la IA pide otra; panel de control (buscar/filtrar por RFC/folio/fecha, descarga masiva CSV/ZIP, reenviar, cancelar con motivo SAT, aviso de CSD por vencer); portal y cartel con la marca del negocio según plan; multi-sucursal desde una cuenta; HTTPS/TLS y CSD resguardado. Requisitos del negocio: RFC, régimen fiscal y CSD del SAT (se sube una vez desde el panel).\n' +
+    'Planes (MXN/mes, sin costo de instalación ni contratos forzosos): Local $5,000 (1 comercio, hasta 500 facturas/mes, cartel QR estándar, soporte por correo 72h) · Comercio $8,000 — el más popular (varias cajas/sucursales, hasta 1,000 facturas/mes, marca propia en portal/cartel/correos, descarga masiva CSV/ZIP, soporte prioritario WhatsApp 24h, reportes mensuales) · Cadena $15,000 (comercios y facturas ilimitados, soporte dedicado el mismo día, onboarding y alta de CSD asistidos, panel multi-marca). PRUEBA GRATIS: 10 facturas al registrarse, sin tarjeta y sin compromiso. Hay planes a la medida.\n' +
+    'Público (giros): restaurantes y cafeterías (el comensal se factura desde su mesa), gasolineras (QR en la bomba o el ticket), tiendas y farmacias, talleres y servicios. Regla: si entregas ticket, FacturaQR es para ti.\n' +
+    'Dolores que resuelve: el cajero capturando RFC/correo a mano con la fila esperando; errores de dedo, facturas rechazadas y refacturaciones; el clásico "mándenos su ticket y mañana le enviamos su factura"; facturas regadas en correos sin control.\n' +
+    'Contacto y enlaces: facturaqr.app · registro en portal.facturaqr.app (la conversión principal es el clic a registro = sign_up) · WhatsApp 614 106 2426 · demo en vivo y formulario de contacto en la landing.\n' +
+    'ESTILO: español de México, cercano y profesional. No prometas funciones que el producto no tiene ni des asesoría fiscal formal. CTA hacia acciones medibles (registro, demo, WhatsApp, formulario).';
 
   var AGENTES = {
     'orquestador-marketing': {
@@ -556,7 +578,14 @@
   var $ = function(id){ return document.getElementById(id); };
   var ov=$('ov'), chat=$('chat'), head=$('chatHead'), titulo=$('chatTitle'), tag=$('chatTag'),
       modelo=$('chatModelo'), setup=$('setup'), keyInput=$('keyInput'), body=$('chatBody'),
-      form=$('chatForm'), input=$('chatInput'), send=$('chatSend');
+      form=$('chatForm'), input=$('chatInput'), send=$('chatSend'),
+      ctxPanel=$('ctxPanel'), ctxInput=$('ctxInput');
+  var LS_CTX = 'fq_agentes_ctx';
+  function vista(cual){  // 'setup' | 'ctx' | 'chat'
+    setup.hidden = cual !== 'setup';
+    ctxPanel.hidden = cual !== 'ctx';
+    body.hidden = form.hidden = cual !== 'chat';
+  }
 
   /* ══ Render de mensajes (markdown mínimo, HTML escapado) ══ */
   function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
@@ -610,7 +639,7 @@
     head.className = 'chat-head ' + a.clase;
     ov.classList.add('on'); chat.classList.add('on');
     var hayKey = !!localStorage.getItem(LS_KEY);
-    setup.hidden = hayKey; body.hidden = !hayKey; form.hidden = !hayKey;
+    vista(hayKey ? 'chat' : 'setup');
     if (hayKey) { pintarHistorial(); input.focus(); } else { keyInput.focus(); }
   }
   function cerrar(){
@@ -632,16 +661,31 @@
     if (!k) { keyInput.focus(); return; }
     localStorage.setItem(LS_KEY, k);
     keyInput.value = '';
-    setup.hidden = true; body.hidden = false; form.hidden = false;
+    vista('chat');
     pintarHistorial(); input.focus();
   });
   $('btnKey').addEventListener('click', function(){
-    setup.hidden = false; body.hidden = true; form.hidden = true; keyInput.focus();
+    vista('setup'); keyInput.focus();
+  });
+
+  /* ══ Contexto del negocio (compartido por todos los agentes) ══ */
+  $('btnCtx').addEventListener('click', function(){
+    ctxInput.value = localStorage.getItem(LS_CTX) || '';
+    vista('ctx'); ctxInput.focus();
+  });
+  $('ctxGuardar').addEventListener('click', function(){
+    var v = ctxInput.value.trim();
+    if (v) localStorage.setItem(LS_CTX, v); else localStorage.removeItem(LS_CTX);
+    vista('chat');
+    pintarHistorial();
+    burbuja('note', v ? 'Contexto del negocio guardado: todos los agentes lo verán en cada mensaje.' : 'Contexto del negocio vacío (borrado).');
   });
 
   /* ══ Llamada a la API de Claude ══ */
   function sistemaDe(id, consulta){
     var s = AGENTES[id].sistema;
+    var ctx = localStorage.getItem(LS_CTX);
+    if (ctx) s += '\n\n## Contexto adicional del negocio (escrito por el dueño; siempre vigente)\n' + ctx;
     var recs = recuerdosRelevantes(id, consulta || '', 8);
     if (recs.length) {
       var lineas = recs.map(function(x){

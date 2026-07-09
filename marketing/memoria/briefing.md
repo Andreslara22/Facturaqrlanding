@@ -2,6 +2,9 @@
 _Lo mantiene el orquestador. Todo agente lo lee ANTES de cualquier tarea._
 _Actualizado: 2026-07-09_
 
+## Contexto del producto
+- Qué es FacturaQR, planes, precios y FAQs: ver `contexto.md` (fuente de verdad).
+
 ## Estado actual
 - Sistema de 7 agentes creado (2026-07-09). Sin campañas activas todavía.
 - Landing en producción con GA4 (G-QY5N3VNCTR). IDs de conversión de Google
