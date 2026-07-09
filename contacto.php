@@ -4,6 +4,8 @@
 // Responde JSON si viene por fetch; si no, redirige a /?enviado=1#contacto.
 // ─────────────────────────────────────────────
 
+header('X-Robots-Tag: noindex, nofollow'); // endpoint de formulario: no indexar
+
 // A dónde llegan los prospectos (cámbialo si quieres otro correo):
 $DESTINO   = 'andres.guru@gmail.com';
 $MAIL_FROM = 'FacturaQR <noreply@facturaqr.app>';

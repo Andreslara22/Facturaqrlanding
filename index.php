@@ -7,11 +7,23 @@
 <title>FacturaQR — Tus clientes se facturan solos con una foto de su ticket</title>
 <meta name="description" content="Autofacturación CFDI 4.0 para tu negocio. Pon un QR en tu mostrador: tu cliente toma foto de su ticket, pone su RFC y recibe su factura por correo en menos de un minuto. Sin filas, sin capturar datos.">
 <meta name="theme-color" content="#0F172A">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="keywords" content="autofacturación, facturación electrónica, factura con QR, CFDI 4.0, portal de autofacturación, facturación SAT, factura por foto del ticket, facturación restaurantes, facturación automática negocios">
+<meta name="author" content="FacturaQR">
+<meta property="og:site_name" content="FacturaQR">
 <meta property="og:title" content="FacturaQR — Autofacturación con una foto del ticket">
 <meta property="og:description" content="Pon un QR en tu mostrador y deja que tus clientes se facturen solos. CFDI 4.0 válido ante el SAT, en menos de un minuto.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://facturaqr.app/">
 <meta property="og:locale" content="es_MX">
+<meta property="og:image" content="https://facturaqr.app/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="FacturaQR — tus clientes se facturan solos con una foto de su ticket">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="FacturaQR — Autofacturación con una foto del ticket">
+<meta name="twitter:description" content="Pon un QR en tu mostrador y tus clientes se facturan solos. CFDI 4.0 válido ante el SAT, en menos de un minuto.">
+<meta name="twitter:image" content="https://facturaqr.app/og-image.png">
 <link rel="canonical" href="https://facturaqr.app/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -805,6 +817,33 @@
   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.9.9.9-2.8-.2-.3A8 8 0 1 1 12 20zm4.4-6c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1-.2.2-.6.8-.8 1-.1.1-.3.1-.5 0-.7-.3-1.3-.6-1.9-1.4-.4-.5-.7-1.1-.8-1.3-.1-.2 0-.4.1-.5l.4-.4.2-.4v-.4c0-.1-.5-1.3-.7-1.7-.2-.4-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.7.7-.9 1.6-.6 2.6.3 1 .9 2 .9 2.1.1.1 1.7 2.7 4.2 3.7 2.1.9 2.5.7 3 .7.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1z"/></svg>
 </a>
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "FacturaQR",
+  "url": "https://facturaqr.app/",
+  "logo": "https://facturaqr.app/og-image.png",
+  "description": "Portal de autofacturación CFDI 4.0 para negocios en México. Tus clientes escanean un QR, toman foto de su ticket y reciben su factura por correo.",
+  "areaServed": "MX"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "FacturaQR",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "description": "Autofacturación por QR: tus clientes toman foto de su ticket, ponen su RFC y reciben su CFDI 4.0 por correo en menos de un minuto. Lectura de tickets con IA y timbrado con PAC autorizado.",
+  "url": "https://facturaqr.app/",
+  "offers": [
+    {"@type": "Offer", "name": "Local", "price": "5000", "priceCurrency": "MXN", "description": "1 comercio · hasta 500 facturas/mes"},
+    {"@type": "Offer", "name": "Comercio", "price": "8000", "priceCurrency": "MXN", "description": "Hasta 3 sucursales · 1,000 facturas/mes · marca propia"},
+    {"@type": "Offer", "name": "Cadena", "price": "15000", "priceCurrency": "MXN", "description": "Sucursales y facturas ilimitadas"}
+  ]
+}
+</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
