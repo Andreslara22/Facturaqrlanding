@@ -416,7 +416,7 @@
         <h1>Tus clientes se facturan solos con una <span class="hl">foto de su ticket</span>.</h1>
         <p class="lead">Pon un QR en tu mostrador. Tu cliente toma la foto, escribe su RFC y recibe su factura por correo en menos de un minuto. Sin filas, sin capturar datos, sin que tu personal pierda el turno.</p>
         <div class="cta-row">
-          <a class="btn btn-blue" href="https://portal.facturaqr.app/registro.php" target="_blank" rel="noopener">Empieza gratis — 10 facturas de regalo →</a>
+          <a class="btn btn-blue" href="https://portal.facturaqr.app/registro.php" target="_blank" rel="noopener">10 facturas gratis →</a>
           <a class="btn btn-ghost" href="https://portal.facturaqr.app/?c=ejemplo&amp;demo=1" target="_blank" rel="noopener">Ver demo en vivo</a>
         </div>
         <div class="trust">
@@ -634,7 +634,7 @@
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> Cartel QR estándar (marca FacturaQR)</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> Soporte por correo (72 h)</li>
           </ul>
-          <a class="btn btn-ghost" href="https://wa.me/526141062426?text=Me%20interesa%20el%20plan%20Local%20de%20FacturaQR" target="_blank" rel="noopener">Contratar Local</a>
+          <a class="btn btn-ghost" href="https://portal.facturaqr.app/registro.php?plan=local" target="_blank" rel="noopener">Empezar con Local →</a>
         </div>
 
         <div class="tier featured reveal">
@@ -651,7 +651,7 @@
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> Soporte prioritario por WhatsApp (24 h)</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> Reportes de facturación mensuales</li>
           </ul>
-          <a class="btn btn-blue" href="https://wa.me/526141062426?text=Me%20interesa%20el%20plan%20Comercio%20de%20FacturaQR" target="_blank" rel="noopener">Contratar Comercio</a>
+          <a class="btn btn-blue" href="https://portal.facturaqr.app/registro.php?plan=comercio" target="_blank" rel="noopener">Empezar con Comercio →</a>
         </div>
 
         <div class="tier reveal">
@@ -666,7 +666,7 @@
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> Onboarding y alta de CSD asistidos</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> Panel multi-marca desde una sola cuenta</li>
           </ul>
-          <a class="btn btn-dark" href="https://wa.me/526141062426?text=Me%20interesa%20el%20plan%20Cadena%20de%20FacturaQR" target="_blank" rel="noopener">Contratar Cadena</a>
+          <a class="btn btn-dark" href="https://portal.facturaqr.app/registro.php?plan=cadena" target="_blank" rel="noopener">Empezar con Cadena →</a>
         </div>
 
       </div>
