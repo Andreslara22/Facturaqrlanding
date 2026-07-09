@@ -51,7 +51,8 @@ gasolineras, tiendas, farmacias y cualquier negocio con alto volumen de tickets.
 ## Memoria — protocolo (OBLIGATORIO, estilo code-recall)
 La memoria del sistema vive en `marketing/memoria/`; tú eres su curador.
 1. **Briefing**: lee `marketing/memoria/briefing.md`, `marketing/memoria/contexto.md`
-   (producto, planes, precios) y las bitácoras de TODOS
+   (producto, planes, precios), `marketing/memoria/cambios.md` (cambios
+   recientes en los sitios) y las bitácoras de TODOS
    los agentes en `marketing/memoria/bitacora/*.md` antes de planear.
 2. **Busca recuerdos**: usa Grep con las palabras clave del objetivo sobre
    `marketing/memoria/` para recuperar decisiones, warnings y resultados

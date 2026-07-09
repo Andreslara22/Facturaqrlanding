@@ -9,6 +9,8 @@ registrar resultados.
 | Archivo | Rol (equivalente en code-recall) |
 |---------|----------------------------------|
 | `contexto.md` | Fuente de verdad del producto: qué es, planes, precios, FAQs |
+| `cambios.md` | Cambios detectados automáticamente en facturaqr.app y portal (vigilante diario) |
+| `snapshots/` | Última foto del texto de cada página pública (para detectar los cambios) |
 | `briefing.md` | Estado compacto del sistema; se lee SIEMPRE primero (`get_briefing`) |
 | `reglas.md` | Guardrails: Debe / No debe / Preguntar antes (`check_rules`) |
 | `bitacora/<agente>.md` | Recuerdos tipados, una línea por recuerdo (`store_observation` / `record_outcome`) |
