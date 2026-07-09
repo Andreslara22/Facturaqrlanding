@@ -28,7 +28,15 @@ _Actualizado: 2026-07-09 (plan editorial del blog listo)_
 - Tono: español de México, cercano y profesional, sin jerga fiscal.
 - Identidad visual interna: blanco minimalista, Poppins/Nunito, azul #2563EB.
 
-## Pendientes
+## Pendientes (del dueño — pedir estado cuando pregunte)
+- EJECUTAR entregables listos en marketing/entregables/: crear Google
+  Business Profile (google-business-profile.md, checklist incluido) y
+  grabar los reels del calendario (calendario-redes-agosto.md, 16 piezas).
+- Crear correo contacto@facturaqr.app en SiteGround y avisar para
+  conectar el formulario (hoy los leads llegan a andres.guru@gmail.com).
+- Enviar sitemap a Google Search Console.
+- Logos en marketing/entregables/logos/ (wordmark 1840px y avatar redes
+  1024px con margen seguro para recorte circular).
 - **Blog:** plan editorial de 5 posts SEO+AEO aprobado (guía cliente final,
   restaurantes, gasolineras, CFDI 4.0 educativo, autofacturación vs a mano).
   Pendiente: el agente `contenido` redacta los posts; crear sección de blog en
