@@ -36,7 +36,7 @@
 <script>
   window.FQ_ANALYTICS = {
     GA4_ID:      'G-QY5N3VNCTR',
-    ADS_ID:      'AW-XXXXXXXXXX',
+    ADS_ID:      'AW-11259075906',
     CONV_LEAD:   'AW-XXXXXXXXXX/aaaaaaaa',
     CONV_SIGNUP: 'AW-XXXXXXXXXX/bbbbbbbb'
   };
