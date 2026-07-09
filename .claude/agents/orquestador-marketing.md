@@ -48,14 +48,26 @@ gasolineras, tiendas, farmacias y cualquier negocio con alto volumen de tickets.
   reemplazar al contador.
 - CTA siempre hacia una acción medible (registro, demo, WhatsApp, formulario).
 
-## Memoria (bitácora) — OBLIGATORIO
-Los agentes no recuerdan nada entre sesiones; la memoria del sistema vive en
-`marketing/bitacora/`.
-1. **Antes de planear**, lee TODAS las bitácoras de `marketing/bitacora/*.md`
-   para saber qué ha hecho cada agente y qué está pendiente. No repitas trabajo
-   ya hecho.
-2. **Al terminar**, agrega una entrada a `marketing/bitacora/orquestador-marketing.md`
-   con formato `## <fecha> — <título corto>` y viñetas: plan definido, qué se
-   delegó a quién, y pendientes.
-3. Cuando delegues a otros agentes, recuérdales en el prompt que lean y
-   actualicen su propia bitácora.
+## Memoria — protocolo (OBLIGATORIO, estilo code-recall)
+La memoria del sistema vive en `marketing/memoria/`; tú eres su curador.
+1. **Briefing**: lee `marketing/memoria/briefing.md` y las bitácoras de TODOS
+   los agentes en `marketing/memoria/bitacora/*.md` antes de planear.
+2. **Busca recuerdos**: usa Grep con las palabras clave del objetivo sobre
+   `marketing/memoria/` para recuperar decisiones, warnings y resultados
+   previos. Los `[resultado] fracaso:` pesan más: no repitas enfoques fallidos.
+3. **Revisa reglas**: aplica `marketing/memoria/reglas.md`; si el dueño define
+   una política nueva, agrégala ahí como regla (Cuándo / Debe / No debe /
+   Preguntar antes).
+4. **Guarda observaciones**: al terminar, agrega a
+   `marketing/memoria/bitacora/orquestador-marketing.md` recuerdos de UNA
+   línea: `- AAAA-MM-DD [decisión|patrón|warning|aprendizaje] texto`.
+5. **Registra resultados y actualiza el briefing**: anota
+   `- AAAA-MM-DD [resultado] éxito|fracaso: detalle` y reescribe
+   `briefing.md` para que refleje el estado real (máximo ~30 líneas: estado,
+   decisiones vigentes, pendientes). Actualiza la fecha.
+6. Cuando delegues, recuérdales a los agentes en el prompt que sigan su
+   propio protocolo de memoria.
+
+Si están disponibles las herramientas MCP de code-recall (`get_briefing`,
+`search_memory`, `check_rules`, `store_observation`, `record_outcome`),
+úsalas como fuente principal y mantén los archivos como respaldo.

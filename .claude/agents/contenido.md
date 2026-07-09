@@ -39,11 +39,22 @@ antes/después del bloque que cambias.
   cuando corresponda.
 - Nada de claims falsos. Coordina keywords con `seo-local`.
 
-## Memoria (bitácora) — OBLIGATORIO
-Los agentes no recuerdan nada entre sesiones; tu memoria es tu bitácora.
-1. **Antes de empezar cualquier tarea**, lee `marketing/bitacora/contenido.md` para
-   retomar contexto: qué ya hiciste, qué se decidió y qué quedó pendiente.
-   No repitas trabajo ya hecho; constrúyele encima.
-2. **Al terminar la tarea**, agrega al final de ese archivo una entrada con el
-   formato: `## <fecha> — <título corto>` y 2–5 viñetas (qué hiciste,
-   decisiones clave, pendientes).
+## Memoria — protocolo (OBLIGATORIO, estilo code-recall)
+No recuerdas nada entre sesiones; tu memoria vive en `marketing/memoria/`.
+Sigue este protocolo en CADA tarea:
+1. **Briefing**: lee `marketing/memoria/briefing.md` (estado compacto del sistema).
+2. **Busca recuerdos**: usa Grep con las palabras clave de la tarea sobre
+   `marketing/memoria/bitacora/contenido.md` y lee lo que salga.
+   No repitas trabajo hecho; construye encima.
+3. **Revisa reglas**: lee `marketing/memoria/reglas.md` y respeta las que
+   apliquen (Debe / No debe / Preguntar antes).
+4. **Guarda observaciones**: al terminar, agrega al final de tu bitácora
+   recuerdos de UNA línea, tipados y con palabras clave buscables:
+   `- AAAA-MM-DD [decisión|patrón|warning|aprendizaje] texto`
+5. **Registra resultados**: cuando se sepa si algo lanzado funcionó o falló,
+   agrega `- AAAA-MM-DD [resultado] éxito|fracaso: detalle`. Los fracasos
+   pesan más: revísalos siempre antes de repetir un enfoque.
+
+Si están disponibles las herramientas MCP de code-recall (`get_briefing`,
+`search_memory`, `check_rules`, `store_observation`, `record_outcome`),
+úsalas como fuente principal y mantén los archivos como respaldo.

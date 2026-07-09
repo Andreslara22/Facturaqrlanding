@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "code-recall": {
+      "command": "bunx",
+      "args": ["code-recall"]
+    }
+  }
+}
