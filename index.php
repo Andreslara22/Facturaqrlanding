@@ -25,6 +25,47 @@
 <meta name="twitter:description" content="Pon un QR en tu mostrador y tus clientes se facturan solos. CFDI 4.0 válido ante el SAT, en menos de un minuto.">
 <meta name="twitter:image" content="https://facturaqr.app/og-image.png">
 <link rel="canonical" href="https://facturaqr.app/">
+
+<!-- ═══ Google Analytics 4 + Google Ads (conversiones) ═══
+     Pega aquí tus IDs. Mientras contengan "XXXX" no se carga nada (no rompe la página).
+     · GA4_ID:      Analytics → Administrar → Flujos de datos → "ID de medición" (G-XXXXXXXXXX)
+     · ADS_ID:      Google Ads → Herramientas → Conversiones → "Etiqueta de Google" (AW-XXXXXXXXXX)
+     · CONV_LEAD:   etiqueta de la conversión "Envío de formulario"  (AW-XXXXXXXXXX/aaaaaaaa)
+     · CONV_SIGNUP: etiqueta de la conversión "Clic a registro"      (AW-XXXXXXXXXX/bbbbbbbb) -->
+<script>
+  window.FQ_ANALYTICS = {
+    GA4_ID:      'G-XXXXXXXXXX',
+    ADS_ID:      'AW-XXXXXXXXXX',
+    CONV_LEAD:   'AW-XXXXXXXXXX/aaaaaaaa',
+    CONV_SIGNUP: 'AW-XXXXXXXXXX/bbbbbbbb'
+  };
+  (function(){
+    var A = window.FQ_ANALYTICS, ids = [];
+    if (A.GA4_ID.indexOf('XXXX') < 0) ids.push(A.GA4_ID);
+    if (A.ADS_ID.indexOf('XXXX') < 0) ids.push(A.ADS_ID);
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function(){ dataLayer.push(arguments); };
+    gtag('js', new Date());
+    if (ids.length){
+      var s = document.createElement('script'); s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + ids[0];
+      document.head.appendChild(s);
+      ids.forEach(function(id){ gtag('config', id); });
+    }
+  })();
+  // Dispara una conversión (Ads) y, opcionalmente, un evento GA4. Seguro si faltan IDs.
+  window.fqConv = function(adsLabel, ga4Event){
+    var A = window.FQ_ANALYTICS || {};
+    if (ga4Event && (A.GA4_ID||'').indexOf('XXXX') < 0) gtag('event', ga4Event);
+    if (adsLabel && adsLabel.indexOf('XXXX') < 0) gtag('event', 'conversion', { send_to: adsLabel });
+  };
+  // Cuenta como conversión cualquier clic hacia el registro del portal.
+  document.addEventListener('click', function(ev){
+    var a = ev.target.closest && ev.target.closest('a[href*="registro.php"]');
+    if (a) fqConv((window.FQ_ANALYTICS||{}).CONV_SIGNUP, 'sign_up');
+  }, true);
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -897,7 +938,7 @@
   // formulario de contacto (envío sin recargar; fallback a POST normal)
   (function(){
     var f=document.getElementById('leadForm'); if(!f)return;
-    if(location.search.indexOf('enviado=1')>-1){ var ok=document.getElementById('formOk'); if(ok){ok.hidden=false; f.reset();} }
+    if(location.search.indexOf('enviado=1')>-1){ var ok=document.getElementById('formOk'); if(ok){ok.hidden=false; f.reset();} if(window.fqConv)fqConv((window.FQ_ANALYTICS||{}).CONV_LEAD,'generate_lead'); }
     f.addEventListener('submit',function(ev){
       if(f.empresa_web && f.empresa_web.value){ ev.preventDefault(); return; } // honeypot
       if(!window.fetch)return; // deja el POST normal
@@ -905,7 +946,7 @@
       var btn=f.querySelector('button[type=submit]'), txt=btn.textContent; btn.disabled=true; btn.textContent='Enviando…';
       fetch('contacto.php',{method:'POST',body:new FormData(f),headers:{'X-Requested-With':'fetch'}})
         .then(function(r){return r.json().catch(function(){return{ok:r.ok};});})
-        .then(function(d){ if(d&&d.ok!==false){ document.getElementById('formOk').hidden=false; f.reset(); document.getElementById('formOk').scrollIntoView({behavior:'smooth',block:'center'}); }
+        .then(function(d){ if(d&&d.ok!==false){ document.getElementById('formOk').hidden=false; f.reset(); document.getElementById('formOk').scrollIntoView({behavior:'smooth',block:'center'}); if(window.fqConv)fqConv((window.FQ_ANALYTICS||{}).CONV_LEAD,'generate_lead'); }
           else { alert((d&&d.error)||'No se pudo enviar. Escríbenos por WhatsApp.'); } })
         .catch(function(){ alert('No se pudo enviar. Escríbenos por WhatsApp al 614 106 2426.'); })
         .finally(function(){ btn.disabled=false; btn.textContent=txt; });
