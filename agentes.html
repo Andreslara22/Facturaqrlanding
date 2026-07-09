@@ -508,11 +508,48 @@
   /* ══ Estado y memoria (localStorage) ══ */
   var LS_KEY = 'fq_agentes_key', LS_MEM = 'fq_agentes_mem';
   var mem; try { mem = JSON.parse(localStorage.getItem(LS_MEM) || '{}'); } catch(e){ mem = {}; }
+  // migra recuerdos viejos (sin tipo) al formato tipado
+  Object.keys(mem).forEach(function(k){
+    (mem[k].bitacora || []).forEach(function(b){ if (!b.tipo) b.tipo = 'resumen'; });
+  });
   var actual = null, ocupado = false;
 
   function M(id){ if(!mem[id]) mem[id] = { msgs:[], bitacora:[] }; return mem[id]; }
   function guardarMem(){ try { localStorage.setItem(LS_MEM, JSON.stringify(mem)); } catch(e){} }
   function fecha(){ return new Date().toLocaleDateString('es-MX', { day:'numeric', month:'short', year:'numeric' }); }
+
+  /* ══ Recuperación por relevancia (estilo code-recall, sin embeddings) ══ */
+  var STOP = ['para','como','este','esta','estas','estos','porque','donde','cuando','sobre','entre','hacer','quiero','necesito','dame','hazme','tambien','pero','todo','toda','desde','hasta','solo','algo','tiene','tienen','puede','pueden'];
+  function tokens(s){
+    return (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .split(/[^a-z0-9ñ]+/)
+      .filter(function(w){ return w.length > 3 && STOP.indexOf(w) === -1; });
+  }
+  var PESO_TIPO = { warning:1.2, aprendizaje:0.9, resultado:0.9, decision:0.6, patron:0.6, resumen:0.3 };
+  function recuerdosDe(id){
+    var pool = [];
+    if (id === 'orquestador-marketing') {
+      Object.keys(AGENTES).forEach(function(k){
+        (mem[k] && mem[k].bitacora || []).forEach(function(b){ pool.push({ agente:k, r:b }); });
+      });
+    } else {
+      M(id).bitacora.forEach(function(b){ pool.push({ agente:id, r:b }); });
+    }
+    return pool;
+  }
+  function recuerdosRelevantes(id, consulta, n){
+    var pool = recuerdosDe(id);
+    if (!pool.length) return [];
+    var tq = tokens(consulta);
+    return pool.map(function(x, i){
+      var tr = tokens(x.r.t), s = 0;
+      tq.forEach(function(q){ if (tr.indexOf(q) > -1) s += 2; });
+      s += PESO_TIPO[x.r.tipo] || 0.5;          // warnings y fracasos primero
+      if (x.r.tipo === 'resultado' && /fracaso/i.test(x.r.t)) s += 1;
+      s += (i / pool.length) * 0.4;             // leve bono de recencia
+      return { x:x, s:s };
+    }).sort(function(a, b){ return b.s - a.s; }).slice(0, n).map(function(v){ return v.x; });
+  }
 
   /* ══ Referencias de UI ══ */
   var $ = function(id){ return document.getElementById(id); };
@@ -546,8 +583,15 @@
     if (location.hostname.indexOf('claude') > -1) {
       burbuja('err', 'Estás viendo el Artifact (solo demo visual): su seguridad bloquea llamadas a la API. Abre facturaqr.app/agentes.html para chatear de verdad.');
     }
-    if (m.bitacora.length) {
-      burbuja('note', 'Este agente recuerda ' + m.bitacora.length + ' trabajo(s) anteriores de su bitácora.');
+    var nRec = recuerdosDe(actual).length;
+    if (nRec) {
+      var nota = burbuja('note', 'Este agente tiene ' + nRec + ' recuerdo(s) en su memoria — toca aquí para verlos.');
+      nota.style.cursor = 'pointer';
+      nota.addEventListener('click', function(){
+        recuerdosDe(actual).forEach(function(x){
+          burbuja('note', '[' + x.r.tipo + ' · ' + x.r.f + (x.agente !== actual ? ' · ' + x.agente : '') + '] ' + x.r.t);
+        });
+      });
     }
     if (!m.msgs.length) {
       burbuja('note', 'Conversación nueva con ' + AGENTES[actual].titulo + '. Todo lo que hablen se guarda en este navegador.');
@@ -595,21 +639,14 @@
   });
 
   /* ══ Llamada a la API de Claude ══ */
-  function sistemaDe(id){
-    var a = AGENTES[id], m = M(id);
-    var s = a.sistema;
-    var entradas = [];
-    if (id === 'orquestador-marketing') {
-      Object.keys(AGENTES).forEach(function(k){
-        (mem[k] && mem[k].bitacora || []).slice(-4).forEach(function(b){
-          entradas.push('[' + k + ' · ' + b.f + '] ' + b.t);
-        });
+  function sistemaDe(id, consulta){
+    var s = AGENTES[id].sistema;
+    var recs = recuerdosRelevantes(id, consulta || '', 8);
+    if (recs.length) {
+      var lineas = recs.map(function(x){
+        return '- [' + x.r.tipo + ' · ' + x.r.f + (x.agente !== id ? ' · ' + x.agente : '') + '] ' + x.r.t;
       });
-    } else {
-      m.bitacora.slice(-8).forEach(function(b){ entradas.push('[' + b.f + '] ' + b.t); });
-    }
-    if (entradas.length) {
-      s += '\n\n## Memoria: bitácora de trabajos anteriores\nRetoma este contexto; no repitas trabajo ya hecho, constrúyele encima.\n' + entradas.join('\n');
+      s += '\n\n## Memoria: recuerdos relevantes recuperados\nRetoma este contexto; no repitas trabajo ya hecho, constrúyele encima. Los [warning] y los [resultado] fracaso son prioritarios: no repitas enfoques fallidos.\n' + lineas.join('\n');
     }
     return s;
   }
@@ -657,7 +694,7 @@
     tp.className = 'typing'; tp.innerHTML = '<b></b><b></b><b></b>';
     body.appendChild(tp); body.scrollTop = body.scrollHeight;
 
-    llamarAPI(id, m.msgs.slice(-16), sistemaDe(id))
+    llamarAPI(id, m.msgs.slice(-16), sistemaDe(id, texto))
       .then(function(resp){
         m.msgs.push({ role:'assistant', content: resp });
         guardarMem();
@@ -684,16 +721,33 @@
     var id = actual, m = M(id);
     if (!m.msgs.length) { burbuja('note', 'No hay conversación que guardar todavía.'); return; }
     ocupado = true; send.disabled = true;
-    burbuja('note', 'Guardando resumen en la bitácora…');
+    burbuja('note', 'Extrayendo recuerdos de la conversación…');
     var conv = m.msgs.slice(-30);
-    conv.push({ role:'user', content:'Resume en máximo 5 líneas qué se trabajó, decidió o entregó en esta conversación, para tu bitácora. Solo el resumen, sin introducción.' });
-    llamarAPI(id, conv, 'Eres ' + AGENTES[id].titulo + ' de FacturaQR resumiendo tu propio trabajo para recordarlo después.', 400)
-      .then(function(resumen){
-        m.bitacora.push({ f: fecha(), t: resumen });
+    conv.push({ role:'user', content:'Extrae de esta conversación hasta 6 recuerdos que valga la pena guardar en tu memoria de largo plazo. Tipos: "decision" (qué se eligió y por qué), "patron" (convención que funcionó), "warning" (qué NO hacer), "aprendizaje" (error y su solución), "resultado" (éxito o fracaso de algo lanzado), "resumen" (qué se entregó). Responde SOLO con un arreglo JSON válido, sin markdown ni texto extra: [{"tipo":"...","texto":"una línea con palabras clave"}]' });
+    llamarAPI(id, conv, 'Eres ' + AGENTES[id].titulo + ' de FacturaQR extrayendo recuerdos de tu propio trabajo. Respondes únicamente JSON válido.', 600)
+      .then(function(raw){
+        var arr = null;
+        try {
+          var limpio = raw.replace(/```json|```/g, '').trim();
+          var ini = limpio.indexOf('['), fin = limpio.lastIndexOf(']');
+          if (ini > -1 && fin > ini) arr = JSON.parse(limpio.slice(ini, fin + 1));
+        } catch(e){}
+        var TIPOS = ['decision','patron','warning','aprendizaje','resultado','resumen'];
+        if (Array.isArray(arr) && arr.length) {
+          arr.slice(0, 6).forEach(function(r){
+            if (r && r.texto) m.bitacora.push({
+              f: fecha(),
+              tipo: TIPOS.indexOf(r.tipo) > -1 ? r.tipo : 'resumen',
+              t: String(r.texto)
+            });
+          });
+        } else {
+          m.bitacora.push({ f: fecha(), tipo: 'resumen', t: raw.slice(0, 500) });
+        }
         m.msgs = [];
         guardarMem();
         pintarHistorial();
-        burbuja('note', 'Guardado. El agente recordará esto en futuras conversaciones.');
+        burbuja('note', 'Recuerdos guardados. Se recuperarán por relevancia en futuras conversaciones.');
       })
       .catch(function(e){ burbuja('err', 'No se pudo guardar: ' + e.message); })
       .finally(function(){ ocupado = false; send.disabled = false; });
