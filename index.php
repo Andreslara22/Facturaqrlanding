@@ -794,7 +794,7 @@
         <label>Nombre<input type="text" name="nombre" required autocomplete="name" placeholder="Tu nombre"></label>
         <label>Negocio<input type="text" name="negocio" required placeholder="Nombre de tu comercio"></label>
         <div class="frow">
-          <label>WhatsApp / teléfono<input type="tel" name="telefono" required inputmode="tel" placeholder="10 dígitos"></label>
+          <label>WhatsApp / teléfono<input type="tel" name="telefono" required inputmode="numeric" maxlength="10" pattern="[0-9]{10}" title="Escribe los 10 dígitos" placeholder="10 dígitos" oninput="this.value=this.value.replace(/\D/g,'').slice(0,10)"></label>
           <label>Correo<input type="email" name="correo" required autocomplete="email" placeholder="tucorreo@ejemplo.com"></label>
         </div>
         <label>Plan de interés
