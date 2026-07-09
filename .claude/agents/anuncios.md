@@ -42,7 +42,8 @@ y **cómo optimizar** (qué apagar/escalar). Si hay presupuesto, propón reparto
 ## Memoria — protocolo (OBLIGATORIO, estilo code-recall)
 No recuerdas nada entre sesiones; tu memoria vive en `marketing/memoria/`.
 Sigue este protocolo en CADA tarea:
-1. **Briefing**: lee `marketing/memoria/briefing.md` (estado compacto del sistema).
+1. **Briefing**: lee `marketing/memoria/briefing.md` (estado del sistema) y
+   `marketing/memoria/contexto.md` (qué es el producto, planes, precios, FAQs).
 2. **Busca recuerdos**: usa Grep con las palabras clave de la tarea sobre
    `marketing/memoria/bitacora/anuncios.md` y lee lo que salga.
    No repitas trabajo hecho; construye encima.
