@@ -3,7 +3,7 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>FacturaQR — Sistema de Agentes de Marketing</title>
 <meta name="description" content="Mapa del sistema de agentes de marketing IA de FacturaQR: orquestación, redes sociales, SEO local, anuncios, contenido, operaciones y analítica.">
 <meta name="robots" content="noindex, nofollow">
@@ -20,6 +20,8 @@
   }
 
   *{box-sizing:border-box}
+  html{-webkit-tap-highlight-color:transparent}
+  .card,.layer[data-agente],.icon-btn,.send,.chip{touch-action:manipulation}
   [hidden]{display:none !important}
   html,body{margin:0;padding:0}
   body{
@@ -182,7 +184,7 @@
   .icon-btn svg{width:15px;height:15px}
   .icon-btn:hover{background:var(--soft);border-color:var(--line-2)}
   .icon-btn:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
-  .chat-body{flex:1;overflow-y:auto;padding:16px 14px;display:flex;flex-direction:column;gap:10px;background:var(--bg)}
+  .chat-body{flex:1;overflow-y:auto;padding:16px 14px;display:flex;flex-direction:column;gap:10px;background:var(--bg);overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
   .msg{max-width:86%;padding:10px 13px;border-radius:14px;font-size:14px;overflow-wrap:break-word}
   .msg p{margin:0 0 8px}
   .msg p:last-child{margin:0}
@@ -234,21 +236,36 @@
 
   /* ── Móvil ── */
   @media (max-width:680px){
-    body{padding:32px 14px 56px}
-    .row-3,.row-2{grid-template-columns:1fr;max-width:420px;margin:0 auto}
-    .conn{height:40px}
+    body{padding:26px 14px 44px}
+    header{margin-bottom:26px;gap:8px}
+    .row{gap:13px}
+    .row-3,.row-2{grid-template-columns:1fr;max-width:430px;margin:0 auto}
+    .card{padding:16px 12px 12px}
+    .layer{padding:16px 16px}
+    .conn{height:34px}
     .conn i{display:none}
-    .conn::before{content:"";position:absolute;left:50%;top:0;height:32px;border-left:1px solid var(--line-2)}
+    .conn::before{content:"";position:absolute;left:50%;top:0;height:26px;border-left:1px solid var(--line-2)}
     .conn::after{
-      content:"";position:absolute;left:50%;top:32px;transform:translateX(-3.5px);
+      content:"";position:absolute;left:50%;top:26px;transform:translateX(-3.5px);
       width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;
       border-top:6px solid var(--line-2);
     }
-    .conn3{height:92px}
-    .pill{top:auto;bottom:8px}
-    .conn3::before{height:84px}
-    .conn3::after{top:84px}
+    .conn3{height:82px}
+    .pill{top:auto;bottom:6px}
+    .conn3::before{height:74px}
+    .conn3::after{top:74px}
+    /* chat a pantalla completa con safe-areas (notch / barra de inicio) */
     .chat{width:100vw;height:100dvh;left:0;top:0;transform:none;border-radius:0;border-left:none;border-right:none}
+    .chat-head{padding-top:calc(13px + env(safe-area-inset-top))}
+    .chat-form{padding-bottom:calc(12px + env(safe-area-inset-bottom))}
+    .setup{padding-bottom:calc(24px + env(safe-area-inset-bottom))}
+    /* botones más fáciles de tocar */
+    .icon-btn{width:38px;height:38px;border-radius:10px}
+    .icon-btn svg{width:16px;height:16px}
+    /* 16px evita el auto-zoom de iOS al enfocar campos */
+    .chat-form textarea,.setup input,.setup textarea{font-size:16px}
+    .msg{max-width:90%;font-size:14.5px}
+    .msg.sub{max-width:95%}
   }
   @media (prefers-reduced-motion: reduce){
     .card,.layer,.icon-btn,.send{transition:none}
@@ -632,12 +649,14 @@
     head.className = 'chat-head ' + a.clase;
     head.style.setProperty('--accent', ACENTOS[id] || 'var(--blue)');
     ov.classList.add('on'); chat.classList.add('on');
+    document.body.style.overflow = 'hidden';
     var hayKey = !!localStorage.getItem(LS_KEY);
     vista(hayKey ? 'chat' : 'setup');
     if (hayKey) { pintarHistorial(); input.focus(); } else { keyInput.focus(); }
   }
   function cerrar(){
     ov.classList.remove('on'); chat.classList.remove('on'); actual = null;
+    document.body.style.overflow = '';
   }
   document.querySelectorAll('[data-agente]').forEach(function(el){
     el.addEventListener('click', function(){ abrir(el.getAttribute('data-agente')); });
@@ -868,6 +887,9 @@
   input.addEventListener('keydown', function(ev){
     if (ev.key === 'Enter' && !ev.shiftKey) { ev.preventDefault(); form.requestSubmit(); }
   });
+  if (window.matchMedia && matchMedia('(max-width:680px)').matches) {
+    input.placeholder = 'Escríbele al agente…';
+  }
   input.addEventListener('input', function(){
     input.style.height = '44px';
     input.style.height = Math.min(input.scrollHeight, 130) + 'px';
