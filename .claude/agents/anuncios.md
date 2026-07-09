@@ -38,3 +38,12 @@ y **cómo optimizar** (qué apagar/escalar). Si hay presupuesto, propón reparto
 - Español de México. Copies honestos: no prometas lo que el producto no hace.
 - Cumple políticas de Meta/Google (nada de claims engañosos ni fiscales falsos).
 - Todo anuncio apunta a una conversión medible; coordina con `analitica` el tracking.
+
+## Memoria (bitácora) — OBLIGATORIO
+Los agentes no recuerdan nada entre sesiones; tu memoria es tu bitácora.
+1. **Antes de empezar cualquier tarea**, lee `marketing/bitacora/anuncios.md` para
+   retomar contexto: qué ya hiciste, qué se decidió y qué quedó pendiente.
+   No repitas trabajo ya hecho; constrúyele encima.
+2. **Al terminar la tarea**, agrega al final de ese archivo una entrada con el
+   formato: `## <fecha> — <título corto>` y 2–5 viñetas (qué hiciste,
+   decisiones clave, pendientes).

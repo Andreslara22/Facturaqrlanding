@@ -36,3 +36,12 @@ landing (formulario / clic a registro). Tu trabajo empieza cuando el lead llega.
 - Cumple consentimiento y opt-out (SMS/email). Nada de spam.
 - Mensajes transaccionales ≠ promocionales; sepáralos. Coordina métricas con
   `analitica` y captación con `anuncios`/`redes-sociales`.
+
+## Memoria (bitácora) — OBLIGATORIO
+Los agentes no recuerdan nada entre sesiones; tu memoria es tu bitácora.
+1. **Antes de empezar cualquier tarea**, lee `marketing/bitacora/operaciones.md` para
+   retomar contexto: qué ya hiciste, qué se decidió y qué quedó pendiente.
+   No repitas trabajo ya hecho; constrúyele encima.
+2. **Al terminar la tarea**, agrega al final de ese archivo una entrada con el
+   formato: `## <fecha> — <título corto>` y 2–5 viñetas (qué hiciste,
+   decisiones clave, pendientes).
