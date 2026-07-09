@@ -75,7 +75,7 @@
   .hero h1 .hl{color:var(--blue);position:relative;white-space:nowrap}
   .hero h1 .hl::after{content:"";position:absolute;left:0;right:0;bottom:.06em;height:.16em;background:rgba(37,99,235,.22);border-radius:3px;z-index:-1;transform:scaleX(0);transform-origin:left;animation:draw .55s .6s cubic-bezier(.4,0,.2,1) forwards}
   @keyframes draw{to{transform:scaleX(1)}}
-  .regalo{display:inline-flex;align-items:center;gap:7px;margin-top:22px;background:#FEF3C7;color:#92400E;border:1px solid #FDE68A;border-radius:100px;padding:8px 15px;font-family:'Poppins';font-weight:700;font-size:13px}
+  .regalo{display:inline-flex;align-items:center;justify-content:center;gap:8px;margin-top:22px;background:#FEF3C7;color:#92400E;border:1px solid #FDE68A;border-radius:100px;padding:8px 16px;font-family:'Poppins';font-weight:700;font-size:13px;line-height:1.4;text-align:center}
   .regalo b{font-weight:800}
   .hero .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
   .regalo + .cta-row{margin-top:14px}
@@ -124,7 +124,8 @@
     .hero .wrap{grid-template-columns:1fr;gap:22px;padding-top:26px;padding-bottom:38px}
     .hero h1{margin:12px 0 14px}
     .hero .cta-row{flex-direction:column;gap:14px;margin-top:24px}
-    .hero .cta-row .btn{width:100%}
+    .hero .cta-row .btn{width:100%;justify-content:center}
+    .regalo{display:flex;width:100%}
     .trust{margin-top:22px;gap:10px 20px}
     .mock{max-width:280px;margin-top:12px}
     .float{display:none}
@@ -418,7 +419,7 @@
         <span class="eyebrow">Autofacturación · CFDI 4.0</span>
         <h1>Tus clientes se facturan solos con una <span class="hl">foto de su ticket</span>.</h1>
         <p class="lead">Pon un QR en tu mostrador. Tu cliente toma la foto, escribe su RFC y recibe su factura por correo en menos de un minuto. Sin filas, sin capturar datos, sin que tu personal pierda el turno.</p>
-        <div class="regalo">🎁 <b>10 facturas gratis</b> al registrarte · sin tarjeta</div>
+        <div class="regalo">🎁<span><b>10 facturas gratis</b> al registrarte · sin tarjeta</span></div>
         <div class="cta-row">
           <a class="btn btn-blue" href="https://portal.facturaqr.app/registro.php" target="_blank" rel="noopener">Registro gratis →</a>
           <a class="btn btn-ghost" href="https://portal.facturaqr.app/?c=ejemplo&amp;demo=1" target="_blank" rel="noopener">Ver demo en vivo</a>
