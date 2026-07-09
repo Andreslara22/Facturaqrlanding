@@ -37,7 +37,7 @@
   window.FQ_ANALYTICS = {
     GA4_ID:      'G-QY5N3VNCTR',
     ADS_ID:      'AW-11259075906',
-    CONV_LEAD:   'AW-XXXXXXXXXX/aaaaaaaa',
+    CONV_LEAD:   'AW-11259075906/cGiPCNn4xb4YEMK63_gp',
     CONV_SIGNUP: 'AW-XXXXXXXXXX/bbbbbbbb'
   };
   (function(){
