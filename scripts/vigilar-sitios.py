@@ -15,6 +15,7 @@ Sin dependencias externas (usa curl). Lo corre GitHub Actions diario, y
 también puede correrse a mano: python3 scripts/vigilar-sitios.py
 """
 import html
+import os
 import json
 import pathlib
 import re
@@ -35,6 +36,13 @@ PAGINAS = {
     "aviso-privacidad":   "https://facturaqr.app/aviso-privacidad.html",
     "portal":             "https://portal.facturaqr.app/",
     "portal-registro":    "https://portal.facturaqr.app/registro.php",
+}
+
+# Repos cuyo CÓDIGO se vigila (cambios internos que no se ven en las páginas).
+# Requiere token con lectura de contents (secret VIGILANTE_TOKEN en Actions)
+# porque el repo del portal es privado; sin token, se salta sin fallar.
+REPOS = {
+    "portal-codigo": "Andreslara22/Facturaqr",
 }
 
 
@@ -72,10 +80,64 @@ def diff_lineas(viejo: str, nuevo: str):
     return agregadas, quitadas
 
 
+def api_github(ruta: str) -> dict | list | None:
+    token = os.environ.get("VIGILANTE_TOKEN") or os.environ.get("GITHUB_TOKEN")
+    cmd = ["curl", "-sS", "--max-time", "30",
+           "-H", "Accept: application/vnd.github+json"]
+    if token:
+        cmd += ["-H", f"Authorization: Bearer {token}"]
+    cmd.append(f"https://api.github.com/{ruta}")
+    try:
+        r = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
+        d = json.loads(r.stdout)
+        return None if isinstance(d, dict) and d.get("message") else d
+    except Exception:
+        return None
+
+
+def vigilar_repos(hoy: str, detectados: list) -> None:
+    """Registra commits nuevos de los repos vigilados como recuerdos [cambio]."""
+    for nombre, repo in REPOS.items():
+        ref = api_github(f"repos/{repo}/commits?per_page=1")
+        if not ref:
+            print(f"[warn] sin acceso al repo {repo} (¿falta VIGILANTE_TOKEN?)", file=sys.stderr)
+            continue
+        sha_nuevo = ref[0]["sha"]
+        snap = SNAPSHOTS / f"{nombre}.sha"
+
+        if not snap.exists():
+            snap.write_text(sha_nuevo)
+            print(f"[ok] primera captura de {nombre} ({sha_nuevo[:7]})")
+            continue
+
+        sha_viejo = snap.read_text().strip()
+        if sha_viejo == sha_nuevo:
+            print(f"[ok] sin commits nuevos en {nombre}")
+            continue
+
+        comp = api_github(f"repos/{repo}/compare/{sha_viejo}...{sha_nuevo}")
+        commits = (comp or {}).get("commits", [])
+        archivos = [f["filename"] for f in (comp or {}).get("files", [])][:MAX_EJEMPLOS]
+        mensajes = [c["commit"]["message"].split("\n")[0] for c in commits][-MAX_EJEMPLOS:]
+        snap.write_text(sha_nuevo)
+        detectados.append({
+            "fecha": hoy, "pagina": nombre,
+            "url": f"https://github.com/{repo}",
+            "resumen": f"{len(commits)} commit(s) nuevos en el código del portal",
+            "agregado": mensajes,
+            "quitado": [f"archivos tocados: {', '.join(archivos)}"] if archivos else [],
+            # interno: nunca se publica en cambios-sitio.json (sitio público),
+            # solo en cambios.md (repo, lo ven los agentes de Claude Code).
+            "privado": True,
+        })
+        print(f"[CAMBIO] {nombre}: {len(commits)} commit(s), {sha_viejo[:7]}→{sha_nuevo[:7]}")
+
+
 def main() -> int:
     SNAPSHOTS.mkdir(parents=True, exist_ok=True)
     hoy = date.today().isoformat()
     detectados = []
+    vigilar_repos(hoy, detectados)
 
     for nombre, url in PAGINAS.items():
         crudo = descargar(url)
@@ -125,15 +187,17 @@ def main() -> int:
                 for l in c["quitado"]:
                     f.write(f"  - {l}\n")
 
-    # 2) cambios-sitio.json — memoria para el chat web (siempre regenerado)
+    # 2) cambios-sitio.json — memoria para el chat web. Se PUBLICA en el sitio,
+    #    así que excluimos las entradas privadas (código del portal): esas solo
+    #    viven en cambios.md, dentro del repo.
     previos = []
     if CAMBIOS_JSON.exists():
         try:
             previos = json.loads(CAMBIOS_JSON.read_text())
         except Exception:
             previos = []
-    todos = (detectados + previos)[:MAX_JSON]
-    CAMBIOS_JSON.write_text(json.dumps(todos, ensure_ascii=False, indent=1))
+    publicos = [c for c in (detectados + previos) if not c.get("privado")]
+    CAMBIOS_JSON.write_text(json.dumps(publicos[:MAX_JSON], ensure_ascii=False, indent=1))
 
     print(f"[fin] {len(detectados)} cambio(s) detectado(s)")
     return 0

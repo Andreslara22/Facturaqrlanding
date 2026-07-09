@@ -60,6 +60,19 @@ general: **si entregas ticket, FacturaQR es para ti.**
   "plan de interés".
 - Legal: aviso-privacidad.html y terminos.html. © FacturaQR, hecho en México.
 
+## Portal — capacidades internas (INFO INTERNA: úsala para entender el
+producto, NO publiques detalles técnicos como proveedores o arquitectura)
+- Multi-tenant: varios comercios desde un despliegue; cada comercio tiene su
+  portal con su marca (`?c=CODIGO`), su QR y su cartel imprimible.
+- Registro self-service de comercios y login del dueño (panel).
+- Panel del comercio: ver facturas, descargar PDF/XML, reenviar, cancelar,
+  subir su CSD, logo y editar datos.
+- Super-admin: alta/baja de comercios y uso por comercio (facturas del mes /
+  total) para cobrar.
+- Aviso automático de vigencia del CSD (cron) por comercio.
+- Timbrado vía cuenta multiemisor de un PAC; lectura de tickets con IA.
+- Cobros/pagos con webhook de Mercado Pago.
+
 ## Medición
 GA4 activo (G-QY5N3VNCTR). Conversiones: clic a registro = `sign_up`; lead de
 formulario = `CONV_LEAD` (IDs de Google Ads aún pendientes en index.php).

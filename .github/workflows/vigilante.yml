@@ -21,7 +21,11 @@ jobs:
         with:
           ref: main
 
-      - name: Detectar cambios en los sitios
+      - name: Detectar cambios en los sitios y en el código del portal
+        env:
+          # Token de solo-lectura sobre Andreslara22/Facturaqr (repo privado).
+          # Sin este secret, el vigilante solo revisa las páginas públicas.
+          VIGILANTE_TOKEN: ${{ secrets.VIGILANTE_TOKEN }}
         run: python3 scripts/vigilar-sitios.py
 
       - name: Guardar recuerdos si hubo cambios
