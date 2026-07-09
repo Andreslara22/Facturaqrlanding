@@ -380,6 +380,16 @@
   @media(max-width:820px){.ft-grid{grid-template-columns:1fr 1fr;gap:26px}.ft-brand{grid-column:1/-1}}
   @media(max-width:520px){.ft-grid{grid-template-columns:1fr}.ft-bottom{flex-direction:column;align-items:flex-start;gap:10px}}
 
+  /* blog en home */
+  .bposts{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .bpost{display:flex;flex-direction:column;gap:9px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px 20px;text-decoration:none;color:var(--ink);transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease}
+  .bpost:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:#CBD5E1}
+  .btag{font-family:'Poppins';font-weight:700;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--blue)}
+  .bpost b{font-family:'Poppins';font-weight:800;font-size:16px;line-height:1.35}
+  .bpost p{color:var(--mute);font-weight:600;font-size:13.5px;flex:1;margin:0}
+  .bmas{font-family:'Poppins';font-weight:700;font-size:13px;color:var(--blue)}
+  @media(max-width:820px){.bposts{grid-template-columns:1fr}}
+
   /* mobile menu */
   .mmenu{display:none;position:fixed;inset:0;z-index:60;background:rgba(15,23,42,.5)}
   .mmenu.on{display:block}
@@ -446,6 +456,7 @@
       <a class="navlink" href="#beneficios">Beneficios</a>
       <a class="navlink" href="#panel">Panel</a>
       <a class="navlink" href="#precio">Precio</a>
+      <a class="navlink" href="/blog/">Blog</a>
       <a class="btn btn-blue cta" href="https://portal.facturaqr.app/registro.php" target="_blank" rel="noopener">Prueba gratis</a>
     </nav>
     <button class="burger" aria-label="Abrir menú" onclick="document.getElementById('mm').classList.add('on')">☰</button>
@@ -460,6 +471,7 @@
     <a href="#panel" onclick="document.getElementById('mm').classList.remove('on')">Panel</a>
     <a href="#precio" onclick="document.getElementById('mm').classList.remove('on')">Precio</a>
     <a href="#faq" onclick="document.getElementById('mm').classList.remove('on')">Preguntas</a>
+    <a href="/blog/">Blog</a>
     <a href="https://portal.facturaqr.app/?c=ejemplo&amp;demo=1" target="_blank" rel="noopener">Ver demo en vivo</a>
     <a class="btn btn-blue" href="https://portal.facturaqr.app/registro.php" target="_blank" rel="noopener">Probar gratis — 10 facturas</a>
   </div>
@@ -770,6 +782,40 @@
         <details><summary>¿Y si la foto del ticket sale borrosa? <span class="pl">+</span></summary><p>La IA avisa cuando no puede leer el folio o el total y le pide al cliente otra foto. Además, cada folio solo se puede facturar una vez, para evitar duplicados.</p></details>
         <details><summary>¿Puedo cancelar una factura? <span class="pl">+</span></summary><p>Sí, desde tu panel, eligiendo el motivo de cancelación del SAT. También puedes reenviar la factura al correo del cliente cuando lo necesites.</p></details>
         <details><summary>¿Funciona para varias sucursales? <span class="pl">+</span></summary><p>Sí. Cada negocio tiene su propio portal, su QR y su marca, y tú los administras todos desde una sola cuenta.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG -->
+  <section id="blog">
+    <div class="wrap">
+      <div class="sec-head" style="margin-inline:auto;text-align:center">
+        <span class="eyebrow">Blog</span>
+        <h2>Guías de facturación sin filas.</h2>
+        <p class="lead" style="margin-inline:auto">Autofacturación, CFDI 4.0 y cómo dejar de capturar RFCs a mano — en español claro.</p>
+      </div>
+      <div class="bposts">
+        <a class="bpost reveal" href="/blog/como-facturar-un-ticket-con-foto.php">
+          <span class="btag">Guía rápida</span>
+          <b>Cómo facturar un ticket con una foto en 1 minuto</b>
+          <p>Escanea el QR, toma la foto y recibe tu CFDI 4.0 por correo. Sin apps, sin fila y sin capturar datos.</p>
+          <span class="bmas">Leer artículo →</span>
+        </a>
+        <a class="bpost reveal" href="/blog/facturacion-para-restaurantes-sin-fila.php">
+          <span class="btag">Restaurantes</span>
+          <b>Facturación para restaurantes: adiós fila en caja</b>
+          <p>Tus comensales se facturan solos desde la mesa. Menos errores de RFC y caja libre en hora pico.</p>
+          <span class="bmas">Leer artículo →</span>
+        </a>
+        <a class="bpost reveal" href="/blog/que-es-cfdi-4-0-explicado-facil.php">
+          <span class="btag">Educación</span>
+          <b>Qué es el CFDI 4.0 explicado fácil (sin líos)</b>
+          <p>La factura electrónica vigente en México en español simple: qué es, qué datos pide y por qué importa.</p>
+          <span class="bmas">Leer artículo →</span>
+        </a>
+      </div>
+      <div style="text-align:center;margin-top:24px">
+        <a class="btn btn-ghost" href="/blog/">Ver todos los artículos →</a>
       </div>
     </div>
   </section>
