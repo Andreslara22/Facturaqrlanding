@@ -7,6 +7,7 @@
 <title>FacturaQR — Tus clientes se facturan solos con una foto de su ticket</title>
 <meta name="description" content="Autofacturación CFDI 4.0 para tu negocio. Pon un QR en tu mostrador: tu cliente toma foto de su ticket, pone su RFC y recibe su factura por correo en menos de un minuto. Sin filas, sin capturar datos.">
 <meta name="theme-color" content="#0F172A">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="keywords" content="autofacturación, facturación electrónica, factura con QR, CFDI 4.0, portal de autofacturación, facturación SAT, factura por foto del ticket, facturación restaurantes, facturación automática negocios">
 <meta name="author" content="FacturaQR">
