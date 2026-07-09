@@ -1,3 +1,4 @@
+<?php header("Cache-Control: no-cache, no-store, must-revalidate"); header("Pragma: no-cache"); ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -581,7 +582,7 @@
     body.innerHTML = '';
     var m = M(actual);
     if (location.hostname.indexOf('claude') > -1) {
-      burbuja('err', 'Estás viendo el Artifact (solo demo visual): su seguridad bloquea llamadas a la API. Abre facturaqr.app/agentes.html para chatear de verdad.');
+      burbuja('err', 'Estás viendo el Artifact (solo demo visual): su seguridad bloquea llamadas a la API. Abre facturaqr.app/agentes.php para chatear de verdad.');
     }
     var nRec = recuerdosDe(actual).length;
     if (nRec) {
