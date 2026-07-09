@@ -1,6 +1,6 @@
 # Briefing del sistema de marketing — FacturaQR
 _Lo mantiene el orquestador. Todo agente lo lee ANTES de cualquier tarea._
-_Actualizado: 2026-07-09_
+_Actualizado: 2026-07-09 (plan editorial del blog listo)_
 
 ## Contexto del producto
 - Qué es FacturaQR, planes, precios y FAQs: ver `contexto.md` (fuente de verdad).
@@ -29,6 +29,11 @@ _Actualizado: 2026-07-09_
 - Identidad visual interna: blanco minimalista, Poppins/Nunito, azul #2563EB.
 
 ## Pendientes
+- **Blog:** plan editorial de 5 posts SEO+AEO aprobado (guía cliente final,
+  restaurantes, gasolineras, CFDI 4.0 educativo, autofacturación vs a mano).
+  Pendiente: el agente `contenido` redacta los posts; crear sección de blog en
+  facturaqr.app; todos con CTA a registro gratis (10 facturas sin tarjeta) y
+  schema FAQPage.
 - Definir primera campaña: segmento inicial (giro y ciudad) y presupuesto.
 - Completar IDs de conversión de Google Ads en index.php.
 - Sin campañas activas todavía; no hay resultados que registrar aún.

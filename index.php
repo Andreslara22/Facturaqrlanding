@@ -833,6 +833,7 @@
       </div>
       <div class="ft-col">
         <h4>Recursos</h4>
+        <a href="/blog/">Blog</a>
         <a href="https://portal.facturaqr.app/?c=ejemplo&amp;demo=1" target="_blank" rel="noopener">Ver demo</a>
         <a href="#faq">Preguntas frecuentes</a>
         <a href="https://portal.facturaqr.app/" target="_blank" rel="noopener">Entrar al portal</a>
