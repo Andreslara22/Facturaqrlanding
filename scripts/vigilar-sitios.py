@@ -126,6 +126,9 @@ def vigilar_repos(hoy: str, detectados: list) -> None:
             "resumen": f"{len(commits)} commit(s) nuevos en el código del portal",
             "agregado": mensajes,
             "quitado": [f"archivos tocados: {', '.join(archivos)}"] if archivos else [],
+            # interno: nunca se publica en cambios-sitio.json (sitio público),
+            # solo en cambios.md (repo, lo ven los agentes de Claude Code).
+            "privado": True,
         })
         print(f"[CAMBIO] {nombre}: {len(commits)} commit(s), {sha_viejo[:7]}→{sha_nuevo[:7]}")
 
@@ -184,15 +187,17 @@ def main() -> int:
                 for l in c["quitado"]:
                     f.write(f"  - {l}\n")
 
-    # 2) cambios-sitio.json — memoria para el chat web (siempre regenerado)
+    # 2) cambios-sitio.json — memoria para el chat web. Se PUBLICA en el sitio,
+    #    así que excluimos las entradas privadas (código del portal): esas solo
+    #    viven en cambios.md, dentro del repo.
     previos = []
     if CAMBIOS_JSON.exists():
         try:
             previos = json.loads(CAMBIOS_JSON.read_text())
         except Exception:
             previos = []
-    todos = (detectados + previos)[:MAX_JSON]
-    CAMBIOS_JSON.write_text(json.dumps(todos, ensure_ascii=False, indent=1))
+    publicos = [c for c in (detectados + previos) if not c.get("privado")]
+    CAMBIOS_JSON.write_text(json.dumps(publicos[:MAX_JSON], ensure_ascii=False, indent=1))
 
     print(f"[fin] {len(detectados)} cambio(s) detectado(s)")
     return 0

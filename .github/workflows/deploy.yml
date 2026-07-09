@@ -27,4 +27,5 @@ jobs:
             **/.github/**
             **/.claude/**
             marketing/**
+            scripts/**
             README.md
