@@ -7,275 +7,251 @@
 <title>FacturaQR — Sistema de Agentes de Marketing</title>
 <meta name="description" content="Mapa del sistema de agentes de marketing IA de FacturaQR: orquestación, redes sociales, SEO local, anuncios, contenido, operaciones y analítica.">
 <meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --paper:#FBFBF8; --dot:#DCDAD2; --ink:#232323; --ink-soft:#5C5A54;
-    --card:#FFFFFF; --line:#8B8880;
-    --rosa:#FBE3E6; --rosa-b:#E4A9B1;
-    --verde:#E1F0DC; --verde-b:#A9C9A0;
-    --arena:#FBECD2; --arena-b:#DDBE8B;
-    --azul:#DEE9FB; --azul-b:#9FB8E2;
-    --lila:#E9E1F6; --lila-b:#B9A6DA;
-    --coral:#E8654F; --blue:#2563EB;
-    --pill:#161616; --pill-ink:#FFFFFF;
-    --chip:#FFFFFF; --chip-line:#D8D5CC;
-    --hand:"Segoe Print","Bradley Hand","Chalkboard SE","Comic Sans MS",cursive;
-    --body:ui-rounded,"Hiragino Maru Gothic ProN","Nunito",system-ui,-apple-system,"Segoe UI",sans-serif;
-  }
-  @media (prefers-color-scheme: dark){
-    :root{
-      --paper:#141821; --dot:#2A3040; --ink:#E9ECF2; --ink-soft:#9AA3B2;
-      --card:#1B212D; --line:#6B7488;
-      --rosa:#3A2830; --rosa-b:#8A5666;
-      --verde:#25321F; --verde-b:#5F7D52;
-      --arena:#3A3020; --arena-b:#8F7643;
-      --azul:#20293C; --azul-b:#5570A3;
-      --lila:#2C2438; --lila-b:#77619E;
-      --coral:#F0765F; --blue:#7AA2F7;
-      --pill:#E9ECF2; --pill-ink:#141821;
-      --chip:#232B3A; --chip-line:#3A4356;
-    }
-  }
-  :root[data-theme="light"]{
-    --paper:#FBFBF8; --dot:#DCDAD2; --ink:#232323; --ink-soft:#5C5A54;
-    --card:#FFFFFF; --line:#8B8880;
-    --rosa:#FBE3E6; --rosa-b:#E4A9B1;
-    --verde:#E1F0DC; --verde-b:#A9C9A0;
-    --arena:#FBECD2; --arena-b:#DDBE8B;
-    --azul:#DEE9FB; --azul-b:#9FB8E2;
-    --lila:#E9E1F6; --lila-b:#B9A6DA;
-    --coral:#E8654F; --blue:#2563EB;
-    --pill:#161616; --pill-ink:#FFFFFF;
-    --chip:#FFFFFF; --chip-line:#D8D5CC;
-  }
-  :root[data-theme="dark"]{
-    --paper:#141821; --dot:#2A3040; --ink:#E9ECF2; --ink-soft:#9AA3B2;
-    --card:#1B212D; --line:#6B7488;
-    --rosa:#3A2830; --rosa-b:#8A5666;
-    --verde:#25321F; --verde-b:#5F7D52;
-    --arena:#3A3020; --arena-b:#8F7643;
-    --azul:#20293C; --azul-b:#5570A3;
-    --lila:#2C2438; --lila-b:#77619E;
-    --coral:#F0765F; --blue:#7AA2F7;
-    --pill:#E9ECF2; --pill-ink:#141821;
-    --chip:#232B3A; --chip-line:#3A4356;
+    --bg:#FFFFFF; --ink:#0F172A; --mute:#64748B; --mute-2:#94A3B8;
+    --line:#E2E8F0; --line-2:#CBD5E1; --soft:#F8FAFC;
+    --blue:#2563EB; --blue-600:#1D4ED8; --rojo:#DC2626;
+    --display:"Poppins",system-ui,sans-serif;
+    --body:"Nunito",system-ui,-apple-system,"Segoe UI",sans-serif;
   }
 
   *{box-sizing:border-box}
   [hidden]{display:none !important}
   html,body{margin:0;padding:0}
   body{
-    background:var(--paper);
-    background-image:radial-gradient(var(--dot) 1px, transparent 1px);
-    background-size:26px 26px;
-    color:var(--ink);
-    font-family:var(--body);
-    line-height:1.45;
-    padding:40px 16px 72px;
+    background:var(--bg); color:var(--ink);
+    font-family:var(--body); line-height:1.5;
+    padding:48px 16px 72px;
   }
   .board{max-width:960px;margin:0 auto}
 
-  /* ── Título ── */
-  header{display:flex;flex-direction:column;align-items:center;gap:6px;margin-bottom:34px;text-align:center}
-  .mark{width:44px;height:44px;color:var(--coral)}
+  /* ── Encabezado ── */
+  header{display:flex;flex-direction:column;align-items:center;gap:10px;margin-bottom:40px;text-align:center}
+  .mark{width:34px;height:34px;color:var(--blue)}
+  .eyebrow{
+    font-family:var(--display);font-size:11px;font-weight:600;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--mute);
+  }
   h1{
-    font-family:var(--hand);font-size:clamp(22px,4.2vw,32px);font-weight:700;
-    margin:0;text-wrap:balance;letter-spacing:.5px;
+    font-family:var(--display);font-size:clamp(20px,3.6vw,27px);font-weight:700;
+    margin:0;text-wrap:balance;letter-spacing:-.01em;
   }
-  h1 span{border-bottom:3px solid var(--coral)}
-  .sub{font-size:14px;color:var(--ink-soft);margin:0}
-  .sub code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;background:var(--chip);border:1px solid var(--chip-line);border-radius:6px;padding:1px 6px}
+  h1 span{color:var(--blue)}
+  .sub{font-size:14px;color:var(--mute);margin:0}
+  .sub code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;background:var(--soft);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 
-  /* ── Contenedores punteados (capas) ── */
+  /* ── Capas (orquestación / datos) ── */
   .layer{
-    border:2px dashed var(--line);border-radius:10px;background:var(--card);
-    padding:18px 20px 20px;position:relative;
+    border:1px solid var(--line);border-top:3px solid var(--blue);
+    border-radius:14px;background:var(--bg);
+    padding:20px 22px;position:relative;
+    box-shadow:0 1px 2px rgba(15,23,42,.04);
+    transition:box-shadow .15s ease,border-color .15s ease;
   }
+  .layer.data{border-top-color:var(--ink)}
+  .layer[data-agente]{cursor:pointer}
+  .layer[data-agente]:hover{border-color:var(--line-2);box-shadow:0 8px 24px rgba(15,23,42,.07)}
+  .layer[data-agente]:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
   .layer-title{
-    font-family:var(--hand);font-size:19px;font-weight:700;text-align:center;
-    margin:0 0 14px;letter-spacing:.4px;
+    font-family:var(--display);font-size:12.5px;font-weight:600;text-align:center;
+    text-transform:uppercase;letter-spacing:.1em;margin:0 0 16px;
   }
-  .layer-items{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 14px}
+  .layer-items{display:flex;flex-wrap:wrap;justify-content:center;gap:12px 18px}
   .item{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:104px}
-  .item svg{width:30px;height:30px}
-  .item small{font-size:11.5px;color:var(--ink-soft);text-align:center;line-height:1.25}
+  .item svg{width:26px;height:26px}
+  .item small{font-size:11px;color:var(--mute);text-align:center;line-height:1.3}
 
-  /* ── Cajas de agentes (pastel) ── */
-  .row{display:grid;gap:22px}
+  /* ── Tarjetas de agentes ── */
+  .row{display:grid;gap:18px}
   .row-3{grid-template-columns:repeat(3,1fr)}
-  .row-2{grid-template-columns:repeat(2,1fr);max-width:760px;margin:0 auto}
+  .row-2{grid-template-columns:repeat(2,1fr);max-width:720px;margin:0 auto}
   .card{
-    border:1.5px solid; border-radius:8px; padding:16px 14px 14px;
+    --accent:var(--blue);
+    border:1px solid var(--line);border-top:3px solid var(--accent);
+    border-radius:12px;background:var(--bg);
+    padding:18px 14px 14px;
     display:flex;flex-direction:column;align-items:center;gap:10px;
-    cursor:pointer; position:relative;
-    box-shadow:2px 3px 0 rgba(0,0,0,.08);
-    transition:transform .15s ease, box-shadow .15s ease;
+    cursor:pointer;position:relative;
+    box-shadow:0 1px 2px rgba(15,23,42,.04);
+    transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease;
   }
-  .card:hover{transform:translateY(-2px) rotate(0deg)!important;box-shadow:3px 5px 0 rgba(0,0,0,.10)}
-  .card:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
-  .card:nth-child(odd){transform:rotate(-.4deg)}
-  .card:nth-child(even){transform:rotate(.35deg)}
-  .card h2{font-family:var(--hand);font-size:19px;font-weight:700;margin:0;text-align:center;letter-spacing:.4px}
+  .card:hover{transform:translateY(-2px);border-color:var(--line-2);box-shadow:0 10px 28px rgba(15,23,42,.08)}
+  .card:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+  .card h2{font-family:var(--display);font-size:15.5px;font-weight:600;margin:0;text-align:center;letter-spacing:-.01em}
   .agent-tag{
-    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;
-    color:var(--ink-soft);background:var(--chip);border:1px solid var(--chip-line);
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;
+    color:var(--mute);background:var(--soft);border:1px solid var(--line);
     border-radius:20px;padding:2px 9px;
   }
   .chips{display:flex;flex-wrap:wrap;justify-content:center;gap:6px}
   .chip{
-    font-size:11.5px;font-weight:600;background:var(--chip);border:1px solid var(--chip-line);
-    border-radius:6px;padding:3px 8px;display:inline-flex;align-items:center;gap:5px;
+    font-size:11px;font-weight:700;color:#334155;background:var(--soft);
+    border:1px solid var(--line);border-radius:6px;padding:3px 8px;
+    display:inline-flex;align-items:center;gap:5px;
   }
   .chip svg{width:13px;height:13px;flex:none}
-  .hint{font-size:10.5px;color:var(--ink-soft);opacity:.7}
-  .layer .hint{display:block;text-align:center;margin:10px 0 0}
-  .layer[data-agente]{cursor:pointer}
-  .layer[data-agente]:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+  .hint{font-size:10.5px;color:var(--mute-2)}
+  .layer .hint{display:block;text-align:center;margin:12px 0 0}
 
-  .c-rosa {background:var(--rosa); border-color:var(--rosa-b)}
-  .c-verde{background:var(--verde);border-color:var(--verde-b)}
-  .c-arena{background:var(--arena);border-color:var(--arena-b)}
-  .c-azul {background:var(--azul); border-color:var(--azul-b)}
-  .c-lila {background:var(--lila); border-color:var(--lila-b)}
+  .c-rosa {--accent:#E11D48}
+  .c-verde{--accent:#16A34A}
+  .c-arena{--accent:#D97706}
+  .c-azul {--accent:#2563EB}
+  .c-lila {--accent:#7C3AED}
 
-  /* ── Conectores punteados ── */
-  .conn{position:relative;height:54px}
+  /* ── Conectores ── */
+  .conn{position:relative;height:52px}
   .conn i{position:absolute;display:block}
-  .conn .v{border-left:2px dashed var(--line);width:0}
-  .conn .h{border-top:2px dashed var(--line);height:0}
+  .conn .v{border-left:1px solid var(--line-2);width:0}
+  .conn .h{border-top:1px solid var(--line-2);height:0}
   .conn .a{
-    width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;
-    border-top:7px solid var(--line);transform:translateX(-4px);
+    width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;
+    border-top:6px solid var(--line-2);transform:translateX(-3.5px);
   }
-  .conn1 .v.stub{left:50%;top:0;height:24px}
-  .conn1 .h.bar{left:16%;right:16%;top:24px}
-  .conn1 .v.d1{left:16%;top:24px;height:22px}
-  .conn1 .v.d2{left:50%;top:24px;height:22px}
-  .conn1 .v.d3{left:84%;top:24px;height:22px}
-  .conn1 .a.a1{left:16%;top:46px}
-  .conn1 .a.a2{left:50%;top:46px}
-  .conn1 .a.a3{left:84%;top:46px}
-  .conn2 .v.r1{left:16%;top:0;height:26px}
-  .conn2 .v.r2{left:50%;top:0;height:26px}
-  .conn2 .v.r3{left:84%;top:0;height:26px}
-  .conn2 .h.bar{left:16%;right:16%;top:26px}
-  .conn2 .v.d1{left:30.5%;top:26px;height:20px}
-  .conn2 .v.d2{left:69.5%;top:26px;height:20px}
-  .conn2 .a.a1{left:30.5%;top:46px}
-  .conn2 .a.a2{left:69.5%;top:46px}
-  .conn3{height:86px}
-  .conn3 .v.r1{left:30.5%;top:0;height:22px}
-  .conn3 .v.r2{left:69.5%;top:0;height:22px}
-  .conn3 .h.bar{left:30.5%;right:30.5%;top:22px}
-  .conn3 .v.d1{left:50%;top:22px;height:56px}
-  .conn3 .a.a1{left:50%;top:78px}
+  .conn1 .v.stub{left:50%;top:0;height:23px}
+  .conn1 .h.bar{left:16%;right:16%;top:23px}
+  .conn1 .v.d1{left:16%;top:23px;height:22px}
+  .conn1 .v.d2{left:50%;top:23px;height:22px}
+  .conn1 .v.d3{left:84%;top:23px;height:22px}
+  .conn1 .a.a1{left:16%;top:45px}
+  .conn1 .a.a2{left:50%;top:45px}
+  .conn1 .a.a3{left:84%;top:45px}
+  .conn2 .v.r1{left:16%;top:0;height:25px}
+  .conn2 .v.r2{left:50%;top:0;height:25px}
+  .conn2 .v.r3{left:84%;top:0;height:25px}
+  .conn2 .h.bar{left:16%;right:16%;top:25px}
+  .conn2 .v.d1{left:30.5%;top:25px;height:20px}
+  .conn2 .v.d2{left:69.5%;top:25px;height:20px}
+  .conn2 .a.a1{left:30.5%;top:45px}
+  .conn2 .a.a2{left:69.5%;top:45px}
+  .conn3{height:84px}
+  .conn3 .v.r1{left:30.5%;top:0;height:21px}
+  .conn3 .v.r2{left:69.5%;top:0;height:21px}
+  .conn3 .h.bar{left:30.5%;right:30.5%;top:21px}
+  .conn3 .v.d1{left:50%;top:21px;height:55px}
+  .conn3 .a.a1{left:50%;top:76px}
   .pill{
-    position:absolute;left:50%;top:44px;transform:translate(-50%,0) rotate(-1deg);
-    background:var(--pill);color:var(--pill-ink);
-    font-family:var(--hand);font-size:16px;font-weight:700;letter-spacing:.5px;
-    padding:5px 16px;border-radius:8px;white-space:nowrap;z-index:2;
-    box-shadow:2px 3px 0 rgba(0,0,0,.15);
+    position:absolute;left:50%;top:42px;transform:translateX(-50%);
+    background:var(--ink);color:#fff;
+    font-family:var(--display);font-size:10.5px;font-weight:600;
+    text-transform:uppercase;letter-spacing:.1em;
+    padding:6px 14px;border-radius:999px;white-space:nowrap;z-index:2;
   }
 
   .data .layer-items{gap:14px 34px}
 
-  footer{margin-top:34px;text-align:center;font-size:12.5px;color:var(--ink-soft)}
+  footer{margin-top:40px;text-align:center;font-size:12.5px;color:var(--mute)}
   footer a{color:var(--blue);font-weight:700;text-decoration:none}
   footer a:hover{text-decoration:underline}
 
   /* ── Chat (command box) ── */
-  .overlay{position:fixed;inset:0;background:rgba(15,18,26,.5);z-index:50;display:none}
+  .overlay{position:fixed;inset:0;background:rgba(15,23,42,.4);z-index:50;display:none}
   .overlay.on{display:block}
   .chat{
     position:fixed;z-index:60;left:50%;top:50%;transform:translate(-50%,-50%);
-    width:min(580px,calc(100vw - 16px));height:min(680px,calc(100dvh - 20px));
-    display:none;flex-direction:column;background:var(--card);
-    border:2px dashed var(--line);border-radius:12px;
-    box-shadow:5px 7px 0 rgba(0,0,0,.2);
+    width:min(600px,calc(100vw - 16px));height:min(700px,calc(100dvh - 20px));
+    display:none;flex-direction:column;background:var(--bg);
+    border:1px solid var(--line);border-radius:16px;overflow:hidden;
+    box-shadow:0 24px 64px rgba(15,23,42,.22);
   }
   .chat.on{display:flex}
   .chat-head{
-    display:flex;align-items:center;gap:9px;padding:11px 12px;
-    border-bottom:2px dashed var(--line);border-radius:10px 10px 0 0;
+    --accent:var(--blue);
+    display:flex;align-items:center;gap:9px;padding:13px 14px;
+    border-bottom:1px solid var(--line);border-top:3px solid var(--accent);
+    background:var(--bg);
   }
   .chat-head .who{flex:1;min-width:0}
-  .chat-head h3{font-family:var(--hand);margin:0;font-size:18px;letter-spacing:.3px;line-height:1.2}
-  .chat-head .meta{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:2px}
+  .chat-head h3{font-family:var(--display);margin:0;font-size:15px;font-weight:600;letter-spacing:-.01em;line-height:1.2}
+  .chat-head .meta{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:3px}
   .chat-head .meta span{
     font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px;
-    color:var(--ink-soft);background:var(--chip);border:1px solid var(--chip-line);
+    color:var(--mute);background:var(--soft);border:1px solid var(--line);
     border-radius:14px;padding:1px 7px;
   }
   .icon-btn{
-    width:32px;height:32px;flex:none;border:1.5px solid var(--chip-line);border-radius:8px;
-    background:var(--chip);color:var(--ink);cursor:pointer;
+    width:32px;height:32px;flex:none;border:1px solid var(--line);border-radius:8px;
+    background:var(--bg);color:var(--ink);cursor:pointer;
     display:inline-flex;align-items:center;justify-content:center;padding:0;
+    transition:background .12s ease,border-color .12s ease;
   }
-  .icon-btn svg{width:16px;height:16px}
-  .icon-btn:hover{border-color:var(--line)}
+  .icon-btn svg{width:15px;height:15px}
+  .icon-btn:hover{background:var(--soft);border-color:var(--line-2)}
   .icon-btn:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
-  .chat-body{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
-  .msg{max-width:86%;padding:9px 12px;border-radius:12px;font-size:14px;overflow-wrap:break-word}
+  .chat-body{flex:1;overflow-y:auto;padding:16px 14px;display:flex;flex-direction:column;gap:10px;background:var(--bg)}
+  .msg{max-width:86%;padding:10px 13px;border-radius:14px;font-size:14px;overflow-wrap:break-word}
   .msg p{margin:0 0 8px}
   .msg p:last-child{margin:0}
-  .msg.user{align-self:flex-end;background:var(--pill);color:var(--pill-ink);border-bottom-right-radius:3px}
-  .msg.bot{align-self:flex-start;background:var(--paper);border:1px solid var(--chip-line);border-bottom-left-radius:3px}
-  .msg.err{align-self:center;background:transparent;border:1.5px dashed var(--coral);color:var(--coral);font-size:12.5px;text-align:center}
-  .msg.note{align-self:center;background:transparent;border:none;color:var(--ink-soft);font-size:12px;text-align:center;padding:2px}
-  .msg code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;background:var(--chip);border:1px solid var(--chip-line);border-radius:5px;padding:0 4px}
+  .msg.user{align-self:flex-end;background:var(--blue);color:#fff;border-bottom-right-radius:4px}
+  .msg.bot{align-self:flex-start;background:var(--soft);border:1px solid var(--line);border-bottom-left-radius:4px}
+  .msg.sub{border-left:3px solid var(--accent,var(--blue));max-width:92%}
+  .sub-label{
+    display:block;font-family:var(--display);font-size:10px;font-weight:600;
+    text-transform:uppercase;letter-spacing:.09em;color:var(--mute);margin-bottom:6px;
+  }
+  .msg.err{align-self:center;background:#FEF2F2;border:1px solid #FECACA;color:var(--rojo);font-size:12.5px;text-align:center}
+  .msg.note{align-self:center;background:transparent;border:none;color:var(--mute);font-size:12px;text-align:center;padding:2px}
+  .msg code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;background:#fff;border:1px solid var(--line);border-radius:5px;padding:0 4px}
+  .msg.user code{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.3);color:#fff}
   .typing{align-self:flex-start;display:flex;gap:4px;padding:12px 14px}
-  .typing b{width:7px;height:7px;border-radius:50%;background:var(--ink-soft);animation:tp 1s infinite}
+  .typing b{width:6px;height:6px;border-radius:50%;background:var(--mute-2);animation:tp 1s infinite}
   .typing b:nth-child(2){animation-delay:.18s}
   .typing b:nth-child(3){animation-delay:.36s}
-  @keyframes tp{0%,60%,100%{opacity:.25;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
-  .chat-form{display:flex;gap:8px;padding:11px 12px;border-top:2px dashed var(--line);align-items:flex-end}
+  @keyframes tp{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+  .chat-form{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--line);align-items:flex-end;background:var(--bg)}
   .chat-form textarea{
-    flex:1;resize:none;border:1.5px solid var(--chip-line);border-radius:10px;
-    background:var(--paper);color:var(--ink);font-family:var(--body);font-size:14px;
-    padding:10px 12px;height:44px;max-height:130px;line-height:1.4;
+    flex:1;resize:none;border:1px solid var(--line);border-radius:10px;
+    background:var(--bg);color:var(--ink);font-family:var(--body);font-size:14px;
+    padding:11px 12px;height:44px;max-height:130px;line-height:1.4;
   }
-  .chat-form textarea:focus{outline:2px solid var(--blue);outline-offset:1px}
+  .chat-form textarea:focus{outline:2px solid var(--blue);outline-offset:1px;border-color:var(--blue)}
   .send{
-    height:44px;padding:0 16px;border:none;border-radius:10px;flex:none;
-    background:var(--pill);color:var(--pill-ink);font-family:var(--hand);
-    font-size:15px;font-weight:700;cursor:pointer;letter-spacing:.4px;
+    height:44px;padding:0 18px;border:none;border-radius:10px;flex:none;
+    background:var(--blue);color:#fff;font-family:var(--display);
+    font-size:13.5px;font-weight:600;cursor:pointer;letter-spacing:.01em;
+    transition:background .12s ease;
   }
+  .send:hover{background:var(--blue-600)}
   .send:disabled{opacity:.5;cursor:default}
   .send:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
-  /* setup de API key */
-  .setup{padding:22px;display:flex;flex-direction:column;gap:12px;overflow-y:auto}
-  .setup h4{font-family:var(--hand);margin:0;font-size:17px}
-  .setup p{margin:0;font-size:13.5px;color:var(--ink-soft)}
-  .setup input{
-    border:1.5px solid var(--chip-line);border-radius:10px;background:var(--paper);
-    color:var(--ink);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
-    font-size:13px;padding:11px 12px;
+  /* paneles de configuración */
+  .setup{padding:24px;display:flex;flex-direction:column;gap:12px;overflow-y:auto}
+  .setup h4{font-family:var(--display);margin:0;font-size:15.5px;font-weight:600}
+  .setup p{margin:0;font-size:13.5px;color:var(--mute)}
+  .setup input,.setup textarea{
+    border:1px solid var(--line);border-radius:10px;background:var(--bg);
+    color:var(--ink);font-size:13px;padding:11px 12px;font-family:var(--body);
   }
-  .setup input:focus{outline:2px solid var(--blue);outline-offset:1px}
+  .setup input{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  .setup input:focus,.setup textarea:focus{outline:2px solid var(--blue);outline-offset:1px;border-color:var(--blue)}
   .setup .send{align-self:flex-start;padding:0 22px}
   .setup a{color:var(--blue);font-weight:700}
-  .setup small{font-size:11.5px;color:var(--ink-soft)}
+  .setup small{font-size:11.5px;color:var(--mute)}
 
   /* ── Móvil ── */
   @media (max-width:680px){
+    body{padding:32px 14px 56px}
     .row-3,.row-2{grid-template-columns:1fr;max-width:420px;margin:0 auto}
     .conn{height:40px}
     .conn i{display:none}
-    .conn::before{content:"";position:absolute;left:50%;top:0;height:32px;border-left:2px dashed var(--line)}
+    .conn::before{content:"";position:absolute;left:50%;top:0;height:32px;border-left:1px solid var(--line-2)}
     .conn::after{
-      content:"";position:absolute;left:50%;top:32px;transform:translateX(-4px);
-      width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;
-      border-top:7px solid var(--line);
+      content:"";position:absolute;left:50%;top:32px;transform:translateX(-3.5px);
+      width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;
+      border-top:6px solid var(--line-2);
     }
-    .conn3{height:96px}
-    .pill{top:auto;bottom:6px}
-    .conn3::before{height:88px}
-    .conn3::after{top:88px}
+    .conn3{height:92px}
+    .pill{top:auto;bottom:8px}
+    .conn3::before{height:84px}
+    .conn3::after{top:84px}
     .chat{width:100vw;height:100dvh;left:0;top:0;transform:none;border-radius:0;border-left:none;border-right:none}
-    .chat-head{border-radius:0}
   }
   @media (prefers-reduced-motion: reduce){
-    .card{transition:none}
+    .card,.layer,.icon-btn,.send{transition:none}
     .typing b{animation:none}
   }
 </style>
@@ -284,11 +260,15 @@
 <div class="board">
 
   <header>
-    <svg class="mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true">
-      <path d="M12 3v18M4.2 7.5l15.6 9M19.8 7.5l-15.6 9"/>
+    <svg class="mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+      <rect x="3" y="3" width="7" height="7" rx="1.5"/>
+      <rect x="14" y="3" width="7" height="7" rx="1.5"/>
+      <rect x="3" y="14" width="7" height="7" rx="1.5"/>
+      <path d="M14 14h3v3h-3zM18.5 14H21M14 18.5v2.5M17.5 17.5H21V21h-3.5z" stroke-linecap="round"/>
     </svg>
-    <h1>Sistema de Marketing <span>FacturaQR</span> — Agentes IA</h1>
-    <p class="sub">7 agentes en <code>.claude/agents/</code> · toca una caja para <b>chatear</b> con su agente</p>
+    <span class="eyebrow">FacturaQR · Marketing con IA</span>
+    <h1>Sistema de <span>Agentes</span> de Marketing</h1>
+    <p class="sub">7 agentes especializados · toca una tarjeta para <b>chatear o delegar</b> · el orquestador coordina al equipo</p>
   </header>
 
   <!-- ═══ Capa de orquestación ═══ -->
@@ -300,19 +280,19 @@
         <small>Orquestación<br>siempre activa</small>
       </div>
       <div class="item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="var(--coral)" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 4v16M5.1 8l13.8 8M18.9 8L5.1 16"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="#E8654F" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 4v16M5.1 8l13.8 8M18.9 8L5.1 16"/></svg>
         <small>Claude API</small>
       </div>
       <div class="item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="var(--ink-soft)" stroke-width="1.8" aria-hidden="true"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="1.8" aria-hidden="true"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/></svg>
         <small>Memoria de contexto<br>(bitácora)</small>
       </div>
       <div class="item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="var(--ink-soft)" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h11M4 17h13"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h11M4 17h13"/></svg>
         <small>Cola de tareas</small>
       </div>
       <div class="item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="var(--ink-soft)" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="2.4"/><circle cx="5" cy="6" r="1.7"/><circle cx="19" cy="6" r="1.7"/><circle cx="5" cy="18" r="1.7"/><circle cx="19" cy="18" r="1.7"/><path d="M10.3 10.6 6.4 7.2m7.3 3.4 3.9-3.4M10.3 13.4l-3.9 3.4m7.3-3.4 3.9 3.4"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="2.4"/><circle cx="5" cy="6" r="1.7"/><circle cx="19" cy="6" r="1.7"/><circle cx="5" cy="18" r="1.7"/><circle cx="19" cy="18" r="1.7"/><path d="M10.3 10.6 6.4 7.2m7.3 3.4 3.9-3.4M10.3 13.4l-3.9 3.4m7.3-3.4 3.9 3.4"/></svg>
         <small>Router de webhooks</small>
       </div>
     </div>
@@ -375,7 +355,7 @@
       <h2>Contenido</h2>
       <span class="agent-tag">contenido</span>
       <div class="chips">
-        <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="var(--coral)" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M6.9 8.5l10.2 7M17.1 8.5l-10.2 7"/></svg>Redacción IA</span>
+        <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="#E8654F" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M6.9 8.5l10.2 7M17.1 8.5l-10.2 7"/></svg>Redacción IA</span>
         <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="#21759B" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m6.5 8.5 3 8.5 2.5-6.5 2.5 6.5 3-8.5"/></svg>Blog / CMS</span>
         <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 4h9l4 4v12H6V4Z"/><path d="M9 12h7M9 15.5h7M9 8.5h3"/></svg>Copy de landing</span>
       </div>
@@ -415,7 +395,7 @@
         <small>Dashboard analítico<br>(GA4 + Ads)</small>
       </div>
       <div class="item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="var(--coral)" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 3h9l4 4v14H6V3Z"/><path d="M9.5 12h6M9.5 15.5h6M9.5 8.5h3"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="#E8654F" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 3h9l4 4v14H6V3Z"/><path d="M9.5 12h6M9.5 15.5h6M9.5 8.5h3"/></svg>
         <small>Reporte del dueño<br>(semanal / mensual)</small>
       </div>
     </div>
@@ -529,6 +509,12 @@
   };
 
   /* ══ Estado y memoria (localStorage) ══ */
+  var ACENTOS = {
+    'orquestador-marketing': '#2563EB', 'redes-sociales': '#E11D48',
+    'seo-local': '#16A34A', 'anuncios': '#D97706',
+    'contenido': '#2563EB', 'operaciones': '#7C3AED', 'analitica': '#0F172A'
+  };
+
   var LS_KEY = 'fq_agentes_key', LS_MEM = 'fq_agentes_mem';
   var mem; try { mem = JSON.parse(localStorage.getItem(LS_MEM) || '{}'); } catch(e){ mem = {}; }
   // migra recuerdos viejos (sin tipo) al formato tipado
@@ -644,6 +630,7 @@
     tag.textContent = id;
     modelo.textContent = a.modelo;
     head.className = 'chat-head ' + a.clase;
+    head.style.setProperty('--accent', ACENTOS[id] || 'var(--blue)');
     ov.classList.add('on'); chat.classList.add('on');
     var hayKey = !!localStorage.getItem(LS_KEY);
     vista(hayKey ? 'chat' : 'setup');
@@ -689,8 +676,38 @@
   });
 
   /* ══ Llamada a la API de Claude ══ */
-  function sistemaDe(id, consulta){
+  /* ══ Equipo y delegación (comunicación entre agentes) ══ */
+  var HERRAMIENTAS = [{
+    name: 'delegar',
+    description: 'Delega una subtarea a otro agente especializado del equipo de marketing de FacturaQR y recibe su entregable terminado. Úsala cuando parte del trabajo pertenece a otra especialidad. Nunca te delegues a ti mismo.',
+    input_schema: {
+      type: 'object',
+      properties: {
+        agente: { type: 'string', enum: Object.keys(AGENTES), description: 'Agente al que delegas' },
+        tarea:  { type: 'string', description: 'Instrucción completa y autocontenida, con todo el contexto necesario para que entregue trabajo terminado' }
+      },
+      required: ['agente', 'tarea']
+    }
+  }];
+  function descripcionEquipo(id){
+    var roles = {
+      'orquestador-marketing': 'planea y coordina campañas',
+      'redes-sociales': 'contenido orgánico: reels, guiones, calendarios, copies',
+      'seo-local': 'Google Business Profile, Maps, reseñas, keywords locales',
+      'anuncios': 'campañas de pago en Meta Ads y Google Ads',
+      'contenido': 'artículos SEO, guías, FAQs, copy de landing',
+      'operaciones': 'nurture por SMS/email, onboarding, CRM',
+      'analitica': 'KPIs, dashboards, reportes ejecutivos'
+    };
+    return Object.keys(roles).filter(function(k){ return k !== id; })
+      .map(function(k){ return '- ' + k + ': ' + roles[k]; }).join('\n');
+  }
+
+  function sistemaDe(id, consulta, conEquipo){
     var s = AGENTES[id].sistema;
+    if (conEquipo) {
+      s += '\n\n## Equipo y delegación\nPuedes delegar subtareas con la herramienta "delegar" (máximo 3 por turno). Delega cuando el trabajo pertenece a otra especialidad; al final consolida todas las entregas en UNA respuesta clara para el dueño. Tu equipo:\n' + descripcionEquipo(id);
+    }
     var ctx = localStorage.getItem(LS_CTX);
     if (ctx) s += '\n\n## Contexto adicional del negocio (escrito por el dueño; siempre vigente)\n' + ctx;
     if (cambiosSitio.length) {
@@ -711,7 +728,14 @@
     }
     return s;
   }
-  function llamarAPI(id, mensajes, sistema, maxTokens){
+  function llamarAPIraw(id, mensajes, sistema, maxTokens, conTools){
+    var cuerpo = {
+      model: AGENTES[id].modelo,
+      max_tokens: maxTokens || 2000,
+      system: sistema,
+      messages: mensajes
+    };
+    if (conTools) cuerpo.tools = HERRAMIENTAS;
     return fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
@@ -720,24 +744,78 @@
         'anthropic-version': '2023-06-01',
         'anthropic-dangerous-direct-browser-access': 'true'
       },
-      body: JSON.stringify({
-        model: AGENTES[id].modelo,
-        max_tokens: maxTokens || 1500,
-        system: sistema,
-        messages: mensajes
-      })
+      body: JSON.stringify(cuerpo)
     }).then(function(r){
       if (!r.ok) return r.json().catch(function(){ return {}; }).then(function(e){
         var msg = (e.error && e.error.message) || ('HTTP ' + r.status);
         if (r.status === 401) msg = 'API key inválida o vencida — cámbiala con el botón de la llave.';
         if (r.status === 429) msg = 'Límite de uso alcanzado, espera un momento.';
+        if (r.status === 529) msg = 'La API está saturada, reintenta en unos segundos.';
         throw new Error(msg);
       });
       return r.json();
-    }).then(function(d){
-      return (d.content || []).filter(function(c){ return c.type === 'text'; })
-                              .map(function(c){ return c.text; }).join('\n');
     });
+  }
+  function textoDe(d){
+    return (d.content || []).filter(function(c){ return c.type === 'text'; })
+                            .map(function(c){ return c.text; }).join('\n');
+  }
+  function llamarAPI(id, mensajes, sistema, maxTokens){
+    return llamarAPIraw(id, mensajes, sistema, maxTokens, false).then(textoDe);
+  }
+
+  /* ══ Turno con delegación: el agente puede invocar a sus colegas ══ */
+  function turnoAgente(id, consulta, ui){
+    var registro = [];
+    function paso(mensajes, restantes){
+      var conTools = restantes > 0;
+      return llamarAPIraw(id, mensajes, sistemaDe(id, consulta, conTools), 2200, conTools)
+        .then(function(d){
+          var texto = textoDe(d).trim();
+          var usos = (d.content || []).filter(function(c){ return c.type === 'tool_use'; });
+          if (d.stop_reason !== 'tool_use' || !usos.length) {
+            if (texto) { ui.alTexto(texto); registro.push(texto); }
+            return registro.join('\n\n');
+          }
+          if (texto) { ui.alTexto(texto); registro.push(texto); }
+          var resultados = [];
+          var cadena = Promise.resolve();
+          usos.forEach(function(u){
+            cadena = cadena.then(function(){
+              var sub = (u.input || {}).agente, tarea = (u.input || {}).tarea || '';
+              if (!AGENTES[sub] || sub === id || !tarea) {
+                resultados.push({ id: u.id, texto: 'Delegación inválida; resuelve esta parte tú mismo.' });
+                return;
+              }
+              ui.alNota(AGENTES[id].titulo + ' → delega a ' + AGENTES[sub].titulo + ': ' + tarea.slice(0, 140) + (tarea.length > 140 ? '…' : ''));
+              var sisSub = sistemaDe(sub, tarea, false) +
+                '\n\nTe delegó el ' + AGENTES[id].titulo + ' del equipo. Entrega trabajo terminado y accionable; no hagas preguntas de vuelta.';
+              return llamarAPI(sub, [{ role: 'user', content: tarea }], sisSub, 1800)
+                .then(function(resp){
+                  ui.alSub(sub, resp);
+                  registro.push('── Entrega de ' + AGENTES[sub].titulo + ' ──\n' + resp);
+                  M(sub).bitacora.push({ f: fecha(), tipo: 'resumen', t: '[delegado por ' + id + '] ' + tarea.slice(0, 140) });
+                  guardarMem();
+                  resultados.push({ id: u.id, texto: resp });
+                })
+                .catch(function(e){
+                  resultados.push({ id: u.id, texto: 'El agente ' + sub + ' falló (' + e.message + '); resuelve esta parte tú mismo.' });
+                });
+            });
+          });
+          return cadena.then(function(){
+            var siguientes = mensajes.concat([
+              { role: 'assistant', content: d.content },
+              { role: 'user', content: resultados.map(function(r){
+                  return { type: 'tool_result', tool_use_id: r.id, content: r.texto };
+                }) }
+            ]);
+            return paso(siguientes, restantes - usos.length);
+          });
+        });
+    }
+    var historial = M(id).msgs.slice(-16).map(function(x){ return { role: x.role, content: x.content }; });
+    return paso(historial, 3);
   }
 
   /* ══ Enviar mensaje ══ */
@@ -755,12 +833,31 @@
     tp.className = 'typing'; tp.innerHTML = '<b></b><b></b><b></b>';
     body.appendChild(tp); body.scrollTop = body.scrollHeight;
 
-    llamarAPI(id, m.msgs.slice(-16), sistemaDe(id, texto))
-      .then(function(resp){
-        m.msgs.push({ role:'assistant', content: resp });
+    function conTyping(fn){
+      return function(){
+        fn.apply(null, arguments);
+        body.appendChild(tp); body.scrollTop = body.scrollHeight;
+      };
+    }
+    var ui = {
+      alTexto: conTyping(function(t){ burbuja('bot', t); }),
+      alNota:  conTyping(function(t){ burbuja('note', t); }),
+      alSub:   conTyping(function(sub, t){
+        var d = burbuja('bot', t);
+        d.classList.add('sub');
+        d.style.setProperty('--accent', ACENTOS[sub] || 'var(--blue)');
+        var etiqueta = document.createElement('span');
+        etiqueta.className = 'sub-label';
+        etiqueta.textContent = 'Entrega · ' + AGENTES[sub].titulo;
+        d.insertBefore(etiqueta, d.firstChild);
+      })
+    };
+
+    turnoAgente(id, texto, ui)
+      .then(function(final){
+        m.msgs.push({ role:'assistant', content: final || '(sin respuesta)' });
         guardarMem();
         tp.remove();
-        burbuja('bot', resp);
       })
       .catch(function(e){
         tp.remove();
