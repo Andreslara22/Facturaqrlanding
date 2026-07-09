@@ -8,7 +8,8 @@
   --body:"Nunito",system-ui,-apple-system,"Segoe UI",sans-serif;
 }
 *{box-sizing:border-box}
-html{-webkit-tap-highlight-color:transparent;scroll-behavior:smooth}
+html{-webkit-tap-highlight-color:transparent;scroll-behavior:smooth;overflow-x:clip}
+body{overflow-x:clip}
 body{margin:0;background:var(--white);color:var(--ink);font-family:var(--body);line-height:1.65;font-size:16.5px}
 
 /* Nav */

@@ -258,6 +258,7 @@
   /* variación de fondos para romper el blanco */
   .bg-tint{background:linear-gradient(180deg,#EDF3FC,#F8FAFC);overflow:hidden}
   .clip{overflow:hidden}
+  html,body{overflow-x:clip}
   .dots{background-image:radial-gradient(rgba(37,99,235,.08) 1.1px,transparent 1.1px);background-size:22px 22px}
   .blob{position:absolute;border-radius:50%;filter:blur(60px);z-index:0;pointer-events:none}
   .blob.b1{width:340px;height:340px;background:rgba(37,99,235,.10);top:-80px;right:-60px}
@@ -530,7 +531,7 @@
   </div>
 
   <!-- HOW -->
-  <section id="como" class="bg-tint">
+  <section id="como" class="bg-tint clip">
     <div class="blob b1"></div>
     <div class="wrap">
       <div class="sec-head">
@@ -768,7 +769,7 @@
   </div>
 
   <!-- FAQ -->
-  <section id="faq" class="bg-tint">
+  <section id="faq" class="bg-tint clip">
     <div class="blob b2"></div>
     <div class="wrap">
       <div class="sec-head" style="margin-inline:auto;text-align:center">
