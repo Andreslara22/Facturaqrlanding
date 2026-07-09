@@ -46,13 +46,23 @@ REPOS = {
 }
 
 
+UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+      "(KHTML, like Gecko) Chrome/124.0 Safari/537.36")
+MIN_BYTES = 2000   # una página real de FacturaQR pesa decenas de KB
+
+
 def descargar(url: str) -> str | None:
     try:
         r = subprocess.run(
-            ["curl", "-sS", "-L", "--max-time", "30", url],
+            ["curl", "-sSL", "--compressed", "-A", UA, "--max-time", "30", url],
             capture_output=True, text=True, timeout=60,
         )
-        return r.stdout if r.returncode == 0 and r.stdout.strip() else None
+        cuerpo = r.stdout
+        # Guarda: si la respuesta es vacía o sospechosamente chica (bloqueo,
+        # challenge, IP filtrada), la tratamos como fallo — NO como página nueva.
+        if r.returncode != 0 or len(cuerpo) < MIN_BYTES:
+            return None
+        return cuerpo
     except Exception:
         return None
 
@@ -155,6 +165,16 @@ def main() -> int:
         viejo = snap.read_text()
         if viejo == texto:
             print(f"[ok] sin cambios en {nombre}")
+            continue
+
+        # Guarda anti-basura: si el texto nuevo colapsa a menos del 40% del
+        # snapshot bueno, es casi seguro una descarga incompleta/bloqueada.
+        # No sobrescribimos ni reportamos "cambio".
+        n_viejo = len([l for l in viejo.split("\n") if l])
+        n_nuevo = len([l for l in texto.split("\n") if l])
+        if n_viejo >= 10 and n_nuevo < n_viejo * 0.4:
+            print(f"[warn] descarga sospechosa de {nombre} "
+                  f"({n_nuevo} vs {n_viejo} líneas); se ignora", file=sys.stderr)
             continue
 
         agregadas, quitadas = diff_lineas(viejo, texto)

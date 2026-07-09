@@ -1,0 +1,43 @@
+Términos y Condiciones — FacturaQR
+Factura
+Términos y Condiciones
+Última actualización: julio de 2026
+Estos Términos y Condiciones (“Términos”) regulan el uso de la plataforma
+FacturaQR
+(“el Servicio”). Al contratar o utilizar el Servicio, aceptas estos Términos.
+1. Descripción del Servicio
+FacturaQR es una plataforma de
+autofacturación
+que permite a los clientes de un comercio generar su Comprobante Fiscal Digital por Internet (CFDI 4.0) a partir de la fotografía de su ticket, y al comercio administrar sus facturas desde un panel. El timbrado se realiza a través de un Proveedor Autorizado de Certificación (PAC).
+2. Registro y cuenta del comercio
+El comercio es responsable de proporcionar datos fiscales correctos (RFC, régimen, domicilio) y de cargar un Certificado de Sello Digital (CSD) vigente.
+El comercio es responsable de mantener en secreto las credenciales de acceso a su panel.
+El comercio garantiza que cuenta con las facultades para emitir comprobantes fiscales bajo el RFC registrado.
+3. Planes y pagos
+Los planes vigentes (Local, Comercio y Cadena) y sus precios se muestran en la página de inicio, en pesos mexicanos (MXN) y con periodicidad mensual.
+El Servicio puede aplicar límites por plan (número de comercios y de facturas al mes).
+La falta de pago puede derivar en la suspensión temporal del Servicio.
+4. Responsabilidad fiscal
+FacturaQR es una herramienta tecnológica. La
+veracidad y validez fiscal
+de los datos emitidos (montos, conceptos, RFC del receptor) es responsabilidad del comercio emisor y del cliente que solicita la factura. FacturaQR no es asesor fiscal ni contable.
+5. Uso aceptable
+Te comprometes a no usar el Servicio para fines ilícitos, a no intentar vulnerar su seguridad y a no emitir comprobantes por operaciones inexistentes o simuladas.
+6. Disponibilidad
+Procuramos la máxima disponibilidad, pero el Servicio puede depender de terceros (PAC, proveedor de IA, hosting) y del SAT. No garantizamos que esté libre de interrupciones y no somos responsables por fallas atribuibles a dichos terceros.
+7. Limitación de responsabilidad
+En la medida permitida por la ley, FacturaQR no será responsable por daños indirectos o lucro cesante derivados del uso o imposibilidad de uso del Servicio.
+8. Modificaciones y contacto
+Podemos actualizar estos Términos; la versión vigente estará disponible en esta página. Dudas: WhatsApp
+614 106 2426
+andres.guru@gmail.com
+. Consulta también nuestro
+Aviso de Privacidad
+Este documento es una plantilla base y no constituye asesoría legal. Te recomendamos revisarlo con un profesional para adaptarlo a tu operación antes de publicarlo en definitiva.
+← Volver al inicio
+Factura
+Inicio
+Privacidad
+Términos
+WhatsApp 614 106 2426
+© 2026 FacturaQR · Autofacturación CFDI 4.0 · Hecho en México 🇲🇽
