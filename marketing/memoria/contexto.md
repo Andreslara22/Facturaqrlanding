@@ -1,7 +1,7 @@
 # Contexto del producto — FacturaQR (facturaqr.app)
 _Fuente de verdad sobre qué es y qué ofrece el producto. Todo agente lo lee
 junto con el briefing. Si la landing cambia, actualiza este archivo._
-_Actualizado: 2026-07-09 (extraído de la landing en producción)._
+_Actualizado: 2026-07-10 (precios a mercado: 499/999/2,999)._
 
 ## Qué es
 Autofacturación CFDI 4.0 para negocios en México. El negocio pone un **QR en su
@@ -34,9 +34,9 @@ vez desde el panel.
 ## Planes y precios (MXN/mes, sin costo de instalación ni contratos forzosos)
 | Plan | Precio | Incluye |
 |------|--------|---------|
-| **Local** | $5,000 | 1 comercio, hasta 1,000 facturas/mes, IA + timbrado + panel, cartel QR estándar (marca FacturaQR), soporte por correo (72 h) |
-| **Comercio** ★ más popular | $8,000 | Varias cajas/sucursales, hasta 3,000 facturas/mes, todo Local + marca propia en portal/cartel/correos, descarga masiva CSV/ZIP, soporte prioritario WhatsApp (24 h), reportes mensuales |
-| **Cadena** | $15,000 | Comercios y facturas ilimitados, todo Comercio + soporte dedicado el mismo día, onboarding y alta de CSD asistidos, panel multi-marca |
+| **Local** | $499 | 1 comercio, hasta 100 facturas/mes, IA + timbrado + panel, cartel QR estándar (marca FacturaQR), soporte por correo (72 h) |
+| **Comercio** ★ más popular | $999 | Hasta 3 sucursales, hasta 500 facturas/mes, todo Local + marca propia en portal/cartel/correos, descarga masiva CSV/ZIP, soporte prioritario WhatsApp (24 h), reportes mensuales |
+| **Cadena** | $2,999 | Comercios y facturas ilimitados, todo Comercio + soporte dedicado el mismo día, onboarding y alta de CSD asistidos, panel multi-marca |
 - **Prueba gratis: 10 facturas al registrarse, sin tarjeta y sin compromiso.**
 - Planes a la medida disponibles ("hablemos y te armamos uno").
 
