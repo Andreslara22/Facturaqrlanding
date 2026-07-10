@@ -34,6 +34,12 @@ El pipeline ya existe — NO lo reinventes:
    (modos: verificar/prueba/lanzamiento/diario). El cron diario (16:00 UTC)
    publica solo el siguiente de la cola; estado en `marketing/social/estado.json`.
 
+SÍ PUEDES dispararlo desde la sesión: usa la herramienta MCP de GitHub
+`actions_run_trigger` (repo Andreslara22/Facturaqrlanding, workflow
+`meta-publicador.yml`, ref `main`, input `modo`). NO necesitas `gh` CLI ni el
+token de Meta — el workflow lo toma de sus secrets. Verifica el resultado con
+`actions_list`/`get_job_logs`. Si el dueño pide "publica ya", este es el camino.
+
 El token de Meta vive SOLO en el secret `META_TOKEN` del repo. Nunca en el
 navegador, nunca en el chat, nunca en archivos.
 
