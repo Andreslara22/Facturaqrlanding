@@ -1,0 +1,31 @@
+# FacturaQR
+
+> Portal de autofacturación CFDI 4.0 para negocios en México. El comercio pega un cartel QR en su mostrador; sus clientes escanean, toman foto de su ticket y reciben su factura (PDF + XML, timbrada ante el SAT por un PAC autorizado) por correo en menos de un minuto. Lectura de tickets con inteligencia artificial, sin apps ni registros para el cliente final.
+
+Datos clave:
+- Planes: Local $499 MXN/mes (100 facturas), Comercio $999 MXN/mes (500 facturas, 3 sucursales, marca propia), Cadena $2,999 MXN/mes (ilimitado). Timbres incluidos.
+- Prueba gratis: 10 facturas reales (CFDI 4.0 válidos) sin tarjeta.
+- Soporta multi-sucursal (mismo RFC o RFCs distintos), cancelación con motivos SAT, reenvío por correo, descarga masiva de XML/CSV.
+- El cliente final puede facturar tickets de hasta 3 meses y prellenar sus datos con una foto de su Constancia de Situación Fiscal.
+
+## Páginas principales
+
+- [Inicio](https://facturaqr.app/): qué es FacturaQR, cómo funciona y precios.
+- [Registro / prueba gratis](https://portal.facturaqr.app/registro.php): crear cuenta con 10 facturas reales de regalo.
+- [Manual del comercio (PDF)](https://portal.facturaqr.app/guia-facturaqr.pdf): guía ilustrada de configuración (datos fiscales, CSD con Certifica del SAT, modo En vivo, cartel QR).
+
+## Guías del blog
+
+- [Cómo facturar un ticket con una foto en 1 minuto](https://facturaqr.app/blog/como-facturar-un-ticket-con-foto.php)
+- [Cuánto cuesta un portal de autofacturación en México (2026)](https://facturaqr.app/blog/cuanto-cuesta-portal-autofacturacion.php)
+- [Qué es el CSD y cómo sacarlo con Certifica del SAT](https://facturaqr.app/blog/que-es-csd-como-sacarlo-certifica.php)
+- [Qué es el CFDI 4.0 explicado fácil](https://facturaqr.app/blog/que-es-cfdi-4-0-explicado-facil.php)
+- [Autofacturación vs facturar a mano](https://facturaqr.app/blog/autofacturacion-vs-facturar-a-mano.php)
+- [Facturación para restaurantes sin fila](https://facturaqr.app/blog/facturacion-para-restaurantes-sin-fila.php)
+- [Facturación para gasolineras con QR](https://facturaqr.app/blog/facturacion-para-gasolineras-con-qr.php)
+- [Autofacturación para cafeterías, panaderías y food trucks](https://facturaqr.app/blog/autofacturacion-para-cafeterias.php)
+
+## Contacto
+
+- WhatsApp: +52 614 106 2426
+- Sitio: https://facturaqr.app · Portal: https://portal.facturaqr.app

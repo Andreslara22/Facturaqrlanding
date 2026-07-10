@@ -28,7 +28,10 @@
     {"@type":"ListItem","position":2,"url":"https://facturaqr.app/blog/facturacion-para-restaurantes-sin-fila.php","name":"Facturación para restaurantes: adiós fila en caja"},
     {"@type":"ListItem","position":3,"url":"https://facturaqr.app/blog/facturacion-para-gasolineras-con-qr.php","name":"Facturación para gasolineras con QR en la bomba"},
     {"@type":"ListItem","position":4,"url":"https://facturaqr.app/blog/que-es-cfdi-4-0-explicado-facil.php","name":"Qué es el CFDI 4.0 explicado fácil (sin líos)"},
-    {"@type":"ListItem","position":5,"url":"https://facturaqr.app/blog/autofacturacion-vs-facturar-a-mano.php","name":"Autofacturación vs facturar a mano: ¿qué conviene?"}
+    {"@type":"ListItem","position":5,"url":"https://facturaqr.app/blog/autofacturacion-vs-facturar-a-mano.php","name":"Autofacturación vs facturar a mano: ¿qué conviene?"},
+    {"@type":"ListItem","position":6,"url":"https://facturaqr.app/blog/cuanto-cuesta-portal-autofacturacion.php","name":"Cuánto cuesta un portal de autofacturación en México (2026)"},
+    {"@type":"ListItem","position":7,"url":"https://facturaqr.app/blog/que-es-csd-como-sacarlo-certifica.php","name":"Qué es el CSD y cómo sacarlo con Certifica del SAT"},
+    {"@type":"ListItem","position":8,"url":"https://facturaqr.app/blog/autofacturacion-para-cafeterias.php","name":"Autofacturación para cafeterías, panaderías y food trucks"}
  ]}}
 </script>
 <script>
@@ -98,6 +101,33 @@
       <span class="etiqueta">Comparativa</span>
       <h2>Autofacturación vs facturar a mano: ¿qué conviene?</h2>
       <p>Tiempo, errores y carga al personal: comparamos los dos métodos para que decidas con claridad qué le conviene a tu negocio.</p>
+      <span class="leer">Leer artículo →</span>
+    </div>
+  </a>
+  <a class="post-card" href="/blog/cuanto-cuesta-portal-autofacturacion.php">
+    <div class="thumb"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 300" role="img" aria-label="Comparativa de precios de autofacturación"><rect width="640" height="300" fill="#EFF4FF"/><circle cx="80" cy="60" r="90" fill="#DBEAFE" opacity=".6"/><circle cx="580" cy="260" r="110" fill="#DBEAFE" opacity=".5"/><rect x="130" y="160" width="90" height="80" rx="10" fill="#fff" stroke="#0F172A" stroke-width="3"/><rect x="260" y="120" width="90" height="120" rx="10" fill="#fff" stroke="#2563EB" stroke-width="4"/><rect x="390" y="80" width="90" height="160" rx="10" fill="#fff" stroke="#0F172A" stroke-width="3"/><text x="175" y="205" font-family="Arial" font-size="18" font-weight="bold" fill="#0F172A" text-anchor="middle">$</text><text x="305" y="185" font-family="Arial" font-size="22" font-weight="bold" fill="#2563EB" text-anchor="middle">$$</text><text x="435" y="165" font-family="Arial" font-size="24" font-weight="bold" fill="#0F172A" text-anchor="middle">$$$</text></svg></div>
+    <div class="cuerpo">
+      <span class="etiqueta">Precios</span>
+      <h2>Cuánto cuesta un portal de autofacturación en México (2026)</h2>
+      <p>De $99 a $2,800 al mes: comparamos el mercado real, qué incluye cada rango y los costos ocultos que debes preguntar.</p>
+      <span class="leer">Leer artículo →</span>
+    </div>
+  </a>
+  <a class="post-card" href="/blog/que-es-csd-como-sacarlo-certifica.php">
+    <div class="thumb"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 300" role="img" aria-label="Certificado de Sello Digital con archivos cer y key"><rect width="640" height="300" fill="#EFF4FF"/><circle cx="80" cy="60" r="90" fill="#DBEAFE" opacity=".6"/><circle cx="580" cy="260" r="110" fill="#DBEAFE" opacity=".5"/><rect x="210" y="55" width="220" height="190" rx="14" fill="#fff" stroke="#0F172A" stroke-width="3"/><circle cx="320" cy="115" r="32" fill="#EFF4FF" stroke="#2563EB" stroke-width="3"/><path d="M320 100 v18 M320 118 l11 11" stroke="#2563EB" stroke-width="5" stroke-linecap="round" fill="none"/><rect x="240" y="168" width="66" height="24" rx="12" fill="#EFF4FF" stroke="#2563EB" stroke-width="2"/><text x="273" y="185" font-family="Arial" font-size="13" font-weight="bold" fill="#2563EB" text-anchor="middle">.cer</text><rect x="334" y="168" width="66" height="24" rx="12" fill="#EFF4FF" stroke="#2563EB" stroke-width="2"/><text x="367" y="185" font-family="Arial" font-size="13" font-weight="bold" fill="#2563EB" text-anchor="middle">.key</text><rect x="258" y="205" width="124" height="18" rx="9" fill="#DCFCE7"/><text x="320" y="218" font-family="Arial" font-size="11" font-weight="bold" fill="#16A34A" text-anchor="middle">SELLO DIGITAL</text></svg></div>
+    <div class="cuerpo">
+      <span class="etiqueta">Trámites SAT</span>
+      <h2>Qué es el CSD y cómo sacarlo con Certifica del SAT</h2>
+      <p>CSD vs e.firma, el paso a paso en Certifica y CertiSAT Web, la contraseña que sí importa y por qué tarda 24–48 h en activar.</p>
+      <span class="leer">Leer artículo →</span>
+    </div>
+  </a>
+  <a class="post-card" href="/blog/autofacturacion-para-cafeterias.php">
+    <div class="thumb"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 300" role="img" aria-label="Cafetería con cartel QR de autofacturación"><rect width="640" height="300" fill="#EFF4FF"/><circle cx="80" cy="60" r="90" fill="#DBEAFE" opacity=".6"/><circle cx="580" cy="260" r="110" fill="#DBEAFE" opacity=".5"/><rect x="120" y="195" width="400" height="14" rx="7" fill="#0F172A"/><path d="M215 195 v-48 a13 13 0 0 1 13 -13 h40 a13 13 0 0 1 13 13 v48" fill="#fff" stroke="#0F172A" stroke-width="4"/><path d="M281 148 h14 a11 11 0 0 1 0 24 h-14" fill="none" stroke="#0F172A" stroke-width="4"/><path d="M230 122 c0 -9 9 -9 9 -18 M248 122 c0 -9 9 -9 9 -18" stroke="#94A3B8" stroke-width="4" stroke-linecap="round" fill="none"/><g transform="translate(380,105) rotate(4)"><rect width="92" height="96" rx="10" fill="#fff" stroke="#0F172A" stroke-width="3"/><g transform="translate(19,11)"><rect width="54" height="54" rx="8" fill="#fff" stroke="#0F172A" stroke-width="3"/><rect x="9" y="9" width="14" height="14" rx="3" fill="#2563EB"/><rect x="31" y="9" width="14" height="14" rx="3" fill="#0F172A"/><rect x="9" y="31" width="14" height="14" rx="3" fill="#0F172A"/><rect x="33" y="33" width="6" height="6" fill="#2563EB"/><rect x="41" y="41" width="6" height="6" fill="#2563EB"/></g><rect x="19" y="74" width="54" height="7" rx="3.5" fill="#2563EB"/></g></svg></div>
+    <div class="cuerpo">
+      <span class="etiqueta">Cafeterías</span>
+      <h2>Autofacturación para cafeterías, panaderías y food trucks</h2>
+      <p>Ticket bajo + hora pico = facturar a mano duele. El QR en tu barra factura solo mientras tú sirves cafés.</p>
       <span class="leer">Leer artículo →</span>
     </div>
   </a>
