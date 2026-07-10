@@ -98,6 +98,11 @@
   .chip svg{width:13px;height:13px;flex:none}
   .hint{font-size:10.5px;color:var(--mute-2)}
   .layer .hint{display:block;text-align:center;margin:12px 0 0}
+  .camp-link{
+    font-family:var(--display);font-size:11px;font-weight:700;color:var(--blue);
+    text-decoration:none;letter-spacing:.01em;
+  }
+  .camp-link:hover{text-decoration:underline}
 
   .c-rosa {--accent:#E11D48}
   .c-verde{--accent:#16A34A}
@@ -333,6 +338,7 @@
         <span class="chip"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 3c.4 2.2 1.8 3.9 4 4.3v3.1c-1.5 0-2.9-.5-4-1.3v6.3c0 3.6-2.5 6.1-5.9 6.1A5.8 5.8 0 0 1 5 15.7c0-3.3 2.6-5.9 6-5.7v3.2c-1.6-.3-2.9.8-2.9 2.4 0 1.5 1.1 2.6 2.6 2.6 1.7 0 2.8-1.2 2.8-3.1V3h3.1Z"/></svg>TikTok</span>
         <span class="chip"><svg viewBox="0 0 24 24" fill="#FF0000" aria-hidden="true"><rect x="2.5" y="6" width="19" height="12.5" rx="3.5"/><path d="M10.4 9.4v5.7l5-2.85-5-2.85Z" fill="#fff"/></svg>YouTube</span>
       </div>
+      <a class="camp-link" href="/campana.php" onclick="event.stopPropagation()">Ver campaña activa →</a>
       <span class="hint">toca para chatear</span>
     </div>
 
