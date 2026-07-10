@@ -1,19 +1,34 @@
-<?php header("Cache-Control: no-cache, no-store, must-revalidate"); header("Pragma: no-cache"); if (session_status() !== PHP_SESSION_ACTIVE) @session_start(); ?>
+<?php
+header("Cache-Control: no-cache, no-store, must-revalidate"); header("Pragma: no-cache"); if (session_status() !== PHP_SESSION_ACTIVE) @session_start();
+// ── Idioma (ES/EN): ?lang= → cookie → Accept-Language del navegador ──
+function fq_lang(): string {
+  static $l = null;
+  if ($l !== null) return $l;
+  $ok = fn($v) => ($v === 'es' || $v === 'en') ? $v : null;
+  if ($g = $ok($_GET['lang'] ?? '')) { @setcookie('fqr_lang', $g, ['expires' => time() + 31536000, 'path' => '/', 'samesite' => 'Lax']); return $l = $g; }
+  if ($c = $ok($_COOKIE['fqr_lang'] ?? '')) return $l = $c;
+  $al = strtolower(ltrim($_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? 'es'));
+  return $l = (strpos($al, 'en') === 0 ? 'en' : 'es');
+}
+function tr(string $es, string $en): string { return fq_lang() === 'en' ? $en : $es; }
+function lang_url(string $lang): string { $q = $_GET; $q['lang'] = $lang; return '?' . http_build_query($q); }
+fq_lang();
+?>
 <!DOCTYPE html>
-<html lang="es">
+<html lang="<?= fq_lang() ?>">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>FacturaQR — Tus clientes se facturan solos con una foto de su ticket</title>
-<meta name="description" content="Autofacturación CFDI 4.0 para tu negocio. Pon un QR en tu mostrador: tu cliente toma foto de su ticket, pone su RFC y recibe su factura por correo en menos de un minuto. Sin filas, sin capturar datos.">
+<title><?= tr('FacturaQR — Tus clientes se facturan solos con una foto de su ticket', 'FacturaQR — Your customers invoice themselves with a photo of their receipt') ?></title>
+<meta name="description" content="<?= tr('Autofacturación CFDI 4.0 para tu negocio. Pon un QR en tu mostrador: tu cliente toma foto de su ticket, pone su RFC y recibe su factura por correo en menos de un minuto. Sin filas, sin capturar datos.', 'CFDI 4.0 self-invoicing for your business in Mexico. Put a QR at your counter: your customer snaps a photo of their receipt, enters their RFC and gets their invoice by email in under a minute. No lines, no manual data entry.') ?>">
 <meta name="theme-color" content="#0F172A">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="keywords" content="autofacturación, facturación electrónica, factura con QR, CFDI 4.0, portal de autofacturación, facturación SAT, factura por foto del ticket, facturación restaurantes, facturación automática negocios">
 <meta name="author" content="FacturaQR">
 <meta property="og:site_name" content="FacturaQR">
-<meta property="og:title" content="FacturaQR — Autofacturación con una foto del ticket">
-<meta property="og:description" content="Pon un QR en tu mostrador y deja que tus clientes se facturen solos. CFDI 4.0 válido ante el SAT, en menos de un minuto.">
+<meta property="og:title" content="<?= tr('FacturaQR — Autofacturación con una foto del ticket', 'FacturaQR — Self-invoicing with a photo of the receipt') ?>">
+<meta property="og:description" content="<?= tr('Pon un QR en tu mostrador y deja que tus clientes se facturen solos. CFDI 4.0 válido ante el SAT, en menos de un minuto.', 'Put a QR at your counter and let your customers invoice themselves. SAT-valid CFDI 4.0 in under a minute.') ?>">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://facturaqr.app/">
 <meta property="og:locale" content="es_MX">
@@ -22,8 +37,8 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="FacturaQR — tus clientes se facturan solos con una foto de su ticket">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="FacturaQR — Autofacturación con una foto del ticket">
-<meta name="twitter:description" content="Pon un QR en tu mostrador y tus clientes se facturan solos. CFDI 4.0 válido ante el SAT, en menos de un minuto.">
+<meta name="twitter:title" content="<?= tr('FacturaQR — Autofacturación con una foto del ticket', 'FacturaQR — Self-invoicing with a photo of the receipt') ?>">
+<meta name="twitter:description" content="<?= tr('Pon un QR en tu mostrador y tus clientes se facturan solos. CFDI 4.0 válido ante el SAT, en menos de un minuto.', 'Put a QR at your counter and your customers invoice themselves. SAT-valid CFDI 4.0 in under a minute.') ?>">
 <meta name="twitter:image" content="https://facturaqr.app/og-image.png">
 <link rel="canonical" href="https://facturaqr.app/">
 
@@ -153,6 +168,12 @@
   .nav .cta{margin-left:2px;color:#fff}
   .nav .cta:hover{color:#fff}
   .nav .burger{display:none;margin-left:auto;background:none;border:0;font-size:26px;cursor:pointer;color:var(--ink)}
+  /* ── selector de idioma ES/EN ── */
+  .lang{display:inline-flex;align-items:center;border:1.6px solid var(--line);border-radius:100px;padding:3px;gap:2px}
+  .lang a{font-family:'Poppins';font-weight:800;font-size:11.5px;letter-spacing:.04em;padding:5px 10px;border-radius:100px;color:var(--mute)}
+  .lang a.on{background:var(--ink);color:#fff}
+  .lang a:not(.on):hover{color:var(--blue)}
+  .mmenu .lang{align-self:flex-start;margin-top:14px}
   @media(max-width:820px){.nav nav{display:none}.nav .burger{display:block}}
 
   /* ── hero ── */
@@ -488,28 +509,30 @@
       Factura<span class="t2">QR</span>
     </a>
     <nav>
-      <a class="navlink" href="#como">Cómo funciona</a>
-      <a class="navlink" href="#beneficios">Beneficios</a>
-      <a class="navlink" href="#panel">Panel</a>
-      <a class="navlink" href="#precio">Precio</a>
+      <a class="navlink" href="#como"><?= tr('Cómo funciona', 'How it works') ?></a>
+      <a class="navlink" href="#beneficios"><?= tr('Beneficios', 'Benefits') ?></a>
+      <a class="navlink" href="#panel"><?= tr('Panel', 'Dashboard') ?></a>
+      <a class="navlink" href="#precio"><?= tr('Precio', 'Pricing') ?></a>
       <a class="navlink" href="/blog/">Blog</a>
-      <a class="btn btn-blue cta" href="https://portal.facturaqr.app/registro.php" target="_blank" rel="noopener">Prueba gratis</a>
+      <div class="lang" aria-label="Idioma / Language"><a href="<?= htmlspecialchars(lang_url('es')) ?>" class="<?= fq_lang()==='es'?'on':'' ?>">ES</a><a href="<?= htmlspecialchars(lang_url('en')) ?>" class="<?= fq_lang()==='en'?'on':'' ?>">EN</a></div>
+      <a class="btn btn-blue cta" href="https://portal.facturaqr.app/registro.php" target="_blank" rel="noopener"><?= tr('Prueba gratis', 'Free trial') ?></a>
     </nav>
-    <button class="burger" aria-label="Abrir menú" onclick="document.getElementById('mm').classList.add('on')">☰</button>
+    <button class="burger" aria-label="<?= tr('Abrir menú', 'Open menu') ?>" onclick="document.getElementById('mm').classList.add('on')">☰</button>
   </div>
 </header>
 
 <div class="mmenu" id="mm" onclick="if(event.target===this)this.classList.remove('on')">
   <div class="panel">
-    <button class="x" aria-label="Cerrar" onclick="document.getElementById('mm').classList.remove('on')">×</button>
-    <a href="#como" onclick="document.getElementById('mm').classList.remove('on')">Cómo funciona</a>
-    <a href="#beneficios" onclick="document.getElementById('mm').classList.remove('on')">Beneficios</a>
-    <a href="#panel" onclick="document.getElementById('mm').classList.remove('on')">Panel</a>
-    <a href="#precio" onclick="document.getElementById('mm').classList.remove('on')">Precio</a>
-    <a href="#faq" onclick="document.getElementById('mm').classList.remove('on')">Preguntas</a>
+    <button class="x" aria-label="<?= tr('Cerrar', 'Close') ?>" onclick="document.getElementById('mm').classList.remove('on')">×</button>
+    <a href="#como" onclick="document.getElementById('mm').classList.remove('on')"><?= tr('Cómo funciona', 'How it works') ?></a>
+    <a href="#beneficios" onclick="document.getElementById('mm').classList.remove('on')"><?= tr('Beneficios', 'Benefits') ?></a>
+    <a href="#panel" onclick="document.getElementById('mm').classList.remove('on')"><?= tr('Panel', 'Dashboard') ?></a>
+    <a href="#precio" onclick="document.getElementById('mm').classList.remove('on')"><?= tr('Precio', 'Pricing') ?></a>
+    <a href="#faq" onclick="document.getElementById('mm').classList.remove('on')"><?= tr('Preguntas', 'FAQ') ?></a>
     <a href="/blog/">Blog</a>
-    <a href="https://portal.facturaqr.app/?c=ejemplo&amp;demo=1" target="_blank" rel="noopener">Ver demo en vivo</a>
-    <a class="btn btn-blue" href="https://portal.facturaqr.app/registro.php" target="_blank" rel="noopener">Probar gratis — 10 facturas</a>
+    <a href="https://portal.facturaqr.app/?c=ejemplo&amp;demo=1" target="_blank" rel="noopener"><?= tr('Ver demo en vivo', 'See live demo') ?></a>
+    <a class="btn btn-blue" href="https://portal.facturaqr.app/registro.php" target="_blank" rel="noopener"><?= tr('Probar gratis — 10 facturas', 'Try free — 10 invoices') ?></a>
+    <div class="lang" aria-label="Idioma / Language"><a href="<?= htmlspecialchars(lang_url('es')) ?>" class="<?= fq_lang()==='es'?'on':'' ?>">ES</a><a href="<?= htmlspecialchars(lang_url('en')) ?>" class="<?= fq_lang()==='en'?'on':'' ?>">EN</a></div>
   </div>
 </div>
 
@@ -518,37 +541,37 @@
   <section class="hero">
     <div class="wrap">
       <div>
-        <span class="eyebrow">Autofacturación · CFDI 4.0</span>
-        <h1>Tus clientes se facturan solos con una <span class="hl">foto de su ticket</span>.</h1>
-        <p class="lead">Pon un QR en tu mostrador. Tu cliente toma la foto, escribe su RFC y recibe su factura por correo en menos de un minuto. Sin filas, sin capturar datos, sin que tu personal pierda el turno.</p>
-        <div class="regalo">🎁<span><b>10 facturas gratis</b> al registrarte · sin tarjeta</span></div>
+        <span class="eyebrow"><?= tr('Autofacturación · CFDI 4.0', 'Self-invoicing · CFDI 4.0') ?></span>
+        <h1><?= tr('Tus clientes se facturan solos con una <span class="hl">foto de su ticket</span>.', 'Your customers invoice themselves with a <span class="hl">photo of their receipt</span>.') ?></h1>
+        <p class="lead"><?= tr('Pon un QR en tu mostrador. Tu cliente toma la foto, escribe su RFC y recibe su factura por correo en menos de un minuto. Sin filas, sin capturar datos, sin que tu personal pierda el turno.', 'Put a QR at your counter. Your customer snaps a photo, enters their RFC and gets their invoice by email in under a minute. No lines, no data entry, no slowing down your staff.') ?></p>
+        <div class="regalo">🎁<span><?= tr('<b>10 facturas gratis</b> al registrarte · sin tarjeta', '<b>10 free invoices</b> when you sign up · no credit card') ?></span></div>
         <div class="cta-row">
-          <a class="btn btn-blue" href="https://portal.facturaqr.app/registro.php" target="_blank" rel="noopener">Registro gratis →</a>
-          <a class="btn btn-dark" href="https://portal.facturaqr.app/?c=ejemplo&amp;demo=1" target="_blank" rel="noopener">Ver demo en vivo</a>
+          <a class="btn btn-blue" href="https://portal.facturaqr.app/registro.php" target="_blank" rel="noopener"><?= tr('Registro gratis →', 'Sign up free →') ?></a>
+          <a class="btn btn-dark" href="https://portal.facturaqr.app/?c=ejemplo&amp;demo=1" target="_blank" rel="noopener"><?= tr('Ver demo en vivo', 'See live demo') ?></a>
         </div>
         <div class="trust">
-          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> CFDI 4.0 timbrado ante el SAT</span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> Tu cliente no instala nada</span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> Listo en minutos</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <?= tr('CFDI 4.0 timbrado ante el SAT', 'CFDI 4.0 certified with the SAT') ?></span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <?= tr('Tu cliente no instala nada', 'Your customer installs nothing') ?></span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <?= tr('Listo en minutos', 'Ready in minutes') ?></span>
         </div>
       </div>
 
       <div class="mock">
-        <div class="float f1"><span class="ic" style="background:var(--blue-soft);color:var(--blue)">📷</span><div>Foto del ticket<small>La IA lo lee sola</small></div></div>
-        <div class="float f2"><span class="ic" style="background:var(--ok-soft);color:var(--ok)">✓</span><div>Factura enviada<small>PDF + XML al correo</small></div></div>
+        <div class="float f1"><span class="ic" style="background:var(--blue-soft);color:var(--blue)">📷</span><div><?= tr('Foto del ticket', 'Photo of the receipt') ?><small><?= tr('La IA lo lee sola', 'AI reads it on its own') ?></small></div></div>
+        <div class="float f2"><span class="ic" style="background:var(--ok-soft);color:var(--ok)">✓</span><div><?= tr('Factura enviada', 'Invoice sent') ?><small><?= tr('PDF + XML al correo', 'PDF + XML by email') ?></small></div></div>
         <div class="phone">
           <div class="screen">
             <div class="brand"><span class="wm"><span class="qmark"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#qr"/></svg></span>Factura<span class="t2">QR</span></span></div>
             <div class="prog"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div>
             <div class="ticket">
               <div class="bar"></div>
-              <div class="trow"><b>Comercio</b><span>Tu Negocio</span></div>
-              <div class="trow"><b>Folio</b><span>A-6634</span></div>
-              <div class="trow"><b>Fecha</b><span>Hoy</span></div>
+              <div class="trow"><b><?= tr('Comercio', 'Business') ?></b><span><?= tr('Tu Negocio', 'Your Business') ?></span></div>
+              <div class="trow"><b><?= tr('Folio', 'Receipt no.') ?></b><span>A-6634</span></div>
+              <div class="trow"><b><?= tr('Fecha', 'Date') ?></b><span><?= tr('Hoy', 'Today') ?></span></div>
               <div class="trow big"><b>Total</b><span>$500.00</span></div>
-              <div class="stamp"><em>✓</em>TIMBRADO</div>
+              <div class="stamp"><em>✓</em><?= tr('TIMBRADO', 'CERTIFIED') ?></div>
             </div>
-            <div class="done">Enviamos tu factura por correo ✓</div>
+            <div class="done"><?= tr('Enviamos tu factura por correo ✓', 'We emailed your invoice ✓') ?></div>
           </div>
         </div>
       </div>
@@ -558,10 +581,10 @@
   <!-- STAT STRIP -->
   <div class="strip">
     <div class="wrap">
-      <div class="stat"><b>&lt; 1 min</b><span>de la foto a la factura</span></div>
-      <div class="stat"><b>0</b><span>datos que captura tu cajero</span></div>
-      <div class="stat"><b>CFDI 4.0</b><span>válido ante el SAT</span></div>
-      <div class="stat"><b>PDF + XML</b><span>directo al correo del cliente</span></div>
+      <div class="stat"><b>&lt; 1 min</b><span><?= tr('de la foto a la factura', 'from photo to invoice') ?></span></div>
+      <div class="stat"><b>0</b><span><?= tr('datos que captura tu cajero', 'fields your cashier types in') ?></span></div>
+      <div class="stat"><b>CFDI 4.0</b><span><?= tr('válido ante el SAT', 'valid with the SAT') ?></span></div>
+      <div class="stat"><b>PDF + XML</b><span><?= tr('directo al correo del cliente', 'straight to your customer\'s inbox') ?></span></div>
     </div>
   </div>
 
@@ -570,27 +593,27 @@
     <div class="blob b1"></div>
     <div class="wrap">
       <div class="sec-head">
-        <span class="eyebrow">Cómo funciona</span>
-        <h2>Tres pasos. Cero fricción en tu mostrador.</h2>
-        <p class="lead">Tu cliente hace todo desde su celular. Tú solo pones el QR una vez.</p>
+        <span class="eyebrow"><?= tr('Cómo funciona', 'How it works') ?></span>
+        <h2><?= tr('Tres pasos. Cero fricción en tu mostrador.', 'Three steps. Zero friction at your counter.') ?></h2>
+        <p class="lead"><?= tr('Tu cliente hace todo desde su celular. Tú solo pones el QR una vez.', 'Your customer does everything from their phone. You just put up the QR once.') ?></p>
       </div>
       <div class="steps">
         <div class="step reveal">
           <div class="num"></div>
-          <b>Escanea el QR</b>
-          <p>Desde la cámara de su celular, sin apps ni registro. Se abre el portal con tu logo.</p>
+          <b><?= tr('Escanea el QR', 'Scan the QR') ?></b>
+          <p><?= tr('Desde la cámara de su celular, sin apps ni registro. Se abre el portal con tu logo.', 'Right from their phone camera — no apps, no sign-up. Your branded portal opens.') ?></p>
           <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </div>
         <div class="step reveal">
           <div class="num"></div>
-          <b>Toma foto del ticket</b>
-          <p>La inteligencia artificial lee el folio, la fecha y el total al instante. Nadie teclea cantidades.</p>
+          <b><?= tr('Toma foto del ticket', 'Snap a photo of the receipt') ?></b>
+          <p><?= tr('La inteligencia artificial lee el folio, la fecha y el total al instante. Nadie teclea cantidades.', 'AI reads the receipt number, date and total instantly. Nobody types in amounts.') ?></p>
           <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </div>
         <div class="step reveal">
           <div class="num"></div>
-          <b>Recibe su CFDI</b>
-          <p>Pone su RFC y correo, y le llega el PDF y el XML timbrados. En segundos, no al día siguiente.</p>
+          <b><?= tr('Recibe su CFDI', 'Get their CFDI') ?></b>
+          <p><?= tr('Pone su RFC y correo, y le llega el PDF y el XML timbrados. En segundos, no al día siguiente.', 'They enter their RFC and email, and the certified PDF and XML arrive. In seconds, not the next day.') ?></p>
         </div>
       </div>
     </div>
@@ -600,27 +623,27 @@
   <section id="compara">
     <div class="wrap">
       <div class="sec-head">
-        <span class="eyebrow">Antes y después</span>
-        <h2>Deja atrás la facturación de mostrador.</h2>
-        <p class="lead">El cambio se nota el mismo día que pegas tu QR en la caja.</p>
+        <span class="eyebrow"><?= tr('Antes y después', 'Before and after') ?></span>
+        <h2><?= tr('Deja atrás la facturación de mostrador.', 'Leave counter invoicing behind.') ?></h2>
+        <p class="lead"><?= tr('El cambio se nota el mismo día que pegas tu QR en la caja.', 'You feel the difference the same day you put your QR at the register.') ?></p>
       </div>
       <div class="vs">
         <div class="vs-col bad reveal">
-          <h3><span class="tag">Sin FacturaQR</span></h3>
+          <h3><span class="tag"><?= tr('Sin FacturaQR', 'Without FacturaQR') ?></span></h3>
           <ul>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M18 6 6 18M6 6l12 12"/></svg> Tu cajero captura RFC, correo y uso de CFDI a mano, con la fila esperando.</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M18 6 6 18M6 6l12 12"/></svg> Errores de dedo: facturas rechazadas, refacturaciones y clientes molestos.</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M18 6 6 18M6 6l12 12"/></svg> «Mándenos su ticket por correo y mañana le enviamos su factura.»</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M18 6 6 18M6 6l12 12"/></svg> Facturas regadas en correos y carpetas, sin control ni respaldo.</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M18 6 6 18M6 6l12 12"/></svg> <?= tr('Tu cajero captura RFC, correo y uso de CFDI a mano, con la fila esperando.', 'Your cashier types in RFC, email and CFDI use by hand while the line waits.') ?></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M18 6 6 18M6 6l12 12"/></svg> <?= tr('Errores de dedo: facturas rechazadas, refacturaciones y clientes molestos.', 'Typos everywhere: rejected invoices, re-issues and annoyed customers.') ?></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M18 6 6 18M6 6l12 12"/></svg> <?= tr('«Mándenos su ticket por correo y mañana le enviamos su factura.»', '“Email us your receipt and we\'ll send your invoice tomorrow.”') ?></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M18 6 6 18M6 6l12 12"/></svg> <?= tr('Facturas regadas en correos y carpetas, sin control ni respaldo.', 'Invoices scattered across inboxes and folders, with no control or backup.') ?></li>
           </ul>
         </div>
         <div class="vs-col good reveal">
-          <h3><span class="tag">Con FacturaQR</span></h3>
+          <h3><span class="tag"><?= tr('Con FacturaQR', 'With FacturaQR') ?></span></h3>
           <ul>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> Tu cliente escanea el QR y se factura solo, desde su mesa o desde su casa.</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> La IA lee el ticket sin errores y cada folio se factura una sola vez.</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> CFDI 4.0 timbrado y enviado por correo en menos de un minuto.</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> Todo queda en tu panel: busca, filtra, descarga en CSV/ZIP y cancela.</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <?= tr('Tu cliente escanea el QR y se factura solo, desde su mesa o desde su casa.', 'Your customer scans the QR and invoices themselves — from their table or from home.') ?></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <?= tr('La IA lee el ticket sin errores y cada folio se factura una sola vez.', 'AI reads the receipt with no errors, and each receipt can only be invoiced once.') ?></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <?= tr('CFDI 4.0 timbrado y enviado por correo en menos de un minuto.', 'CFDI 4.0 certified and emailed in under a minute.') ?></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <?= tr('Todo queda en tu panel: busca, filtra, descarga en CSV/ZIP y cancela.', 'Everything lands in your dashboard: search, filter, download CSV/ZIP and cancel.') ?></li>
           </ul>
         </div>
       </div>
@@ -632,16 +655,16 @@
     <div class="blob b2"></div>
     <div class="wrap">
       <div class="sec-head">
-        <span class="eyebrow">Por qué los negocios lo eligen</span>
-        <h2>Menos trabajo en caja, clientes más contentos.</h2>
+        <span class="eyebrow"><?= tr('Por qué los negocios lo eligen', 'Why businesses choose it') ?></span>
+        <h2><?= tr('Menos trabajo en caja, clientes más contentos.', 'Less work at the register, happier customers.') ?></h2>
       </div>
       <div class="cards">
-        <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><b>Se acaba la fila del mostrador</b><p>Tus cajeros dejan de capturar RFCs uno por uno. El cliente se factura solo, incluso desde su casa.</p></div>
-        <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v3"/></svg></div><b>Lectura con inteligencia artificial</b><p>La IA interpreta el ticket: folio, fecha, subtotal, IVA y total. Sin errores de dedo, sin re-teclear.</p></div>
-        <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c1.66 0 3.22.45 4.56 1.24"/></svg></div><b>CFDI 4.0 válido ante el SAT</b><p>Timbrado real vía PAC autorizado. El cliente recibe PDF y XML listos para su contabilidad.</p></div>
-        <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></div><b>Cero instalación para el cliente</b><p>Es una página web. Abre el link, factura y listo. Funciona en cualquier celular.</p></div>
-        <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6"/><rect x="12" y="8" width="3" height="10"/><rect x="17" y="4" width="3" height="14"/></svg></div><b>Tu panel de control</b><p>Todas tus facturas en un lugar: busca, filtra, descarga en CSV o ZIP y cancela con un clic.</p></div>
-        <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r="2.5"/><circle cx="6.5" cy="12" r="2.5"/><circle cx="15" cy="16.5" r="2.5"/><path d="M12 2a10 10 0 1 0 10 10"/></svg></div><b>Con tu marca</b><p>Tu logo, tu nombre y tus colores en el portal y en el cartel. El cliente ve tu negocio, no el nuestro.</p></div>
+        <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><b><?= tr('Se acaba la fila del mostrador', 'No more line at the counter') ?></b><p><?= tr('Tus cajeros dejan de capturar RFCs uno por uno. El cliente se factura solo, incluso desde su casa.', 'Your cashiers stop typing in RFCs one by one. Customers invoice themselves, even from home.') ?></p></div>
+        <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v3"/></svg></div><b><?= tr('Lectura con inteligencia artificial', 'AI-powered receipt reading') ?></b><p><?= tr('La IA interpreta el ticket: folio, fecha, subtotal, IVA y total. Sin errores de dedo, sin re-teclear.', 'AI parses the receipt: number, date, subtotal, VAT and total. No typos, no re-typing.') ?></p></div>
+        <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c1.66 0 3.22.45 4.56 1.24"/></svg></div><b><?= tr('CFDI 4.0 válido ante el SAT', 'CFDI 4.0 valid with the SAT') ?></b><p><?= tr('Timbrado real vía PAC autorizado. El cliente recibe PDF y XML listos para su contabilidad.', 'Real certification via an authorized PAC. Customers get PDF and XML ready for their accounting.') ?></p></div>
+        <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></div><b><?= tr('Cero instalación para el cliente', 'Zero install for your customer') ?></b><p><?= tr('Es una página web. Abre el link, factura y listo. Funciona en cualquier celular.', 'It\'s a web page. Open the link, invoice, done. Works on any phone.') ?></p></div>
+        <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6"/><rect x="12" y="8" width="3" height="10"/><rect x="17" y="4" width="3" height="14"/></svg></div><b><?= tr('Tu panel de control', 'Your dashboard') ?></b><p><?= tr('Todas tus facturas en un lugar: busca, filtra, descarga en CSV o ZIP y cancela con un clic.', 'All your invoices in one place: search, filter, download as CSV or ZIP and cancel in one click.') ?></p></div>
+        <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r="2.5"/><circle cx="6.5" cy="12" r="2.5"/><circle cx="15" cy="16.5" r="2.5"/><path d="M12 2a10 10 0 1 0 10 10"/></svg></div><b><?= tr('Con tu marca', 'With your brand') ?></b><p><?= tr('Tu logo, tu nombre y tus colores en el portal y en el cartel. El cliente ve tu negocio, no el nuestro.', 'Your logo, your name and your colors on the portal and the poster. Customers see your business, not ours.') ?></p></div>
       </div>
     </div>
   </section>
@@ -650,21 +673,21 @@
   <section class="dark">
     <div class="wrap">
       <div>
-        <span class="eyebrow">Un QR que trabaja por ti</span>
-        <h2>Imprímelo, pégalo en tu caja y olvídate.</h2>
-        <p class="lead">Generamos tu cartel listo para imprimir con tu logo y tu QR. El mismo código sirve para todos tus clientes, todos los días.</p>
+        <span class="eyebrow"><?= tr('Un QR que trabaja por ti', 'A QR that works for you') ?></span>
+        <h2><?= tr('Imprímelo, pégalo en tu caja y olvídate.', 'Print it, stick it at your register and forget about it.') ?></h2>
+        <p class="lead"><?= tr('Generamos tu cartel listo para imprimir con tu logo y tu QR. El mismo código sirve para todos tus clientes, todos los días.', 'We generate a print-ready poster with your logo and your QR. The same code works for every customer, every day.') ?></p>
         <ul>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> Un solo QR para todo tu negocio</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> Cartel con tu marca, listo para imprimir</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> También va en tu ticket, recibo o WhatsApp</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <?= tr('Un solo QR para todo tu negocio', 'One QR for your whole business') ?></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <?= tr('Cartel con tu marca, listo para imprimir', 'A branded poster, ready to print') ?></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <?= tr('También va en tu ticket, recibo o WhatsApp', 'It also fits on your receipt, invoice or WhatsApp') ?></li>
         </ul>
       </div>
       <div class="cartel">
-        <div class="k">Factura tu ticket</div>
-        <h3>Escanea y listo</h3>
-        <p>Toma foto de tu ticket y recibe tu factura CFDI en tu correo.</p>
-        <div class="qr"><svg viewBox="0 0 100 100" style="color:var(--ink)" aria-label="Código QR de ejemplo"><use href="#qr"/></svg></div>
-        <div class="foot">Tu Negocio · CFDI 4.0</div>
+        <div class="k"><?= tr('Factura tu ticket', 'Invoice your receipt') ?></div>
+        <h3><?= tr('Escanea y listo', 'Scan and done') ?></h3>
+        <p><?= tr('Toma foto de tu ticket y recibe tu factura CFDI en tu correo.', 'Snap a photo of your receipt and get your CFDI invoice by email.') ?></p>
+        <div class="qr"><svg viewBox="0 0 100 100" style="color:var(--ink)" aria-label="<?= tr('Código QR de ejemplo', 'Sample QR code') ?>"><use href="#qr"/></svg></div>
+        <div class="foot"><?= tr('Tu Negocio', 'Your Business') ?> · CFDI 4.0</div>
       </div>
     </div>
   </section>
@@ -673,24 +696,24 @@
   <section id="panel" class="dots">
     <div class="wrap split">
       <div>
-        <span class="eyebrow">Tu panel de control</span>
-        <h2>Toda tu facturación, en una sola pantalla.</h2>
-        <p class="lead">Entra con tu correo y tu llave. Sin instalar programas, desde cualquier dispositivo.</p>
+        <span class="eyebrow"><?= tr('Tu panel de control', 'Your dashboard') ?></span>
+        <h2><?= tr('Toda tu facturación, en una sola pantalla.', 'All your invoicing, on a single screen.') ?></h2>
+        <p class="lead"><?= tr('Entra con tu correo y tu llave. Sin instalar programas, desde cualquier dispositivo.', 'Log in with your email and your key. Nothing to install, from any device.') ?></p>
         <ul>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> Busca y filtra por RFC, folio o fecha</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> Descarga masiva en CSV y ZIP (PDF + XML)</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> Reenvía o cancela con motivo SAT en un clic</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> Aviso automático cuando tu CSD está por vencer</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <?= tr('Busca y filtra por RFC, folio o fecha', 'Search and filter by RFC, receipt number or date') ?></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <?= tr('Descarga masiva en CSV y ZIP (PDF + XML)', 'Bulk download as CSV and ZIP (PDF + XML)') ?></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <?= tr('Reenvía o cancela con motivo SAT en un clic', 'Resend or cancel with a SAT reason in one click') ?></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <?= tr('Aviso automático cuando tu CSD está por vencer', 'Automatic alert when your CSD is about to expire') ?></li>
         </ul>
-        <a class="btn btn-dark" href="https://portal.facturaqr.app/?c=ejemplo&amp;demo=1" target="_blank" rel="noopener" style="margin-top:26px">Probar el flujo completo →</a>
+        <a class="btn btn-dark" href="https://portal.facturaqr.app/?c=ejemplo&amp;demo=1" target="_blank" rel="noopener" style="margin-top:26px"><?= tr('Probar el flujo completo →', 'Try the full flow →') ?></a>
       </div>
       <div class="dash reveal">
         <div class="top"><i></i><i></i><i></i></div>
         <div class="body">
           <div class="kpis">
-            <div class="kpi"><b class="count" data-to="1284">1,284</b><span>Facturas</span></div>
-            <div class="kpi"><b class="count" data-to="642" data-prefix="$" data-suffix="k">$642k</b><span>Facturado</span></div>
-            <div class="kpi"><b class="count" data-to="3">3</b><span>Canceladas</span></div>
+            <div class="kpi"><b class="count" data-to="1284">1,284</b><span><?= tr('Facturas', 'Invoices') ?></span></div>
+            <div class="kpi"><b class="count" data-to="642" data-prefix="$" data-suffix="k">$642k</b><span><?= tr('Facturado', 'Invoiced') ?></span></div>
+            <div class="kpi"><b class="count" data-to="3">3</b><span><?= tr('Canceladas', 'Canceled') ?></span></div>
           </div>
           <div class="chart" id="chart" aria-hidden="true">
             <i style="height:38%"></i><i style="height:54%"></i><i style="height:47%"></i><i style="height:70%"></i><i style="height:60%"></i><i style="height:82%"></i><i style="height:74%"></i><i style="height:95%"></i><i style="height:66%"></i><i style="height:88%"></i><i style="height:78%"></i><i style="height:100%"></i>
@@ -705,15 +728,15 @@
     <div class="blob b1"></div>
     <div class="wrap">
       <div class="sec-head" style="margin-inline:auto;text-align:center">
-        <span class="eyebrow">Para tu giro</span>
-        <h2>Si entregas ticket, FacturaQR es para ti.</h2>
-        <p class="lead" style="margin-inline:auto">El mismo QR funciona igual de bien en un restaurante que en una gasolinera o una tienda.</p>
+        <span class="eyebrow"><?= tr('Para tu giro', 'For your industry') ?></span>
+        <h2><?= tr('Si entregas ticket, FacturaQR es para ti.', 'If you hand out receipts, FacturaQR is for you.') ?></h2>
+        <p class="lead" style="margin-inline:auto"><?= tr('El mismo QR funciona igual de bien en un restaurante que en una gasolinera o una tienda.', 'The same QR works just as well in a restaurant as in a gas station or a store.') ?></p>
       </div>
       <div class="giros">
-        <div class="giro reveal"><span class="em">🍽️</span><b>Restaurantes y cafeterías</b><p>El comensal se factura desde su mesa, sin detener al mesero ni hacer fila en caja.</p></div>
-        <div class="giro reveal"><span class="em">⛽</span><b>Gasolineras</b><p>El QR va en la bomba o en el ticket: el cliente factura sin bajarse del coche.</p></div>
-        <div class="giro reveal"><span class="em">🛍️</span><b>Tiendas y farmacias</b><p>Se acaba la fila de atención a clientes y las capturas de RFC en el mostrador.</p></div>
-        <div class="giro reveal"><span class="em">🔧</span><b>Talleres y servicios</b><p>Entregas el ticket y listo: tu cliente se factura cuando quiera, hasta desde su casa.</p></div>
+        <div class="giro reveal"><span class="em">🍽️</span><b><?= tr('Restaurantes y cafeterías', 'Restaurants and cafés') ?></b><p><?= tr('El comensal se factura desde su mesa, sin detener al mesero ni hacer fila en caja.', 'Diners invoice from their table, without stopping the waiter or lining up at the register.') ?></p></div>
+        <div class="giro reveal"><span class="em">⛽</span><b><?= tr('Gasolineras', 'Gas stations') ?></b><p><?= tr('El QR va en la bomba o en el ticket: el cliente factura sin bajarse del coche.', 'The QR goes on the pump or the receipt: customers invoice without leaving their car.') ?></p></div>
+        <div class="giro reveal"><span class="em">🛍️</span><b><?= tr('Tiendas y farmacias', 'Stores and pharmacies') ?></b><p><?= tr('Se acaba la fila de atención a clientes y las capturas de RFC en el mostrador.', 'No more customer-service line or RFC typing at the counter.') ?></p></div>
+        <div class="giro reveal"><span class="em">🔧</span><b><?= tr('Talleres y servicios', 'Shops and services') ?></b><p><?= tr('Entregas el ticket y listo: tu cliente se factura cuando quiera, hasta desde su casa.', 'Hand over the receipt and that\'s it: your customer invoices whenever they want, even from home.') ?></p></div>
       </div>
     </div>
   </section>
@@ -722,62 +745,62 @@
   <section id="precio" class="bg-paper">
     <div class="wrap">
       <div class="sec-head" style="margin-inline:auto;text-align:center">
-        <span class="eyebrow">Precio</span>
-        <h2>Planes claros, sin sorpresas.</h2>
-        <p class="lead" style="margin-inline:auto">Elige según el tamaño de tu operación. Sin costo de instalación y sin contratos forzosos.</p>
+        <span class="eyebrow"><?= tr('Precio', 'Pricing') ?></span>
+        <h2><?= tr('Planes claros, sin sorpresas.', 'Clear plans, no surprises.') ?></h2>
+        <p class="lead" style="margin-inline:auto"><?= tr('Elige según el tamaño de tu operación. Sin costo de instalación y sin contratos forzosos.', 'Pick by the size of your operation. No setup fee and no lock-in contracts.') ?></p>
       </div>
       <div class="tiers">
 
         <div class="tier reveal">
           <div class="tk">Local</div>
-          <div class="amt"><b>$499</b><span>/ mes</span></div>
-          <p class="tsub">Lo esencial para dejar de facturar a mano en el mostrador.</p>
+          <div class="amt"><b>$499</b><span>/ <?= tr('mes', 'mo') ?></span></div>
+          <p class="tsub"><?= tr('Lo esencial para dejar de facturar a mano en el mostrador.', 'The essentials to stop invoicing by hand at the counter.') ?></p>
           <ul>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <span><b>1</b> comercio / punto de venta</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <span>Hasta <b>100</b> facturas al mes</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> Lectura de tickets con IA</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> Timbrado CFDI 4.0 + envío por correo</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> Panel de facturas (consulta y cancelación)</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> Cartel QR estándar (marca FacturaQR)</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> Soporte por correo (72 h)</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <span><?= tr('<b>1</b> comercio / punto de venta', '<b>1</b> business / point of sale') ?></span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <span><?= tr('Hasta <b>100</b> facturas al mes', 'Up to <b>100</b> invoices per month') ?></span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <?= tr('Lectura de tickets con IA', 'AI receipt reading') ?></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <?= tr('Timbrado CFDI 4.0 + envío por correo', 'CFDI 4.0 certification + email delivery') ?></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <?= tr('Panel de facturas (consulta y cancelación)', 'Invoice dashboard (search and cancellation)') ?></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <?= tr('Cartel QR estándar (marca FacturaQR)', 'Standard QR poster (FacturaQR brand)') ?></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <?= tr('Soporte por correo (72 h)', 'Email support (72 h)') ?></li>
           </ul>
-          <a class="btn btn-ghost" href="https://portal.facturaqr.app/registro.php?plan=local" target="_blank" rel="noopener">Empezar con Local →</a>
+          <a class="btn btn-ghost" href="https://portal.facturaqr.app/registro.php?plan=local" target="_blank" rel="noopener"><?= tr('Empezar con Local →', 'Start with Local →') ?></a>
         </div>
 
         <div class="tier featured reveal">
-          <div class="badge">★ Más popular</div>
+          <div class="badge">★ <?= tr('Más popular', 'Most popular') ?></div>
           <div class="tk">Comercio</div>
-          <div class="amt"><b>$999</b><span>/ mes</span></div>
-          <p class="tsub">Para negocios con varias cajas o sucursales y más volumen.</p>
+          <div class="amt"><b>$999</b><span>/ <?= tr('mes', 'mo') ?></span></div>
+          <p class="tsub"><?= tr('Para negocios con varias cajas o sucursales y más volumen.', 'For businesses with several registers or locations and more volume.') ?></p>
           <ul>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <span>Hasta <b>3</b> comercios / sucursales</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <span>Hasta <b>500</b> facturas al mes</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <b>Todo lo de Local</b>, más:</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <span><b>Tu marca</b> en portal, cartel y correos (logo y colores)</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> Descarga masiva en CSV y ZIP (PDF + XML)</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> Soporte prioritario por WhatsApp (24 h)</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> Reportes de facturación mensuales</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <span><?= tr('Hasta <b>3</b> comercios / sucursales', 'Up to <b>3</b> businesses / locations') ?></span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <span><?= tr('Hasta <b>500</b> facturas al mes', 'Up to <b>500</b> invoices per month') ?></span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <?= tr('<b>Todo lo de Local</b>, más:', '<b>Everything in Local</b>, plus:') ?></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <span><?= tr('<b>Tu marca</b> en portal, cartel y correos (logo y colores)', '<b>Your brand</b> on the portal, poster and emails (logo and colors)') ?></span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <?= tr('Descarga masiva en CSV y ZIP (PDF + XML)', 'Bulk download as CSV and ZIP (PDF + XML)') ?></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <?= tr('Soporte prioritario por WhatsApp (24 h)', 'Priority WhatsApp support (24 h)') ?></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <?= tr('Reportes de facturación mensuales', 'Monthly invoicing reports') ?></li>
           </ul>
-          <a class="btn btn-blue" href="https://portal.facturaqr.app/registro.php?plan=comercio" target="_blank" rel="noopener">Empezar con Comercio →</a>
+          <a class="btn btn-blue" href="https://portal.facturaqr.app/registro.php?plan=comercio" target="_blank" rel="noopener"><?= tr('Empezar con Comercio →', 'Start with Comercio →') ?></a>
         </div>
 
         <div class="tier reveal">
           <div class="tk">Cadena</div>
-          <div class="amt"><b>$2,999</b><span>/ mes</span></div>
-          <p class="tsub">Para cadenas y franquicias que operan muchos puntos de venta.</p>
+          <div class="amt"><b>$2,999</b><span>/ <?= tr('mes', 'mo') ?></span></div>
+          <p class="tsub"><?= tr('Para cadenas y franquicias que operan muchos puntos de venta.', 'For chains and franchises running many points of sale.') ?></p>
           <ul>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <span>Comercios <b>ilimitados</b> (multi-sucursal)</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <span>Facturas <b>ilimitadas</b></span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <b>Todo lo de Comercio</b>, más:</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> Soporte dedicado el mismo día</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> Onboarding y alta de CSD asistidos</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> Panel multi-marca desde una sola cuenta</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <span><?= tr('Comercios <b>ilimitados</b> (multi-sucursal)', '<b>Unlimited</b> businesses (multi-location)') ?></span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <span><?= tr('Facturas <b>ilimitadas</b>', '<b>Unlimited</b> invoices') ?></span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <?= tr('<b>Todo lo de Comercio</b>, más:', '<b>Everything in Comercio</b>, plus:') ?></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <?= tr('Soporte dedicado el mismo día', 'Same-day dedicated support') ?></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <?= tr('Onboarding y alta de CSD asistidos', 'Assisted onboarding and CSD setup') ?></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <?= tr('Panel multi-marca desde una sola cuenta', 'Multi-brand dashboard from a single account') ?></li>
           </ul>
-          <a class="btn btn-dark" href="https://portal.facturaqr.app/registro.php?plan=cadena" target="_blank" rel="noopener">Empezar con Cadena →</a>
+          <a class="btn btn-dark" href="https://portal.facturaqr.app/registro.php?plan=cadena" target="_blank" rel="noopener"><?= tr('Empezar con Cadena →', 'Start with Cadena →') ?></a>
         </div>
 
       </div>
-      <p class="price-foot"><a href="https://portal.facturaqr.app/registro.php" target="_blank" rel="noopener" style="color:var(--blue);font-weight:800">Pruébalo gratis con 10 facturas antes de elegir plan →</a><br>Precios en pesos mexicanos (MXN), facturables mensualmente. ¿Tu operación no cabe en un plan? <a href="https://wa.me/526141062426" target="_blank" rel="noopener" style="color:var(--blue);font-weight:800">Hablemos y te armamos uno a tu medida.</a></p>
+      <p class="price-foot"><a href="https://portal.facturaqr.app/registro.php" target="_blank" rel="noopener" style="color:var(--blue);font-weight:800"><?= tr('Pruébalo gratis con 10 facturas antes de elegir plan →', 'Try it free with 10 invoices before picking a plan →') ?></a><br><?= tr('Precios en pesos mexicanos (MXN), facturables mensualmente. ¿Tu operación no cabe en un plan?', 'Prices in Mexican pesos (MXN), billed monthly. Doesn\'t your operation fit a plan?') ?> <a href="https://wa.me/526141062426" target="_blank" rel="noopener" style="color:var(--blue);font-weight:800"><?= tr('Hablemos y te armamos uno a tu medida.', 'Let\'s talk and we\'ll tailor one for you.') ?></a></p>
     </div>
   </section>
 
@@ -786,19 +809,19 @@
     <div class="wrap">
       <div class="safe-item reveal">
         <span class="sic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></span>
-        <div><b>Timbrado con PAC autorizado</b><span>CFDI 4.0 real, con validez ante el SAT.</span></div>
+        <div><b><?= tr('Timbrado con PAC autorizado', 'Certified by an authorized PAC') ?></b><span><?= tr('CFDI 4.0 real, con validez ante el SAT.', 'Real CFDI 4.0, valid with the SAT.') ?></span></div>
       </div>
       <div class="safe-item reveal">
         <span class="sic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
-        <div><b>Conexión cifrada</b><span>Tus datos y los de tus clientes viajan protegidos (HTTPS/TLS).</span></div>
+        <div><b><?= tr('Conexión cifrada', 'Encrypted connection') ?></b><span><?= tr('Tus datos y los de tus clientes viajan protegidos (HTTPS/TLS).', 'Your data and your customers\' data travel protected (HTTPS/TLS).') ?></span></div>
       </div>
       <div class="safe-item reveal">
         <span class="sic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2l-2 2m-7.6 7.6a5.5 5.5 0 1 1-7.78 7.78 5.5 5.5 0 0 1 7.78-7.78zm0 0L19 3m-3 3 2 2"/></svg></span>
-        <div><b>Tu CSD, resguardado</b><span>Tu Certificado de Sello Digital se guarda de forma segura.</span></div>
+        <div><b><?= tr('Tu CSD, resguardado', 'Your CSD, safeguarded') ?></b><span><?= tr('Tu Certificado de Sello Digital se guarda de forma segura.', 'Your digital seal certificate (CSD) is stored securely.') ?></span></div>
       </div>
       <div class="safe-item reveal">
         <span class="sic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><rect x="4" y="3" width="16" height="18" rx="2"/></svg></span>
-        <div><b>Cada folio, una sola vez</b><span>Sin duplicados: un ticket no se puede facturar dos veces.</span></div>
+        <div><b><?= tr('Cada folio, una sola vez', 'Each receipt, only once') ?></b><span><?= tr('Sin duplicados: un ticket no se puede facturar dos veces.', 'No duplicates: a receipt can\'t be invoiced twice.') ?></span></div>
       </div>
     </div>
   </div>
@@ -808,16 +831,16 @@
     <div class="blob b2"></div>
     <div class="wrap">
       <div class="sec-head" style="margin-inline:auto;text-align:center">
-        <span class="eyebrow">Preguntas frecuentes</span>
-        <h2>Lo que todo negocio pregunta.</h2>
+        <span class="eyebrow"><?= tr('Preguntas frecuentes', 'Frequently asked questions') ?></span>
+        <h2><?= tr('Lo que todo negocio pregunta.', 'What every business asks.') ?></h2>
       </div>
       <div class="faq">
-        <details open><summary>¿Mis clientes tienen que registrarse o bajar una app? <span class="pl">+</span></summary><p>No. Escanean el QR, se abre una página web, toman la foto de su ticket y ponen su RFC. Nada de cuentas ni instalaciones.</p></details>
-        <details><summary>¿Las facturas son válidas ante el SAT? <span class="pl">+</span></summary><p>Sí. Emitimos CFDI 4.0 timbrado a través de un PAC autorizado. El cliente recibe el PDF y el XML, igual que cualquier factura formal.</p></details>
-        <details><summary>¿Qué necesito para empezar? <span class="pl">+</span></summary><p>Tu RFC, tu régimen fiscal y tu Certificado de Sello Digital (CSD) del SAT. Lo subes una vez desde tu panel y quedas listo para timbrar.</p></details>
-        <details><summary>¿Y si la foto del ticket sale borrosa? <span class="pl">+</span></summary><p>La IA avisa cuando no puede leer el folio o el total y le pide al cliente otra foto. Además, cada folio solo se puede facturar una vez, para evitar duplicados.</p></details>
-        <details><summary>¿Puedo cancelar una factura? <span class="pl">+</span></summary><p>Sí, desde tu panel, eligiendo el motivo de cancelación del SAT. También puedes reenviar la factura al correo del cliente cuando lo necesites.</p></details>
-        <details><summary>¿Funciona para varias sucursales? <span class="pl">+</span></summary><p>Sí. Cada negocio tiene su propio portal, su QR y su marca, y tú los administras todos desde una sola cuenta.</p></details>
+        <details open><summary><?= tr('¿Mis clientes tienen que registrarse o bajar una app?', 'Do my customers have to sign up or download an app?') ?> <span class="pl">+</span></summary><p><?= tr('No. Escanean el QR, se abre una página web, toman la foto de su ticket y ponen su RFC. Nada de cuentas ni instalaciones.', 'No. They scan the QR, a web page opens, they snap a photo of their receipt and enter their RFC. No accounts, no installs.') ?></p></details>
+        <details><summary><?= tr('¿Las facturas son válidas ante el SAT?', 'Are the invoices valid with the SAT?') ?> <span class="pl">+</span></summary><p><?= tr('Sí. Emitimos CFDI 4.0 timbrado a través de un PAC autorizado. El cliente recibe el PDF y el XML, igual que cualquier factura formal.', 'Yes. We issue CFDI 4.0 certified through an authorized PAC. The customer gets the PDF and XML, just like any formal invoice.') ?></p></details>
+        <details><summary><?= tr('¿Qué necesito para empezar?', 'What do I need to get started?') ?> <span class="pl">+</span></summary><p><?= tr('Tu RFC, tu régimen fiscal y tu Certificado de Sello Digital (CSD) del SAT. Lo subes una vez desde tu panel y quedas listo para timbrar.', 'Your RFC, your tax regime and your SAT digital seal certificate (CSD). You upload it once from your dashboard and you\'re ready to invoice.') ?></p></details>
+        <details><summary><?= tr('¿Y si la foto del ticket sale borrosa?', 'What if the receipt photo comes out blurry?') ?> <span class="pl">+</span></summary><p><?= tr('La IA avisa cuando no puede leer el folio o el total y le pide al cliente otra foto. Además, cada folio solo se puede facturar una vez, para evitar duplicados.', 'The AI warns when it can\'t read the receipt number or the total and asks the customer for another photo. Plus, each receipt can only be invoiced once, to prevent duplicates.') ?></p></details>
+        <details><summary><?= tr('¿Puedo cancelar una factura?', 'Can I cancel an invoice?') ?> <span class="pl">+</span></summary><p><?= tr('Sí, desde tu panel, eligiendo el motivo de cancelación del SAT. También puedes reenviar la factura al correo del cliente cuando lo necesites.', 'Yes, from your dashboard, choosing the SAT cancellation reason. You can also resend the invoice to your customer\'s email whenever you need.') ?></p></details>
+        <details><summary><?= tr('¿Funciona para varias sucursales?', 'Does it work for multiple locations?') ?> <span class="pl">+</span></summary><p><?= tr('Sí. Cada negocio tiene su propio portal, su QR y su marca, y tú los administras todos desde una sola cuenta.', 'Yes. Each location gets its own portal, QR and branding, and you manage them all from a single account.') ?></p></details>
       </div>
     </div>
   </section>
@@ -827,8 +850,8 @@
     <div class="wrap">
       <div class="sec-head" style="margin-inline:auto;text-align:center">
         <span class="eyebrow">Blog</span>
-        <h2>Guías de facturación sin filas.</h2>
-        <p class="lead" style="margin-inline:auto">Autofacturación, CFDI 4.0 y cómo dejar de capturar RFCs a mano — en español claro.</p>
+        <h2><?= tr('Guías de facturación sin filas.', 'Guides to invoicing without lines.') ?></h2>
+        <p class="lead" style="margin-inline:auto"><?= tr('Autofacturación, CFDI 4.0 y cómo dejar de capturar RFCs a mano — en español claro.', 'Self-invoicing, CFDI 4.0 and how to stop typing in RFCs by hand — articles in Spanish.') ?></p>
       </div>
       <div class="bposts">
         <a class="bpost reveal" href="/blog/como-facturar-un-ticket-con-foto.php">
@@ -851,7 +874,7 @@
         </a>
       </div>
       <div style="text-align:center;margin-top:24px">
-        <a class="btn btn-ghost" href="/blog/">Ver todos los artículos →</a>
+        <a class="btn btn-ghost" href="/blog/"><?= tr('Ver todos los artículos →', 'See all articles →') ?></a>
       </div>
     </div>
   </section>
@@ -860,36 +883,36 @@
   <section class="final" id="contacto">
     <div class="wrap fgrid">
       <div class="fcopy">
-        <span class="eyebrow">Empieza hoy</span>
-        <h2>Pon a tus clientes a facturar solos.</h2>
-        <p class="lead">Crea tu cuenta en 2 minutos y estrena tu portal hoy mismo con <b style="color:#fff">10 facturas de prueba gratis</b> — sin tarjeta y sin compromiso. ¿Prefieres que te contactemos? Déjanos tus datos.</p>
-        <div style="margin-top:22px"><a class="btn btn-white" href="https://portal.facturaqr.app/registro.php" target="_blank" rel="noopener">Crear mi cuenta gratis →</a></div>
-        <a class="wapp" href="https://wa.me/526141062426?text=Quiero%20FacturaQR%20para%20mi%20negocio" target="_blank" rel="noopener">
+        <span class="eyebrow"><?= tr('Empieza hoy', 'Start today') ?></span>
+        <h2><?= tr('Pon a tus clientes a facturar solos.', 'Let your customers invoice themselves.') ?></h2>
+        <p class="lead"><?= tr('Crea tu cuenta en 2 minutos y estrena tu portal hoy mismo con <b style="color:#fff">10 facturas de prueba gratis</b> — sin tarjeta y sin compromiso. ¿Prefieres que te contactemos? Déjanos tus datos.', 'Create your account in 2 minutes and launch your portal today with <b style="color:#fff">10 free trial invoices</b> — no card, no commitment. Rather have us reach out? Leave us your info.') ?></p>
+        <div style="margin-top:22px"><a class="btn btn-white" href="https://portal.facturaqr.app/registro.php" target="_blank" rel="noopener"><?= tr('Crear mi cuenta gratis →', 'Create my free account →') ?></a></div>
+        <a class="wapp" href="https://wa.me/526141062426?text=<?= rawurlencode(tr('Quiero FacturaQR para mi negocio', 'I want FacturaQR for my business')) ?>" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.9.9.9-2.8-.2-.3A8 8 0 1 1 12 20zm4.4-6c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1-.2.2-.6.8-.8 1-.1.1-.3.1-.5 0-.7-.3-1.3-.6-1.9-1.4-.4-.5-.7-1.1-.8-1.3-.1-.2 0-.4.1-.5l.4-.4.2-.4v-.4c0-.1-.5-1.3-.7-1.7-.2-.4-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.7.7-.9 1.6-.6 2.6.3 1 .9 2 .9 2.1.1.1 1.7 2.7 4.2 3.7 2.1.9 2.5.7 3 .7.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1z"/></svg>
-          o escríbenos por WhatsApp <b>614 106 2426</b>
+          <?= tr('o escríbenos por WhatsApp', 'or message us on WhatsApp') ?> <b>614 106 2426</b>
         </a>
       </div>
 
       <form class="fcard" id="leadForm" method="post" action="contacto.php">
-        <div class="ok" id="formOk" hidden>✓ ¡Gracias! Recibimos tus datos y te contactamos muy pronto.</div>
+        <div class="ok" id="formOk" hidden>✓ <?= tr('¡Gracias! Recibimos tus datos y te contactamos muy pronto.', 'Thanks! We got your info and will reach out very soon.') ?></div>
         <input type="text" name="empresa_web" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
-        <label>Nombre<input type="text" name="nombre" required autocomplete="name" placeholder="Tu nombre"></label>
-        <label>Negocio<input type="text" name="negocio" required placeholder="Nombre de tu comercio"></label>
+        <label><?= tr('Nombre', 'Name') ?><input type="text" name="nombre" required autocomplete="name" placeholder="<?= tr('Tu nombre', 'Your name') ?>"></label>
+        <label><?= tr('Negocio', 'Business') ?><input type="text" name="negocio" required placeholder="<?= tr('Nombre de tu comercio', 'Your business name') ?>"></label>
         <div class="frow">
-          <label>WhatsApp / teléfono<input type="tel" name="telefono" required inputmode="numeric" maxlength="10" pattern="[0-9]{10}" title="Escribe los 10 dígitos" placeholder="10 dígitos" oninput="this.value=this.value.replace(/\D/g,'').slice(0,10)"></label>
-          <label>Correo<input type="email" name="correo" required autocomplete="email" placeholder="tucorreo@ejemplo.com"></label>
+          <label><?= tr('WhatsApp / teléfono', 'WhatsApp / phone') ?><input type="tel" name="telefono" required inputmode="numeric" maxlength="10" pattern="[0-9]{10}" title="<?= tr('Escribe los 10 dígitos', 'Enter the 10 digits') ?>" placeholder="<?= tr('10 dígitos', '10 digits') ?>" oninput="this.value=this.value.replace(/\D/g,'').slice(0,10)"></label>
+          <label><?= tr('Correo', 'Email') ?><input type="email" name="correo" required autocomplete="email" placeholder="<?= tr('tucorreo@ejemplo.com', 'you@example.com') ?>"></label>
         </div>
-        <label>Plan de interés
+        <label><?= tr('Plan de interés', 'Plan you\'re interested in') ?>
           <select name="plan">
-            <option value="No estoy seguro">No estoy seguro / recomiéndenme</option>
-            <option value="Local ($499)">Local — $499/mes</option>
-            <option value="Comercio ($999)">Comercio — $999/mes</option>
-            <option value="Cadena ($2,999)">Cadena — $2,999/mes</option>
+            <option value="No estoy seguro"><?= tr('No estoy seguro / recomiéndenme', 'Not sure / recommend one') ?></option>
+            <option value="Local ($499)">Local — $499/<?= tr('mes', 'mo') ?></option>
+            <option value="Comercio ($999)">Comercio — $999/<?= tr('mes', 'mo') ?></option>
+            <option value="Cadena ($2,999)">Cadena — $2,999/<?= tr('mes', 'mo') ?></option>
           </select>
         </label>
-        <label>Mensaje (opcional)<textarea name="mensaje" rows="3" placeholder="Cuéntanos de tu negocio: giro, cuántas sucursales, etc."></textarea></label>
-        <button class="btn btn-blue" type="submit">Solicitar mi demo →</button>
-        <p class="fnote">Al enviar aceptas nuestro <a href="aviso-privacidad.html">Aviso de Privacidad</a>.</p>
+        <label><?= tr('Mensaje (opcional)', 'Message (optional)') ?><textarea name="mensaje" rows="3" placeholder="<?= tr('Cuéntanos de tu negocio: giro, cuántas sucursales, etc.', 'Tell us about your business: industry, number of locations, etc.') ?>"></textarea></label>
+        <button class="btn btn-blue" type="submit"><?= tr('Solicitar mi demo →', 'Request my demo →') ?></button>
+        <p class="fnote"><?= tr('Al enviar aceptas nuestro <a href="aviso-privacidad.html">Aviso de Privacidad</a>.', 'By submitting you accept our <a href="aviso-privacidad.html">Privacy Notice</a> (in Spanish).') ?></p>
       </form>
     </div>
   </section>
@@ -900,45 +923,45 @@
     <div class="ft-grid">
       <div class="ft-brand">
         <a class="wm" href="#top"><span class="qmark"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#qr"/></svg></span>Factura<span class="t2">QR</span></a>
-        <p>Autofacturación con una foto del ticket. Tus clientes se facturan solos y tú dejas de perder el mostrador.</p>
+        <p><?= tr('Autofacturación con una foto del ticket. Tus clientes se facturan solos y tú dejas de perder el mostrador.', 'Self-invoicing with a photo of the receipt. Your customers invoice themselves and your counter runs free.') ?></p>
         <a class="ft-wapp" href="https://wa.me/526141062426" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.9.9.9-2.8-.2-.3A8 8 0 1 1 12 20zm4.4-6c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1-.2.2-.6.8-.8 1-.1.1-.3.1-.5 0-.7-.3-1.3-.6-1.9-1.4-.4-.5-.7-1.1-.8-1.3-.1-.2 0-.4.1-.5l.4-.4.2-.4v-.4c0-.1-.5-1.3-.7-1.7-.2-.4-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.7.7-.9 1.6-.6 2.6.3 1 .9 2 .9 2.1.1.1 1.7 2.7 4.2 3.7 2.1.9 2.5.7 3 .7.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1z"/></svg>
           614 106 2426
         </a>
       </div>
       <div class="ft-col">
-        <h4>Producto</h4>
-        <a href="#como">Cómo funciona</a>
-        <a href="#beneficios">Beneficios</a>
-        <a href="#panel">Panel de control</a>
-        <a href="#precio">Precio</a>
+        <h4><?= tr('Producto', 'Product') ?></h4>
+        <a href="#como"><?= tr('Cómo funciona', 'How it works') ?></a>
+        <a href="#beneficios"><?= tr('Beneficios', 'Benefits') ?></a>
+        <a href="#panel"><?= tr('Panel de control', 'Dashboard') ?></a>
+        <a href="#precio"><?= tr('Precio', 'Pricing') ?></a>
       </div>
       <div class="ft-col">
-        <h4>Recursos</h4>
+        <h4><?= tr('Recursos', 'Resources') ?></h4>
         <a href="/blog/">Blog</a>
-        <a href="https://portal.facturaqr.app/?c=ejemplo&amp;demo=1" target="_blank" rel="noopener">Ver demo</a>
-        <a href="#faq">Preguntas frecuentes</a>
-        <a href="https://portal.facturaqr.app/" target="_blank" rel="noopener">Entrar al portal</a>
+        <a href="https://portal.facturaqr.app/?c=ejemplo&amp;demo=1" target="_blank" rel="noopener"><?= tr('Ver demo', 'See demo') ?></a>
+        <a href="#faq"><?= tr('Preguntas frecuentes', 'FAQ') ?></a>
+        <a href="https://portal.facturaqr.app/" target="_blank" rel="noopener"><?= tr('Entrar al portal', 'Log in to the portal') ?></a>
       </div>
       <div class="ft-col">
-        <h4>Contacto y legal</h4>
-        <a href="#contacto">Solicitar demo</a>
+        <h4><?= tr('Contacto y legal', 'Contact & legal') ?></h4>
+        <a href="#contacto"><?= tr('Solicitar demo', 'Request a demo') ?></a>
         <a href="https://wa.me/526141062426" target="_blank" rel="noopener">WhatsApp 614 106 2426</a>
-        <a href="aviso-privacidad.html">Aviso de Privacidad</a>
-        <a href="terminos.html">Términos y Condiciones</a>
+        <a href="aviso-privacidad.html"><?= tr('Aviso de Privacidad', 'Privacy Notice') ?></a>
+        <a href="terminos.html"><?= tr('Términos y Condiciones', 'Terms & Conditions') ?></a>
       </div>
     </div>
     <div class="ft-bottom">
-      <p>© 2026 FacturaQR · Autofacturación CFDI 4.0 · Hecho en México 🇲🇽</p>
+      <p>© 2026 FacturaQR · <?= tr('Autofacturación CFDI 4.0 · Hecho en México 🇲🇽', 'CFDI 4.0 self-invoicing · Made in Mexico 🇲🇽') ?></p>
       <div class="mini">
-        <a href="aviso-privacidad.html">Privacidad</a>
-        <a href="terminos.html">Términos</a>
+        <a href="aviso-privacidad.html"><?= tr('Privacidad', 'Privacy') ?></a>
+        <a href="terminos.html"><?= tr('Términos', 'Terms') ?></a>
       </div>
     </div>
   </div>
 </footer>
 
-<a class="wa-fab" href="https://wa.me/526141062426?text=Quiero%20FacturaQR%20para%20mi%20negocio" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
+<a class="wa-fab" href="https://wa.me/526141062426?text=<?= rawurlencode(tr('Quiero FacturaQR para mi negocio', 'I want FacturaQR for my business')) ?>" target="_blank" rel="noopener" aria-label="<?= tr('Escríbenos por WhatsApp', 'Message us on WhatsApp') ?>">
   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.9.9.9-2.8-.2-.3A8 8 0 1 1 12 20zm4.4-6c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1-.2.2-.6.8-.8 1-.1.1-.3.1-.5 0-.7-.3-1.3-.6-1.9-1.4-.4-.5-.7-1.1-.8-1.3-.1-.2 0-.4.1-.5l.4-.4.2-.4v-.4c0-.1-.5-1.3-.7-1.7-.2-.4-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.7.7-.9 1.6-.6 2.6.3 1 .9 2 .9 2.1.1.1 1.7 2.7 4.2 3.7 2.1.9 2.5.7 3 .7.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1z"/></svg>
 </a>
 
@@ -1000,12 +1023,12 @@
       if(f.empresa_web && f.empresa_web.value){ ev.preventDefault(); return; } // honeypot
       if(!window.fetch)return; // deja el POST normal
       ev.preventDefault();
-      var btn=f.querySelector('button[type=submit]'), txt=btn.textContent; btn.disabled=true; btn.textContent='Enviando…';
+      var btn=f.querySelector('button[type=submit]'), txt=btn.textContent; btn.disabled=true; btn.textContent=<?= json_encode(tr('Enviando…', 'Sending…')) ?>;
       fetch('contacto.php',{method:'POST',body:new FormData(f),headers:{'X-Requested-With':'fetch'}})
         .then(function(r){return r.json().catch(function(){return{ok:r.ok};});})
         .then(function(d){ if(d&&d.ok!==false){ document.getElementById('formOk').hidden=false; f.reset(); document.getElementById('formOk').scrollIntoView({behavior:'smooth',block:'center'}); if(window.fqConv)fqConv((window.FQ_ANALYTICS||{}).CONV_LEAD,'generate_lead'); }
-          else { alert((d&&d.error)||'No se pudo enviar. Escríbenos por WhatsApp.'); } })
-        .catch(function(){ alert('No se pudo enviar. Escríbenos por WhatsApp al 614 106 2426.'); })
+          else { alert((d&&d.error)||<?= json_encode(tr('No se pudo enviar. Escríbenos por WhatsApp.', 'Could not send. Message us on WhatsApp.')) ?>); } })
+        .catch(function(){ alert(<?= json_encode(tr('No se pudo enviar. Escríbenos por WhatsApp al 614 106 2426.', 'Could not send. Message us on WhatsApp at +52 614 106 2426.')) ?>); })
         .finally(function(){ btn.disabled=false; btn.textContent=txt; });
     });
   })();
