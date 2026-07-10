@@ -45,6 +45,15 @@
     "imagen_titular": "Si entregas ticket, esto es para ti"
   },
   {
+    "id": 7,
+    "lote": "diario",
+    "tema": "Por giro: restaurantes",
+    "texto": "El fin de mes en un restaurante no debería significar meseros anotando RFCs en servilletas ni clientes esperando su factura parados junto a la caja.\n\nCon FacturaQR pones un QR en la mesa o impreso en el ticket. Tu comensal lo escanea, toma foto de su cuenta, pone su RFC y correo, y recibe su factura CFDI 4.0 (PDF + XML) en menos de un minuto — desde su lugar o de salida.\n\nTu equipo no captura nada: siguen atendiendo mesas. Menos filas, menos errores de dedo, menos \"mándame los datos por WhatsApp\".\n\n👉 Míralo funcionar en facturaqr.app",
+    "hashtags": "#FacturaQR #Restaurantes #CFDI40 #FacturaciónElectrónica #Gastronomía #AutofacturaciónMéxico #PymesMéxico",
+    "imagen_concepto": "Mesa de restaurante con un tarjetero de QR junto a la cuenta, plato y taza de café de fondo, estilo fotografía cálida.",
+    "imagen_titular": "Factura desde la mesa"
+  },
+  {
     "id": 6,
     "lote": "diario",
     "tema": "Educativo: qué es el CFDI 4.0",
@@ -52,15 +61,6 @@
     "hashtags": "#CFDI40 #FacturaciónElectrónica #SAT #FacturaQR #TipsFiscales #PymesMéxico",
     "imagen_concepto": "Ilustración simple de un documento con dos capas etiquetadas 'PDF' y 'XML' unidas por un sello de 'timbrado', fondo azul de marca.",
     "imagen_titular": "¿Qué es un CFDI 4.0?"
-  },
-  {
-    "id": 7,
-    "lote": "diario",
-    "tema": "Por giro: restaurantes",
-    "texto": "En un restaurante, pedir la factura no debería interrumpir la comida ni la salida.\n\nCon un QR en la mesa o en el ticket, tu cliente se factura solo desde su celular mientras espera el café o de camino a la salida. Tu mesero no tiene que anotar RFC ni correo en una servilleta.\n\n👉 Conoce cómo funciona en facturaqr.app",
-    "hashtags": "#FacturaQR #Restaurantes #CFDI40 #FacturaciónElectrónica #Gastronomía #PymesMéxico",
-    "imagen_concepto": "Mesa de restaurante con un tarjetero de QR junto a la cuenta, plato y taza de café de fondo, estilo fotografía cálida.",
-    "imagen_titular": "Factura desde la mesa"
   },
   {
     "id": 8,
