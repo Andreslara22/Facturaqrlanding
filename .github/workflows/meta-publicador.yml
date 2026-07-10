@@ -1,9 +1,15 @@
 name: Meta publicador (FB/IG)
 
-# Publica en Facebook/Instagram usando el secret META_TOKEN (token de página).
-# Se dispara a mano desde Actions → "Run workflow" eligiendo el modo:
-#   verificar — solo comprueba el token y si hay Instagram vinculado
-#   prueba    — publica un post de prueba en la página de Facebook
+# Publica en Facebook/Instagram con el secret META_TOKEN (token de página).
+#
+# Disparo manual (Actions → Run workflow) con selector de modo:
+#   verificar   — comprueba token, página e Instagram vinculado
+#   prueba      — post de prueba de texto en Facebook
+#   lanzamiento — publica los 5 posts de lanzamiento pendientes
+#   diario      — publica el siguiente post diario pendiente (uno)
+#
+# Cron: todos los días a las 16:00 UTC (~10:00 am Chihuahua) publica el
+# siguiente post "diario". Tras 15 días la cola se agota y no hace nada.
 
 on:
   workflow_dispatch:
@@ -12,19 +18,34 @@ on:
         description: "Qué hacer"
         type: choice
         default: verificar
-        options:
-          - verificar
-          - prueba
+        options: [verificar, prueba, lanzamiento, diario]
+  schedule:
+    - cron: "0 16 * * *"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   publicar:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Ejecutar (${{ github.event.inputs.modo }})
+        with:
+          ref: main
+
+      - name: Publicar (${{ github.event.inputs.modo || 'diario' }})
         env:
           META_TOKEN: ${{ secrets.META_TOKEN }}
-        run: python3 scripts/meta-publicar.py "${{ github.event.inputs.modo }}"
+        run: python3 scripts/meta-publicar.py "${{ github.event.inputs.modo || 'diario' }}"
+
+      - name: Guardar estado de la cola
+        run: |
+          git add marketing/social/estado.json 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "Sin cambios de estado."
+            exit 0
+          fi
+          git config user.name "meta-publicador"
+          git config user.email "actions@github.com"
+          git commit -m "Meta: estado de publicaciones ($(date -u +%F))"
+          git push origin main
