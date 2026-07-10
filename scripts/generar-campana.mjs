@@ -11,7 +11,9 @@ const RAIZ = join(dirname(fileURLToPath(import.meta.url)), '..');
 const posts = JSON.parse(readFileSync(join(RAIZ, 'marketing/social/cola-posts.json'), 'utf8'));
 const estado = JSON.parse(readFileSync(join(RAIZ, 'marketing/social/estado.json'), 'utf8'));
 
-const datos = JSON.stringify({ posts, publicados: estado.publicados }).replace(/'/g, "\\'");
+const datos = JSON.stringify({ posts, publicados: estado.publicados })
+  .replace(/\\/g, '\\\\')
+  .replace(/'/g, "\\'");
 
 const php = `<?php header("Cache-Control: no-cache, no-store, must-revalidate"); header("Pragma: no-cache"); ?>
 <!DOCTYPE html>
