@@ -161,7 +161,7 @@
   <h2>Un sistema de facturación para restaurantes que se ve (y funciona) moderno</h2>
   <p>Más allá de ahorrarle tiempo a tu equipo, un QR en la mesa manda un mensaje: tu restaurante está al día. Nada de hojas, nada de "espéreme tantito que le busco su RFC en el celular". El cliente resuelve su factura solo, a su ritmo, con su propio teléfono.</p>
   <p>Para arrancar solo necesitas tu RFC, tu régimen fiscal y tu Certificado de Sello Digital (CSD) del SAT; se sube una vez desde el panel y listo. Si tienes dudas específicas sobre tu régimen fiscal, consúltalo con tu contador o directamente con el SAT.</p>
-  <p>Los planes de FacturaQR empiezan desde $5,000 MXN al mes, pero antes de decidir puedes probarlo sin costo: 10 facturas gratis y sin necesidad de tarjeta.</p>
+  <p>Los planes de FacturaQR empiezan desde $499 MXN al mes, pero antes de decidir puedes probarlo sin costo: 10 facturas gratis y sin necesidad de tarjeta.</p>
 
   <section class="faq">
     <h2>Preguntas frecuentes</h2>

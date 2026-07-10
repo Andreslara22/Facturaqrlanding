@@ -95,9 +95,9 @@
   "description": "Autofacturación por QR: tus clientes toman foto de su ticket, ponen su RFC y reciben su CFDI 4.0 por correo en menos de un minuto. Lectura de tickets con IA y timbrado con PAC autorizado.",
   "url": "https://facturaqr.app",
   "offers": [
-    {"@type": "Offer", "name": "Local", "price": "5000", "priceCurrency": "MXN", "description": "1 comercio · hasta 1,000 facturas/mes"},
-    {"@type": "Offer", "name": "Comercio", "price": "8000", "priceCurrency": "MXN", "description": "Hasta 3 sucursales · 3,000 facturas/mes · marca propia"},
-    {"@type": "Offer", "name": "Cadena", "price": "15000", "priceCurrency": "MXN", "description": "Sucursales y facturas ilimitadas"}
+    {"@type": "Offer", "name": "Local", "price": "499", "priceCurrency": "MXN", "description": "1 comercio · hasta 100 facturas/mes"},
+    {"@type": "Offer", "name": "Comercio", "price": "999", "priceCurrency": "MXN", "description": "Hasta 3 sucursales · 500 facturas/mes · marca propia"},
+    {"@type": "Offer", "name": "Cadena", "price": "2999", "priceCurrency": "MXN", "description": "Sucursales y facturas ilimitadas"}
   ]
 }
 </script>
@@ -730,11 +730,11 @@
 
         <div class="tier reveal">
           <div class="tk">Local</div>
-          <div class="amt"><b>$5,000</b><span>/ mes</span></div>
+          <div class="amt"><b>$499</b><span>/ mes</span></div>
           <p class="tsub">Lo esencial para dejar de facturar a mano en el mostrador.</p>
           <ul>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <span><b>1</b> comercio / punto de venta</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <span>Hasta <b>1,000</b> facturas al mes</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <span>Hasta <b>100</b> facturas al mes</span></li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> Lectura de tickets con IA</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> Timbrado CFDI 4.0 + envío por correo</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> Panel de facturas (consulta y cancelación)</li>
@@ -747,11 +747,11 @@
         <div class="tier featured reveal">
           <div class="badge">★ Más popular</div>
           <div class="tk">Comercio</div>
-          <div class="amt"><b>$8,000</b><span>/ mes</span></div>
+          <div class="amt"><b>$999</b><span>/ mes</span></div>
           <p class="tsub">Para negocios con varias cajas o sucursales y más volumen.</p>
           <ul>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <span>Hasta <b>3</b> comercios / sucursales</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <span>Hasta <b>3,000</b> facturas al mes</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <span>Hasta <b>500</b> facturas al mes</span></li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <b>Todo lo de Local</b>, más:</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <span><b>Tu marca</b> en portal, cartel y correos (logo y colores)</span></li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> Descarga masiva en CSV y ZIP (PDF + XML)</li>
@@ -763,7 +763,7 @@
 
         <div class="tier reveal">
           <div class="tk">Cadena</div>
-          <div class="amt"><b>$15,000</b><span>/ mes</span></div>
+          <div class="amt"><b>$2,999</b><span>/ mes</span></div>
           <p class="tsub">Para cadenas y franquicias que operan muchos puntos de venta.</p>
           <ul>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <span>Comercios <b>ilimitados</b> (multi-sucursal)</span></li>
@@ -882,9 +882,9 @@
         <label>Plan de interés
           <select name="plan">
             <option value="No estoy seguro">No estoy seguro / recomiéndenme</option>
-            <option value="Local ($5,000)">Local — $5,000/mes</option>
-            <option value="Comercio ($8,000)">Comercio — $8,000/mes</option>
-            <option value="Cadena ($15,000)">Cadena — $15,000/mes</option>
+            <option value="Local ($499)">Local — $499/mes</option>
+            <option value="Comercio ($999)">Comercio — $999/mes</option>
+            <option value="Cadena ($2,999)">Cadena — $2,999/mes</option>
           </select>
         </label>
         <label>Mensaje (opcional)<textarea name="mensaje" rows="3" placeholder="Cuéntanos de tu negocio: giro, cuántas sucursales, etc."></textarea></label>
