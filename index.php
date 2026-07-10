@@ -42,6 +42,28 @@ fq_lang();
 <meta name="twitter:image" content="https://facturaqr.app/og-image.png">
 <link rel="canonical" href="https://facturaqr.app/">
 
+<!-- ── Idioma automático por país (zona horaria): país hispanohablante → ES;
+     otro país → EN salvo navegador en español. Cookie fqr_lang y ?lang= ganan. -->
+<script>
+(function () {
+  try {
+    if (/(?:^|; )fqr_lang=/.test(document.cookie) || /[?&]lang=/.test(location.search)) return;
+    var esNav = (navigator.languages || [navigator.language || '']).some(function (l) { return /^es/i.test(l); });
+    var tz = '';
+    try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
+    var ES_TZ = ['America/Mexico_City','America/Cancun','America/Merida','America/Monterrey','America/Matamoros','America/Chihuahua','America/Ciudad_Juarez','America/Ojinaga','America/Hermosillo','America/Mazatlan','America/Bahia_Banderas','America/Tijuana','America/Ensenada','America/Santa_Isabel','America/Guatemala','America/El_Salvador','America/Tegucigalpa','America/Managua','America/Costa_Rica','America/Panama','America/Havana','America/Santo_Domingo','America/Puerto_Rico','America/Bogota','America/Caracas','America/Guayaquil','Pacific/Galapagos','America/Lima','America/La_Paz','America/Santiago','Pacific/Easter','America/Asuncion','America/Montevideo','America/Buenos_Aires','America/Cordoba','America/Mendoza','America/Rosario','America/Catamarca','America/Jujuy','Europe/Madrid','Africa/Ceuta','Atlantic/Canary','Africa/Malabo'];
+    var esTz = ES_TZ.indexOf(tz) > -1 || tz.indexOf('America/Argentina/') === 0 || tz.indexOf('Mexico/') === 0;
+    var want = (esNav || esTz) ? 'es' : 'en';
+    var cur = (document.documentElement.lang || 'es').slice(0, 2);
+    if (want !== cur) {
+      document.cookie = 'fqr_lang=' + want + '; path=/; max-age=31536000; SameSite=Lax';
+      // Solo recargar si la cookie sí se guardó (evita bucle con cookies bloqueadas)
+      if (/(?:^|; )fqr_lang=/.test(document.cookie)) location.reload();
+    }
+  } catch (e) {}
+})();
+</script>
+
 <!-- ═══ Google Analytics 4 + Google Ads (conversiones) ═══
      Pega aquí tus IDs. Mientras contengan "XXXX" no se carga nada (no rompe la página).
      · GA4_ID:      Analytics → Administrar → Flujos de datos → "ID de medición" (G-XXXXXXXXXX)
