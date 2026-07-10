@@ -18,7 +18,7 @@ on:
         description: "Qué hacer"
         type: choice
         default: verificar
-        options: [verificar, prueba, lanzamiento, diario]
+        options: [verificar, prueba, lanzamiento, diario, borrar, borrar-confirmar]
   schedule:
     - cron: "0 16 * * *"
 

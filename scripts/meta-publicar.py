@@ -53,6 +53,26 @@ def api(ruta, params=None, post=False):
         return {"error": {"message": str(e)}}
 
 
+def api_delete(obj_id):
+    """Borra un objeto de Graph (DELETE). Devuelve dict con 'success' o 'error'."""
+    url = f"{GRAPH}/{obj_id}?" + urllib.parse.urlencode({"access_token": TOKEN})
+    req = urllib.request.Request(url, method="DELETE")
+    try:
+        with urllib.request.urlopen(req, timeout=60) as r:
+            return json.load(r)
+    except urllib.error.HTTPError as e:
+        try:
+            return {"error": json.loads(e.read()).get("error", {})}
+        except Exception:
+            return {"error": {"message": f"HTTP {e.code}"}}
+    except Exception as e:
+        return {"error": {"message": str(e)}}
+
+
+def _norm(s):
+    return " ".join((s or "").split())
+
+
 def id_pagina():
     yo = api("me", {"fields": "id,name"})
     return (yo.get("id"), yo.get("name")) if "error" not in yo else (None, None)
@@ -167,6 +187,83 @@ def verificar():
     return 0
 
 
+def borrar(lote, confirmar):
+    """Borra en Facebook los posts del lote indicado (match por texto) y lista
+    los de Instagram para borrado manual (la API de IG no permite borrar media).
+
+    - confirmar=False (por defecto): solo vista previa, no borra nada.
+    - confirmar=True: borra en FB y quita del estado los ids borrados.
+    """
+    if not TOKEN:
+        print("[error] Falta META_TOKEN"); return 1
+    pagina_id, nombre = id_pagina()
+    if not pagina_id:
+        print("[error] Token inválido"); return 1
+    ig_id, ig_user = id_instagram()
+
+    posts = [p for p in cargar_cola() if p.get("lote") == lote]
+    if not posts:
+        print(f"[ok] No hay posts del lote '{lote}' en la cola."); return 0
+    # firma = primera línea del texto (bastante única por post)
+    firmas = {p["id"]: _norm(p.get("texto", "").split("\n")[0])[:40] for p in posts}
+
+    # --- Facebook: buscar posts que coincidan ---
+    fb = api(f"{pagina_id}/posts", {"fields": "id,message", "limit": "100"})
+    fb_hits = []  # (meta_post_id, id_local, snippet)
+    for item in fb.get("data", []):
+        msg = _norm(item.get("message", ""))
+        if not msg:
+            continue
+        for pid, firma in firmas.items():
+            if firma and firma in msg:
+                fb_hits.append((item["id"], pid, msg[:50]))
+                break
+
+    # --- Instagram: solo listar (no se puede borrar por API) ---
+    ig_hits = []  # (id_local, permalink)
+    if ig_id:
+        igm = api(f"{ig_id}/media", {"fields": "id,caption,permalink", "limit": "100"})
+        for item in igm.get("data", []):
+            cap = _norm(item.get("caption", ""))
+            for pid, firma in firmas.items():
+                if firma and firma in cap:
+                    ig_hits.append((pid, item.get("permalink", "(sin link)")))
+                    break
+
+    print(f"[info] Página: {nombre} · lote '{lote}' · encontrados FB: {len(fb_hits)}, IG: {len(ig_hits)}")
+    for mid, pid, snip in fb_hits:
+        print(f"  FB  post {pid}: {mid}  «{snip}…»")
+    for pid, link in ig_hits:
+        print(f"  IG  post {pid}: {link}  (borrar a mano)")
+
+    if not confirmar:
+        print("[dry-run] Vista previa. Nada borrado. Corre en modo 'borrar-confirmar' para ejecutar.")
+        return 0
+
+    # --- Ejecutar borrado en FB ---
+    borrados = []
+    for mid, pid, _snip in fb_hits:
+        r = api_delete(mid)
+        if "error" in r:
+            print(f"[error] FB post {pid} ({mid}): {r['error'].get('message')}")
+        else:
+            print(f"[ok] FB post {pid} borrado.")
+            borrados.append(pid)
+
+    # Quitar del estado los ids borrados en FB (para poder republicarlos)
+    if borrados:
+        est = cargar_estado()
+        est["publicados"] = [i for i in est["publicados"] if i not in borrados]
+        guardar_estado(est)
+        print(f"[ok] Estado actualizado: quitados {sorted(borrados)} de 'publicados'.")
+
+    if ig_hits:
+        print("[accion-manual] Instagram NO se borra por API. Borra a mano estos:")
+        for pid, link in ig_hits:
+            print(f"    - post {pid}: {link}")
+    return 0
+
+
 def prueba():
     pid, _ = id_pagina()
     if not pid:
@@ -186,6 +283,10 @@ def main():
         return verificar()
     if modo == "prueba":
         return prueba()
+    if modo == "borrar":
+        return borrar("lanzamiento", confirmar=False)
+    if modo == "borrar-confirmar":
+        return borrar("lanzamiento", confirmar=True)
     posts = cargar_cola()
     if modo == "lanzamiento":
         return publicar_lista([p for p in posts if p.get("lote") == "lanzamiento"], "lanzamiento")
