@@ -97,7 +97,7 @@
 
   function tarjeta(p){
     var pub = publicados.indexOf(p.id) > -1;
-    var img = '/social/post-' + String(p.id).padStart(2,'0') + '.png';
+    var img = '/social/post-' + String(p.id).padStart(2,'0') + '.png?v=20260710b';
     return '<div class="card">' +
       '<img src="' + img + '" alt="' + esc(p.imagen_titular || p.tema) + '" loading="lazy">' +
       '<div class="card-body">' +
@@ -112,7 +112,7 @@
   }
 
   function tarjetaBlog(b){
-    var img = '/social/' + b.img + '.jpg';
+    var img = '/social/' + b.img + '.jpg?v=20260710b';
     return '<div class="card">' +
       '<img src="' + img + '" alt="' + esc(b.titulo) + '" loading="lazy">' +
       '<div class="card-body">' +
