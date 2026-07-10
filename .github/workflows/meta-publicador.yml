@@ -1,0 +1,30 @@
+name: Meta publicador (FB/IG)
+
+# Publica en Facebook/Instagram usando el secret META_TOKEN (token de página).
+# Se dispara a mano desde Actions → "Run workflow" eligiendo el modo:
+#   verificar — solo comprueba el token y si hay Instagram vinculado
+#   prueba    — publica un post de prueba en la página de Facebook
+
+on:
+  workflow_dispatch:
+    inputs:
+      modo:
+        description: "Qué hacer"
+        type: choice
+        default: verificar
+        options:
+          - verificar
+          - prueba
+
+permissions:
+  contents: read
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Ejecutar (${{ github.event.inputs.modo }})
+        env:
+          META_TOKEN: ${{ secrets.META_TOKEN }}
+        run: python3 scripts/meta-publicar.py "${{ github.event.inputs.modo }}"
