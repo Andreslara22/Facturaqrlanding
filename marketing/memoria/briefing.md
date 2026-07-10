@@ -30,8 +30,11 @@ _Actualizado: 2026-07-09 (plan editorial del blog listo)_
 
 ## Pendientes (del dueño — pedir estado cuando pregunte)
 - EJECUTAR entregables listos en marketing/entregables/: crear Google
-  Business Profile (google-business-profile.md, checklist incluido) y
-  grabar los reels del calendario (calendario-redes-agosto.md, 16 piezas).
+  Business Profile (google-business-profile.md, checklist incluido),
+  optimizar los perfiles de Facebook e Instagram recién creados
+  (optimizacion-fb-ig.md, checklist de 15 pasos incluido, username
+  recomendado @facturaqr) y grabar los reels del calendario
+  (calendario-redes-agosto.md, 16 piezas).
 - Crear correo contacto@facturaqr.app en SiteGround y avisar para
   conectar el formulario (hoy los leads llegan a andres.guru@gmail.com).
 - Enviar sitemap a Google Search Console.
