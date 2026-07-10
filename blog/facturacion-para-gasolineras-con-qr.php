@@ -8,6 +8,33 @@
 <meta name="description" content="Tus clientes facturan su carga con una foto del ticket, sin bajar del auto ni hacer fila. CFDI 4.0 en un minuto. Prueba gratis 10 facturas.">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="https://facturaqr.app/blog/facturacion-para-gasolineras-con-qr.php">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://facturaqr.app/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://facturaqr.app/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Facturación para gasolineras con QR en la bomba",
+      "item": "https://facturaqr.app/blog/facturacion-para-gasolineras-con-qr.php"
+    }
+  ]
+}
+</script>
+
 <meta property="og:site_name" content="FacturaQR">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Facturación para gasolineras con QR en la bomba">

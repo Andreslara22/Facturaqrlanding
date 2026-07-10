@@ -8,6 +8,33 @@
 <meta name="description" content="Te explicamos qué es el CFDI 4.0, para qué sirve y qué necesitas, en español simple. Factura tus tickets válidos ante el SAT. Prueba gratis.">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="https://facturaqr.app/blog/que-es-cfdi-4-0-explicado-facil.php">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://facturaqr.app/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://facturaqr.app/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Qué es el CFDI 4.0 explicado fácil (sin líos)",
+      "item": "https://facturaqr.app/blog/que-es-cfdi-4-0-explicado-facil.php"
+    }
+  ]
+}
+</script>
+
 <meta property="og:site_name" content="FacturaQR">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Qué es el CFDI 4.0 explicado fácil (sin líos)">

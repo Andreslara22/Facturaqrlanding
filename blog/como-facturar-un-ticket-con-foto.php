@@ -8,6 +8,33 @@
 <meta name="description" content="Aprende a facturar tu ticket tomándole una foto, sin fila ni capturar datos. Recibe tu CFDI por correo. Escanea el QR y factúrate solo.">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="https://facturaqr.app/blog/como-facturar-un-ticket-con-foto.php">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://facturaqr.app/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://facturaqr.app/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Cómo facturar un ticket con una foto en 1 minuto",
+      "item": "https://facturaqr.app/blog/como-facturar-un-ticket-con-foto.php"
+    }
+  ]
+}
+</script>
+
 <meta property="og:site_name" content="FacturaQR">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Cómo facturar un ticket con una foto en 1 minuto">

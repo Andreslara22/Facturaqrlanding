@@ -8,6 +8,33 @@
 <meta name="description" content="Deja que tus comensales se facturen solos desde la mesa con una foto del ticket. Menos errores de RFC y caja libre. Prueba gratis 10 facturas.">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="https://facturaqr.app/blog/facturacion-para-restaurantes-sin-fila.php">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://facturaqr.app/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://facturaqr.app/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Facturación para restaurantes: adiós fila en caja",
+      "item": "https://facturaqr.app/blog/facturacion-para-restaurantes-sin-fila.php"
+    }
+  ]
+}
+</script>
+
 <meta property="og:site_name" content="FacturaQR">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Facturación para restaurantes: adiós fila en caja">

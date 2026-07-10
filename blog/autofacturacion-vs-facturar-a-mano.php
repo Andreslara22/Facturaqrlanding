@@ -8,6 +8,33 @@
 <meta name="description" content="Comparamos autofacturación con foto del ticket contra capturar facturas a mano: tiempo, errores y carga al personal. Decide y prueba gratis.">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="https://facturaqr.app/blog/autofacturacion-vs-facturar-a-mano.php">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://facturaqr.app/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://facturaqr.app/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Autofacturación vs facturar a mano: ¿qué conviene?",
+      "item": "https://facturaqr.app/blog/autofacturacion-vs-facturar-a-mano.php"
+    }
+  ]
+}
+</script>
+
 <meta property="og:site_name" content="FacturaQR">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Autofacturación vs facturar a mano: ¿qué conviene?">
