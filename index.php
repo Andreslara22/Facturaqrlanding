@@ -1,14 +1,13 @@
 <?php
 header("Cache-Control: no-cache, no-store, must-revalidate"); header("Pragma: no-cache"); if (session_status() !== PHP_SESSION_ACTIVE) @session_start();
-// ── Idioma (ES/EN): ?lang= → cookie → Accept-Language del navegador ──
+// ── Idioma (ES/EN): siempre español por default; inglés solo si el usuario lo elige (?lang= → cookie) ──
 function fq_lang(): string {
   static $l = null;
   if ($l !== null) return $l;
   $ok = fn($v) => ($v === 'es' || $v === 'en') ? $v : null;
   if ($g = $ok($_GET['lang'] ?? '')) { @setcookie('fqr_lang', $g, ['expires' => time() + 31536000, 'path' => '/', 'samesite' => 'Lax']); return $l = $g; }
   if ($c = $ok($_COOKIE['fqr_lang'] ?? '')) return $l = $c;
-  $al = strtolower(ltrim($_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? 'es'));
-  return $l = (strpos($al, 'en') === 0 ? 'en' : 'es');
+  return $l = 'es';
 }
 function tr(string $es, string $en): string { return fq_lang() === 'en' ? $en : $es; }
 function lang_url(string $lang): string { $q = $_GET; $q['lang'] = $lang; return '?' . http_build_query($q); }
@@ -41,28 +40,6 @@ fq_lang();
 <meta name="twitter:description" content="<?= tr('Pon un QR en tu mostrador y tus clientes se facturan solos. CFDI 4.0 válido ante el SAT, en menos de un minuto.', 'Put a QR at your counter and your customers invoice themselves. SAT-valid CFDI 4.0 in under a minute.') ?>">
 <meta name="twitter:image" content="https://facturaqr.app/og-image.png">
 <link rel="canonical" href="https://facturaqr.app/">
-
-<!-- ── Idioma automático por país (zona horaria): país hispanohablante → ES;
-     otro país → EN salvo navegador en español. Cookie fqr_lang y ?lang= ganan. -->
-<script>
-(function () {
-  try {
-    if (/(?:^|; )fqr_lang=/.test(document.cookie) || /[?&]lang=/.test(location.search)) return;
-    var esNav = (navigator.languages || [navigator.language || '']).some(function (l) { return /^es/i.test(l); });
-    var tz = '';
-    try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
-    var ES_TZ = ['America/Mexico_City','America/Cancun','America/Merida','America/Monterrey','America/Matamoros','America/Chihuahua','America/Ciudad_Juarez','America/Ojinaga','America/Hermosillo','America/Mazatlan','America/Bahia_Banderas','America/Tijuana','America/Ensenada','America/Santa_Isabel','America/Guatemala','America/El_Salvador','America/Tegucigalpa','America/Managua','America/Costa_Rica','America/Panama','America/Havana','America/Santo_Domingo','America/Puerto_Rico','America/Bogota','America/Caracas','America/Guayaquil','Pacific/Galapagos','America/Lima','America/La_Paz','America/Santiago','Pacific/Easter','America/Asuncion','America/Montevideo','America/Buenos_Aires','America/Cordoba','America/Mendoza','America/Rosario','America/Catamarca','America/Jujuy','Europe/Madrid','Africa/Ceuta','Atlantic/Canary','Africa/Malabo'];
-    var esTz = ES_TZ.indexOf(tz) > -1 || tz.indexOf('America/Argentina/') === 0 || tz.indexOf('Mexico/') === 0;
-    var want = (esNav || esTz) ? 'es' : 'en';
-    var cur = (document.documentElement.lang || 'es').slice(0, 2);
-    if (want !== cur) {
-      document.cookie = 'fqr_lang=' + want + '; path=/; max-age=31536000; SameSite=Lax';
-      // Solo recargar si la cookie sí se guardó (evita bucle con cookies bloqueadas)
-      if (/(?:^|; )fqr_lang=/.test(document.cookie)) location.reload();
-    }
-  } catch (e) {}
-})();
-</script>
 
 <!-- ═══ Google Analytics 4 + Google Ads (conversiones) ═══
      Pega aquí tus IDs. Mientras contengan "XXXX" no se carga nada (no rompe la página).
@@ -189,14 +166,14 @@ fq_lang();
   .nav nav a:hover{color:var(--blue)}
   .nav .cta{margin-left:2px;color:#fff}
   .nav .cta:hover{color:#fff}
-  .nav .burger{display:none;margin-left:auto;background:none;border:0;font-size:26px;cursor:pointer;color:var(--ink)}
+  .nav .burger{display:none;background:none;border:0;font-size:26px;cursor:pointer;color:var(--ink)}
   /* ── selector de idioma ES/EN ── */
   .lang{display:inline-flex;align-items:center;border:1.6px solid var(--line);border-radius:100px;padding:3px;gap:2px}
   .lang a{font-family:'Poppins';font-weight:800;font-size:11.5px;letter-spacing:.04em;padding:5px 10px;border-radius:100px;color:var(--mute)}
   .lang a.on{background:var(--ink);color:#fff}
   .lang a:not(.on):hover{color:var(--blue)}
-  .mmenu .lang{align-self:flex-start;margin-top:14px}
-  @media(max-width:820px){.nav nav{display:none}.nav .burger{display:block}}
+  .nav .lang-m{display:none}
+  @media(max-width:820px){.nav nav{display:none}.nav .lang-m{display:inline-flex;margin-left:auto}.nav .burger{display:block}}
 
   /* ── hero ── */
   .hero{position:relative;background:
@@ -539,6 +516,7 @@ fq_lang();
       <div class="lang" aria-label="Idioma / Language"><a href="<?= htmlspecialchars(lang_url('es')) ?>" class="<?= fq_lang()==='es'?'on':'' ?>">ES</a><a href="<?= htmlspecialchars(lang_url('en')) ?>" class="<?= fq_lang()==='en'?'on':'' ?>">EN</a></div>
       <a class="btn btn-blue cta" href="https://portal.facturaqr.app/registro.php" target="_blank" rel="noopener"><?= tr('Prueba gratis', 'Free trial') ?></a>
     </nav>
+    <div class="lang lang-m" aria-label="Idioma / Language"><a href="<?= htmlspecialchars(lang_url('es')) ?>" class="<?= fq_lang()==='es'?'on':'' ?>">ES</a><a href="<?= htmlspecialchars(lang_url('en')) ?>" class="<?= fq_lang()==='en'?'on':'' ?>">EN</a></div>
     <button class="burger" aria-label="<?= tr('Abrir menú', 'Open menu') ?>" onclick="document.getElementById('mm').classList.add('on')">☰</button>
   </div>
 </header>
@@ -554,7 +532,6 @@ fq_lang();
     <a href="/blog/">Blog</a>
     <a href="https://portal.facturaqr.app/?c=ejemplo&amp;demo=1" target="_blank" rel="noopener"><?= tr('Ver demo en vivo', 'See live demo') ?></a>
     <a class="btn btn-blue" href="https://portal.facturaqr.app/registro.php" target="_blank" rel="noopener"><?= tr('Probar gratis — 10 facturas', 'Try free — 10 invoices') ?></a>
-    <div class="lang" aria-label="Idioma / Language"><a href="<?= htmlspecialchars(lang_url('es')) ?>" class="<?= fq_lang()==='es'?'on':'' ?>">ES</a><a href="<?= htmlspecialchars(lang_url('en')) ?>" class="<?= fq_lang()==='en'?'on':'' ?>">EN</a></div>
   </div>
 </div>
 
