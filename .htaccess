@@ -2,6 +2,13 @@
 # El HTML/PHP no se cachea (para que los cambios se vean al instante).
 # Los assets estáticos sí pueden cachearse.
 
+# Dominio canónico: www → sin www (Google indexaba versiones duplicadas).
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTP_HOST} ^www\.facturaqr\.app$ [NC]
+  RewriteRule ^(.*)$ https://facturaqr.app/$1 [R=301,L]
+</IfModule>
+
 # El home es index.php (dinámico) para que SiteGround no lo cachee.
 DirectoryIndex index.php index.html
 

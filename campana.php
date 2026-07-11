@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Campaña de Redes Sociales — FacturaQR</title>
+<title>Campaña de Redes Sociales — FacturaQR</title><link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="description" content="Campaña de lanzamiento y calendario diario de FacturaQR en Facebook e Instagram: piezas, imágenes, copys y estado de publicación.">
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">

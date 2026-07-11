@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>FacturaQR — Sistema de Agentes de Marketing</title>
+<title>FacturaQR — Sistema de Agentes de Marketing</title><link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="description" content="Mapa del sistema de agentes de marketing IA de FacturaQR: orquestación, redes sociales, SEO local, anuncios, contenido, operaciones y analítica.">
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
