@@ -1,1 +1,24 @@
-[]
+[
+ {
+  "fecha": "2026-07-11",
+  "pagina": "landing",
+  "url": "https://facturaqr.app/",
+  "resumen": "+27/-8 líneas · + Blog | + Blog | + $499 | + 100",
+  "agregado": [
+   "Blog",
+   "Blog",
+   "$499",
+   "100",
+   "$999",
+   "500"
+  ],
+  "quitado": [
+   "$5,000",
+   "1,000",
+   "$8,000",
+   "3,000",
+   "$15,000",
+   "Local — $5,000/mes"
+  ]
+ }
+]

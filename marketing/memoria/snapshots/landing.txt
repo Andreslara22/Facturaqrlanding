@@ -4,12 +4,14 @@ Cómo funciona
 Beneficios
 Panel
 Precio
+Blog
 Prueba gratis
 Cómo funciona
 Beneficios
 Panel
 Precio
 Preguntas
+Blog
 Ver demo en vivo
 Probar gratis — 10 facturas
 Autofacturación · CFDI 4.0
@@ -119,12 +121,12 @@ Precio
 Planes claros, sin sorpresas.
 Elige según el tamaño de tu operación. Sin costo de instalación y sin contratos forzosos.
 Local
-$5,000
+$499
 / mes
 Lo esencial para dejar de facturar a mano en el mostrador.
 comercio / punto de venta
 Hasta
-1,000
+100
 facturas al mes
 Lectura de tickets con IA
 Timbrado CFDI 4.0 + envío por correo
@@ -134,13 +136,13 @@ Soporte por correo (72 h)
 Empezar con Local →
 ★ Más popular
 Comercio
-$8,000
+$999
 / mes
 Para negocios con varias cajas o sucursales y más volumen.
 Hasta
 comercios / sucursales
 Hasta
-3,000
+500
 facturas al mes
 Todo lo de Local
 , más:
@@ -151,7 +153,7 @@ Soporte prioritario por WhatsApp (24 h)
 Reportes de facturación mensuales
 Empezar con Comercio →
 Cadena
-$15,000
+$2,999
 / mes
 Para cadenas y franquicias que operan muchos puntos de venta.
 Comercios
@@ -190,6 +192,22 @@ La IA avisa cuando no puede leer el folio o el total y le pide al cliente otra f
 Sí, desde tu panel, eligiendo el motivo de cancelación del SAT. También puedes reenviar la factura al correo del cliente cuando lo necesites.
 ¿Funciona para varias sucursales?
 Sí. Cada negocio tiene su propio portal, su QR y su marca, y tú los administras todos desde una sola cuenta.
+Blog
+Guías de facturación sin filas.
+Autofacturación, CFDI 4.0 y cómo dejar de capturar RFCs a mano — en español claro.
+Guía rápida
+Cómo facturar un ticket con una foto en 1 minuto
+Escanea el QR, toma la foto y recibe tu CFDI 4.0 por correo. Sin apps, sin fila y sin capturar datos.
+Leer artículo →
+Restaurantes
+Facturación para restaurantes: adiós fila en caja
+Tus comensales se facturan solos desde la mesa. Menos errores de RFC y caja libre en hora pico.
+Leer artículo →
+Educación
+Qué es el CFDI 4.0 explicado fácil (sin líos)
+La factura electrónica vigente en México en español simple: qué es, qué datos pide y por qué importa.
+Leer artículo →
+Ver todos los artículos →
 Empieza hoy
 Pon a tus clientes a facturar solos.
 Crea tu cuenta en 2 minutos y estrena tu portal hoy mismo con
@@ -205,9 +223,9 @@ WhatsApp / teléfono
 Correo
 Plan de interés
 No estoy seguro / recomiéndenme
-Local — $5,000/mes
-Comercio — $8,000/mes
-Cadena — $15,000/mes
+Local — $499/mes
+Comercio — $999/mes
+Cadena — $2,999/mes
 Mensaje (opcional)
 Solicitar mi demo →
 Al enviar aceptas nuestro
@@ -221,6 +239,7 @@ Beneficios
 Panel de control
 Precio
 Recursos
+Blog
 Ver demo
 Preguntas frecuentes
 Entrar al portal

@@ -11,3 +11,18 @@ recuerdo por cambio; los agentes lo leen en su protocolo._
   + Superadmin: sucursales anidadas bajo su matriz (árbol) y pulido de Comercios
   + Superadmin: familias plegables (clic en la matriz) y árbol también en Pagos
   - archivos tocados: public/api/api.php, public/api/panel.php, public/cartel.php, public/guia-facturaqr.pdf, public/index.php, public/js/qrcode-generator.js
+
+## 2026-07-11 — landing (https://facturaqr.app/)
+- 2026-07-11 [cambio] landing: +27/-8 líneas
+  + Blog
+  + Blog
+  + $499
+  + 100
+  + $999
+  + 500
+  - $5,000
+  - 1,000
+  - $8,000
+  - 3,000
+  - $15,000
+  - Local — $5,000/mes
