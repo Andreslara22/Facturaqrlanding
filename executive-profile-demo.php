@@ -275,8 +275,7 @@ button{font:inherit;cursor:pointer}
 .opcion.elegida .letra{background:var(--acento);border-color:var(--acento);color:#fff}
 .nav-test{display:flex;justify-content:space-between;gap:12px;margin-top:28px}
 .aviso-faltan{
-  margin-top:16px;background:var(--ambar-suave);color:var(--ambar);
-  border-radius:var(--radio);padding:.7em .9em;font-size:.88rem;font-weight:600;
+  margin-top:14px;color:var(--tinta-suave);font-size:.85rem;
 }
 
 /* ============ RESULTS ============ */
@@ -469,7 +468,7 @@ table.tabla-datos{
       <h2>Three steps, results the same day</h2>
       <div class="pasos">
         <div class="paso"><h3>Controlled access</h3><p>Sign in with your corporate email and the access code provided by your organization.</p></div>
-        <div class="paso"><h3>30 real scenarios</h3><p>Each question presents a plant situation with four courses of action. Choose the one closest to what you would actually do. 25 minutes, with a visible timer and progress bar.</p></div>
+        <div class="paso"><h3>30 real scenarios</h3><p>Each question presents a plant situation with four defensible courses of action — the assessment measures your judgment between them. Every question must be answered to advance. 25 minutes, with a visible timer and progress bar.</p></div>
         <div class="paso"><h3>Instant report</h3><p>Executive profile, scores by dimension with charts, qualitative interpretation and development recommendations. Printable as PDF.</p></div>
       </div>
     </div>
@@ -624,158 +623,159 @@ const DIMENSIONES = {
 };
 
 /* Each option carries a value 1–4 (4 = best executive practice).
-   Option order is deliberately shuffled. */
+   All four options are defensible; the assessment measures judgment
+   between plausible courses of action. Option order is shuffled. */
 const PREGUNTAS = [
- {d:"LID",t:"The supervisor of your most critical line has the highest employee turnover in the plant. What is your first move?",o:[
-  {t:"I review the exit data and exit interviews with him, and talk to operators on his line before deciding anything.",v:4},
-  {t:"I set him a target to reduce turnover this quarter and review it at the monthly meeting.",v:3},
-  {t:"I ask HR to raise the attendance bonus for that line to slow down the departures.",v:2},
-  {t:"I move him to another area before the problem contaminates the rest of the shift.",v:1}]},
- {d:"DEC",t:"Line stoppage at 10:00 and your main customer's shipment leaves today at 18:00. Maintenance estimates a 4-hour repair. What do you do?",o:[
-  {t:"I go to the floor, confirm the diagnosis with maintenance and in parallel activate plan B: rebalance to another line and alert logistics to the risk.",v:4},
-  {t:"I wait for maintenance's formal report so I don't decide on incomplete data.",v:1},
-  {t:"I immediately authorize overtime for the next shift to catch up once the line restarts.",v:2},
-  {t:"I call production, quality and logistics into a quick meeting to define the recovery plan.",v:3}]},
- {d:"EST",t:"A single customer accounts for 70% of your plant's revenue. The operation is profitable and stable. How do you handle it?",o:[
-  {t:"I propose a gradual diversification strategy to corporate: a new line of business or a second anchor customer, without neglecting the current one.",v:4},
-  {t:"I strengthen the relationship with that customer: if they are satisfied, the risk is theoretical.",v:2},
-  {t:"I leave it alone: the plant hits its metrics and diversification is corporate's decision, not mine.",v:1},
-  {t:"I build a risk analysis and present it to corporate so they can decide whether we diversify.",v:3}]},
+ {d:"LID",t:"The supervisor of your most critical line has the highest employee turnover in the plant. His line still hits its output numbers. What is your first move?",o:[
+  {t:"I raise it with him one-on-one, ask for his read on the causes, and agree on a retention plan I'll track monthly.",v:3},
+  {t:"Since output is holding, I give him a defined quarter to turn the number around with HR's support before intervening directly.",v:1},
+  {t:"I pull the exit-interview data and talk to a few of his operators myself before I raise anything with him.",v:4},
+  {t:"I benchmark that line's pay, workload and shift pattern against the plant average and correct whatever gap explains the exits.",v:2}]},
+ {d:"DEC",t:"Line stoppage at 10:00 and your main customer's shipment leaves today at 18:00. Maintenance estimates a 4-hour repair, but their estimates have slipped before. What do you do?",o:[
+  {t:"I stay on the floor with maintenance to compress the repair; with the right pressure and parts, 4 hours can become 2.",v:2},
+  {t:"I set a decision gate: maintenance confirms repair viability by 12:00 while planning preps a partial-shipment option — at 12:00 we commit to one path.",v:4},
+  {t:"I call the customer now to open the delivery window before deciding internally — managing their expectations early is cheaper than surprising them at 17:00.",v:1},
+  {t:"I rebalance what I can to other lines now and schedule overtime recovery for the rest, keeping logistics informed of both moves.",v:3}]},
+ {d:"EST",t:"A single customer accounts for 70% of your plant's revenue. The operation is profitable and stable, and that customer is growing. How do you handle it?",o:[
+  {t:"I build quiet optionality — broad certifications, flexible capacity — so we can pivot fast if the relationship sours, without distracting the operation today.",v:1},
+  {t:"I quantify the exposure with scenarios (volume cut, price squeeze, program exit) and get it formally onto the group's risk agenda.",v:3},
+  {t:"I deepen the moat: multi-year agreements, engineering integration and joint roadmaps that make switching away from us expensive.",v:2},
+  {t:"I take corporate a diversification thesis: named target customers, the capacity plan to serve them, and what it costs to be credible in their supply base.",v:4}]},
  {d:"COM",t:"You must announce to the whole plant the elimination of a bonus the workforce considers an earned right. How do you communicate it?",o:[
-  {t:"I ask HR to communicate it via bulletin board and payroll; it's an administrative matter.",v:1},
-  {t:"I first prepare supervisors and middle managers with the why, then face every shift in person explaining the business reason and what comes next.",v:4},
-  {t:"I make the announcement myself in a single all-hands meeting so everyone hears the same version.",v:3},
-  {t:"I communicate the change together with a compensating improvement to soften the reaction.",v:2}]},
- {d:"OPE",t:"Your OTIF (on-time, in-full deliveries) dropped 4 points this month. What do you do first?",o:[
-  {t:"I reinforce supervision in shipping, which is where the problem shows up.",v:2},
-  {t:"I ask planning for a more detailed monthly report so I can monitor it better.",v:1},
-  {t:"I go down to the detail: I segment the drop by customer, line and root cause before moving anything.",v:4},
-  {t:"I bring production, planning and logistics together so each area presents its causes and commitments.",v:3}]},
+  {t:"I brief supervisors and middle managers first with the full why, then face each shift myself with the business reason and what stays protected.",v:4},
+  {t:"I package it with the new variable-pay scheme so the message is a restructuring of compensation, not a removal.",v:2},
+  {t:"I make the announcement myself at a single all-hands with open Q&A the same week, so everyone hears one version from me.",v:3},
+  {t:"I have each manager deliver it to their own team — people absorb hard news better from the boss they see every day than from a podium.",v:1}]},
+ {d:"OPE",t:"Your OTIF (on-time, in-full deliveries) dropped 4 points in one month after a stable year. What do you do first?",o:[
+  {t:"I stand up a daily OTIF recovery meeting with planning, production and logistics until the number is back where it was.",v:3},
+  {t:"I segment the misses by customer, line and cause before moving anything — one bad program and a systemic slide need different responses.",v:4},
+  {t:"I ask each area head for a recovery commitment with dates and consolidate them into the plan I report upward.",v:1},
+  {t:"I check the two usual suspects first — material shortages and the newest product ramp — and fix what I find there.",v:2}]},
  {d:"ADA",t:"Corporate orders a new ERP rollout. Your managers see it as a burden and are doing the bare minimum. What do you do?",o:[
-  {t:"I escalate to corporate that the local team isn't ready and ask to postpone the go-live.",v:1},
-  {t:"I appoint an internal project leader, tie ERP milestones to each manager's objectives and communicate why the change benefits the plant.",v:4},
-  {t:"I instruct that the implementation is mandatory and set committed dates per area.",v:2},
-  {t:"I identify the most receptive managers to start with them and build internal success stories.",v:3}]},
- {d:"LID",t:"Two of your managers (production and quality) have been in open conflict for weeks and decisions are stalling. How do you intervene?",o:[
-  {t:"I sit them down together, make the cost of the conflict to the plant explicit and we agree on decision rules; I follow up personally over the following weeks.",v:4},
-  {t:"I reassign processes so they interact with each other as little as possible.",v:1},
-  {t:"I talk to each one separately to understand their side and ask them to behave like professionals.",v:3},
-  {t:"I let them work it out: they are adults and executives; stepping in undermines them.",v:2}]},
+  {t:"I bring in the integrator's change-management package — structured training and certification for every key user — so adoption doesn't depend on enthusiasm.",v:2},
+  {t:"I negotiate scope with corporate: a phased rollout that respects the operation's real absorption capacity instead of the standard timeline.",v:1},
+  {t:"I make it theirs: an internal project lead, ERP milestones written into each manager's objectives, and the case for why the plant needs it.",v:4},
+  {t:"I start with the two most receptive managers, get their areas live first, and let their results pull the skeptics along.",v:3}]},
+ {d:"LID",t:"Two of your managers (production and quality) have been in open conflict for weeks and decisions are stalling. Both are strong performers. How do you intervene?",o:[
+  {t:"I give them a shared KPI both are measured on this quarter — nothing aligns two managers faster than a number they can only hit together.",v:1},
+  {t:"I sit them down together, put the cost of the conflict on the table and have them agree decision rules — which I then personally enforce for weeks.",v:4},
+  {t:"I meet each one separately first to locate the real issue, then decide whether this needs mediation or a structural fix.",v:3},
+  {t:"I redraw the decision rights between production and quality so the process stops depending on their relationship.",v:2}]},
  {d:"DEC",t:"Quality flags a questionable data point in the tests of a lot that is already palletized to ship today. Repeating the test takes 6 hours. What do you decide?",o:[
-  {t:"I hold the shipment, order the test repeated and notify the customer of the delay with the cause and a new date.",v:4},
-  {t:"I ship: a questionable data point is not a failed one, and OTIF is also a commitment to the customer.",v:1},
-  {t:"I ask quality to bring me evidence within 1 hour so I can decide with data whether it ships or holds.",v:3},
-  {t:"I ship the lot but open an internal investigation to assign responsibility.",v:2}]},
+  {t:"I give quality one hour to determine if the doubt is in the measurement or the product; if it's the product — or still unclear — the lot holds.",v:4},
+  {t:"I check whether the parameter is critical to function; if it isn't, I release with a documented engineering rationale and retest in parallel.",v:1},
+  {t:"I ship with a formal quality alert to the customer's receiving inspection and full traceability on the lot — transparency instead of delay.",v:2},
+  {t:"I hold the lot and repeat the test, full stop. I'd rather explain one late truck than one escaped defect.",v:3}]},
  {d:"EST",t:"The plant hits all its operational KPIs, but margin has been falling for three straight quarters. How do you approach it?",o:[
-  {t:"I question the model: I analyze product mix, costs the KPIs don't capture, and pricing — because operating well is no longer enough.",v:4},
-  {t:"I tighten the current KPIs: more productivity and less waste will recover margin.",v:2},
-  {t:"I ask finance for a formal explanation of the decline before taking a position.",v:3},
-  {t:"Margin depends on prices corporate negotiates; my responsibility is the plant's KPIs.",v:1}]},
+  {t:"I sit with finance to decompose the margin fall quarter by quarter before touching anything in the operation.",v:3},
+  {t:"I document that the erosion is in pricing and mix — both negotiated above me — and keep the plant focused on what it controls.",v:1},
+  {t:"I rebuild the bridge from KPIs to P&L — mix, pricing, cost drift the indicators don't capture — and reset what we measure based on what I find.",v:4},
+  {t:"I launch a structured cost-out program: a mature operation always carries waste its own KPIs have gone blind to.",v:2}]},
  {d:"COM",t:"You must present quarterly results below commitment to corporate (abroad). How do you structure the message?",o:[
-  {t:"I explain the quarter's adverse context so it's understood the causes were external.",v:2},
-  {t:"I present the recovery actions first so the focus doesn't stay on the number.",v:3},
-  {t:"I open with the unvarnished number, follow with causes separating what was controllable from what wasn't, and close with a recovery plan with dates and owners.",v:4},
-  {t:"I send the report in writing before the session so the meeting is just for questions.",v:1}]},
+  {t:"I open with the operating context every plant faced this quarter, then our gap against it, then the plan — numbers without context invite the wrong conclusions.",v:2},
+  {t:"The number first, unvarnished; causes split into controllable and external; recovery plan with dates and owners.",v:4},
+  {t:"I lead with the recovery actions already underway and put the detailed variance analysis in the appendix for questions.",v:1},
+  {t:"I pre-wire the key committee members individually before the session so nobody is surprised in the room, then walk the full group through the plan.",v:3}]},
  {d:"OPE",t:"Scrap has been above target for three months despite the team's actions. What is your role?",o:[
-  {t:"I lead the review myself: I ask to see the root-cause analyses, verify whether the actions attack the cause or the symptom, and assign resources where they're missing.",v:4},
-  {t:"I issue an ultimatum: if it doesn't drop next month, there will be consequences in the area's evaluation.",v:1},
-  {t:"I bring in a specialized external consultant to attack the problem.",v:2},
-  {t:"I ask the quality manager for a formal reduction plan with weekly milestones.",v:3}]},
+  {t:"I tie the area's variable compensation to the scrap target — well-designed incentives find root causes faster than management reviews do.",v:1},
+  {t:"I assign a senior engineer to it full-time with authority across shifts, reporting progress to me weekly.",v:3},
+  {t:"I concentrate the effort: the top three scrap SKUs get dedicated kaizen events; dispersion is why three months of actions haven't landed.",v:2},
+  {t:"I review the root-cause analyses myself: whether the actions attack cause or symptom, and what resources or authority the team is missing.",v:4}]},
  {d:"ADA",t:"In the middle of a new product ramp-up, the customer changes a key specification. Your team is stretched thin. What do you do?",o:[
-  {t:"I accept the change immediately: in manufacturing the customer defines and we execute.",v:2},
-  {t:"I assess the impact on cost, quality and dates with my team, renegotiate timing or price with the customer, and reorganize internal priorities to absorb it.",v:4},
-  {t:"I ask the customer to freeze specifications until the ramp-up ends as agreed.",v:1},
-  {t:"I create a dedicated team for the change and keep the rest focused on the original ramp-up.",v:3}]},
+  {t:"I quantify the impact on cost, quality and dates with my team, renegotiate timing or price with the customer, and reprioritize to absorb it.",v:4},
+  {t:"I accept it and fast-track engineering — flexibility in moments like this is how a supplier earns the next program.",v:2},
+  {t:"I carve out a dedicated team for the change and keep everyone else locked on the original ramp-up plan.",v:3},
+  {t:"I invoke the change-control clause: the spec freezes until the engineering change is signed and priced, as the contract provides.",v:1}]},
  {d:"LID",t:"Your best manager didn't get the promotion he expected (the position was frozen) and his performance is starting to slip. What do you do?",o:[
-  {t:"I talk to him directly: I acknowledge the frustration, give him honest clarity about his career path and we build a plan with real challenges and visibility.",v:4},
-  {t:"I give him space for a few weeks; pressuring him now could trigger his resignation.",v:2},
-  {t:"I work with corporate on an extraordinary salary adjustment to retain him.",v:3},
-  {t:"I quietly start preparing his replacement; a demotivated employee leaves sooner or later.",v:1}]},
+  {t:"I put him on a high-visibility project with corporate exposure while the position unfreezes, so the path stays tangible.",v:3},
+  {t:"I have the honest career conversation: what is realistic here, on what timeline, and what he'd need to demonstrate — even if the answer disappoints him.",v:4},
+  {t:"I stay close but give him room to process the disappointment; forcing the conversation while it's raw usually backfires.",v:1},
+  {t:"I work with HR on a retention package ready before he starts interviewing — losing him costs more than any adjustment.",v:2}]},
  {d:"DEC",t:"Corporate demands you cut operating expenses by 10% and respond with the plan within 48 hours. How do you proceed?",o:[
-  {t:"I apply a flat 10% cut across all areas: it's fast, fair and defensible.",v:2},
-  {t:"I prioritize with my managers: I protect what sustains quality and deliveries, cut deep into what adds no value, and present the plan with the risks made explicit.",v:4},
-  {t:"I request an extension: a decision this size isn't made in 48 hours.",v:1},
-  {t:"I cut the reversible items first (travel, consultants, temps) and buy time to analyze the structural ones.",v:3}]},
+  {t:"I commit to 6% immediately with a credible path to 10%, protecting the lines that feed our top customers — and defend that math.",v:2},
+  {t:"I cascade it: each manager finds 10% in their own area within 24 hours — they know where the fat is better than I do.",v:1},
+  {t:"I rank spend by its impact on quality and delivery, cut asymmetrically — deep where value is low — and present the plan with its risks made explicit.",v:4},
+  {t:"I deliver the 10% with reversible cuts now (travel, consultants, temps) and a 30-day plan to replace them with structural ones.",v:3}]},
  {d:"EST",t:"Nearshoring is bringing new players and potential customers to your region. What do you do with that trend?",o:[
-  {t:"I prepare a business case for corporate: available capacity, differentiating capabilities and specific target customers to capture that demand.",v:4},
-  {t:"I focus on the current operation: chasing trends is a distraction and new customers come on their own if the plant is good.",v:1},
-  {t:"I reinforce retention of my people, because the new players will come for the region's talent.",v:3},
-  {t:"I mention the opportunity at the next corporate review to see if they're interested.",v:2}]},
+  {t:"I feed the signals to corporate development and let them lead; plant-level selling creates commitments we can't price properly.",v:1},
+  {t:"I take corporate a business case: available capacity, differentiating capabilities and named prospects to capture the demand.",v:4},
+  {t:"I get the plant into the deal flow now — regional clusters, site selectors, the people relocating supply chains — before we need anything from them.",v:3},
+  {t:"I prepare defensively: lock in my key people and suppliers with agreements before the newcomers bid them up.",v:2}]},
  {d:"COM",t:"A rumor is circulating on the floor that the plant is going to close. It's false, but it's already hurting morale and people are job-hunting. What do you do?",o:[
-  {t:"I address it head-on the same day, shift by shift, with workload and project data; and I leave a channel open for questions.",v:4},
-  {t:"I don't feed it: publicly denying a rumor gives it credibility. It will die on its own.",v:1},
-  {t:"I ask supervisors to reassure their people in their shift start-up meetings.",v:3},
-  {t:"I publish an official notice on bulletin boards and email denying the closure.",v:2}]},
- {d:"OPE",t:"One area has been running on chronic overtime for months. The manager says 'that's how we hit the schedule.' What do you do?",o:[
-  {t:"I treat chronic overtime as a symptom: I request a real capacity, line-balancing and absenteeism analysis, and attack the cause even if it takes longer.",v:4},
-  {t:"I accept it as long as the schedule is met: the extra cost is smaller than missing a customer commitment.",v:2},
-  {t:"I put a cap on the area's overtime and let the manager adjust.",v:1},
-  {t:"I compare the cost of overtime against hiring more people and decide by the numbers.",v:3}]},
+  {t:"I address it head-on the same day, shift by shift, with the order book and project pipeline as evidence — and leave a channel open for questions.",v:4},
+  {t:"I counter-program: I accelerate the announcement of the new program we had in the pipeline, so facts displace the rumor without dignifying it.",v:1},
+  {t:"I trace the source first — a rumor this specific usually has one, and answering it wrong amplifies it.",v:2},
+  {t:"I arm the supervisors with talking points today and hold a town hall within the week.",v:3}]},
+ {d:"OPE",t:"One area has been running on chronic overtime for months. The manager says 'that's how we hit the schedule.' The crew likes the extra pay. What do you do?",o:[
+  {t:"I run the numbers: if sustained overtime beats the fully loaded cost of hiring, it stays; if not, we hire. Emotion out, math in.",v:3},
+  {t:"The schedule ships, the crew wants the hours, and the premium is budgeted — I don't fix what the numbers say isn't broken.",v:1},
+  {t:"I treat it as a symptom: capacity, line-balancing and absenteeism analysis before any decision — the overtime is hiding something.",v:4},
+  {t:"I cap it on a declining schedule quarter by quarter, forcing the area to engineer the need out of the process.",v:2}]},
  {d:"ADA",t:"Your corporate boss gives you hard feedback: your style is 'too operational' and you lack business vision. How do you react?",o:[
-  {t:"I take it with openness: I ask for concrete examples, cross-check with my team and peers, and build a development plan with follow-up with my boss.",v:4},
-  {t:"I explain why the operation demands that style; the plant delivers results and that backs me up.",v:1},
-  {t:"I thank him for the feedback and make visible adjustments in how I present and prioritize.",v:3},
-  {t:"I hire an executive coach on my own to work on it discreetly.",v:2}]},
+  {t:"I engage an executive coach privately; feedback like that is a career signal you work on seriously and discreetly.",v:2},
+  {t:"I ask for concrete examples, cross-check the perception with my team and peers, and build a development plan I review with him.",v:4},
+  {t:"I walk him through how this plant's results are built — the style he's questioning is exactly what produces the numbers he approves.",v:1},
+  {t:"I change what he sees: how I present, what I prioritize in reviews, the altitude of my questions — perception is part of the job.",v:3}]},
  {d:"LID",t:"A critical audit from your main customer is approaching. How do you organize the preparation?",o:[
-  {t:"I take direct control of the preparation myself: it's too important to delegate.",v:2},
-  {t:"I delegate to an experienced owner, we define the plan and deliverables together, and I review progress at key checkpoints.",v:4},
-  {t:"The agenda belongs to the quality manager; I trust his experience and get involved only if he asks.",v:1},
-  {t:"I form a cross-functional committee to divide up the audit requirements.",v:3}]},
+  {t:"Audits are the quality manager's core process; I resource whatever he asks for and join at the closing meeting where my presence matters.",v:1},
+  {t:"I stand up a cross-functional war room with weekly cadence that I chair until the audit.",v:3},
+  {t:"I contract a mock audit with an external auditor a month ahead and drive the preparation off its findings.",v:2},
+  {t:"I name an owner with experience, agree the plan and deliverables with him, and review progress at defined checkpoints.",v:4}]},
  {d:"DEC",t:"Your sole supplier of a critical component warns it will miss deliveries right before a product launch. What do you do first?",o:[
-  {t:"I size the exact gap (how much, when) and in parallel open three fronts: pressure and a plan with the supplier, search for an alternate, and scenarios with the customer.",v:4},
-  {t:"I escalate to corporate immediately: a sole supplier is a risk that was decided above me.",v:2},
-  {t:"I travel or send someone to the supplier's plant to verify the real situation before moving anything.",v:3},
-  {t:"I notify the customer right away that the launch is at risk to manage expectations.",v:1}]},
+  {t:"I quantify the exact gap — how many parts, which weeks — and split my team onto three fronts: supplier recovery, alternate source, customer scenarios.",v:4},
+  {t:"I pull the launch team into re-scoping: which configurations can launch without that component while supply recovers.",v:2},
+  {t:"I put someone in the supplier's plant today with authority to commit expediting money and report the real situation back to me.",v:3},
+  {t:"I align with corporate purchasing before acting — sole-source decisions were made at group level and uncoordinated pressure on the supplier can backfire.",v:1}]},
  {d:"EST",t:"Qualified technicians are getting harder to find in your region and competition for talent is driving wages up. What is your 3-year play?",o:[
-  {t:"I build my own pipeline: agreements with local technical universities, an internal academy and growth paths that make the plant the employer of choice.",v:4},
-  {t:"I raise wages above market; talent follows money and the rest is talk.",v:2},
-  {t:"I automate aggressively to depend on fewer skilled people.",v:3},
-  {t:"It's a regional labor-market problem; I manage it hire by hire.",v:1}]},
+  {t:"I redesign the work so fewer scarce skills are critical: automate the bottleneck stations and deskill what can be deskilled.",v:3},
+  {t:"I build the pipeline: dual-education agreements with technical schools, an internal academy, and growth paths that make us the employer people aim for.",v:4},
+  {t:"I evaluate a satellite operation in a city where the talent pool is deeper, and let the labor market drive the footprint.",v:1},
+  {t:"I build a technician retention ladder — certifications tied to pay steps, deliberately ahead of market.",v:2}]},
  {d:"COM",t:"You need corporate to approve a $2M investment in automation you consider impossible to postpone. How do you make the case?",o:[
-  {t:"I present the case with calculated ROI, the risks of not investing, benchmarks against sister plants — and before the session I line up key allies on the committee.",v:4},
-  {t:"I present a flawless technical case: if the numbers are good, it approves itself.",v:3},
-  {t:"I first request a small pilot project to prove the concept before asking for the full amount.",v:2},
-  {t:"I warn that without the investment I can't be held responsible for next year's capacity commitments.",v:1}]},
+  {t:"I make the technical case airtight — payback, capacity, quality — and let the numbers carry the decision; lobbying cheapens a solid case.",v:2},
+  {t:"I tie it to accountability: without this investment I cannot commit to next year's capacity plan, and I put that in writing.",v:1},
+  {t:"ROI plus the quantified cost of NOT investing, benchmarked against sister plants — and the key committee members aligned before the meeting starts.",v:4},
+  {t:"I propose a pilot first: a smaller ask, proof on our own floor, then the full request backed by our own data.",v:3}]},
  {d:"OPE",t:"How do you follow up on the plant's monthly objectives?",o:[
-  {t:"A monthly results meeting where each manager presents their numbers and we explain deviations.",v:2},
-  {t:"A KPI board reviewed on a short cadence (daily/weekly by level), where deviations trigger actions with an owner and a date.",v:4},
-  {t:"I review the reports that reach me and step in when something goes out of range.",v:1},
-  {t:"Frequent floor walks: numbers matter, but reality is visible on the line.",v:3}]},
+  {t:"Management by exception: thresholds are set, alerts reach me when something breaches, and I go deep only where they fire.",v:1},
+  {t:"Tiered cadence: daily and weekly boards by level where deviations trigger actions with an owner and a date; the monthly review is for trends.",v:4},
+  {t:"Weekly one-on-ones with each manager built around their three critical numbers.",v:3},
+  {t:"A disciplined monthly business review: pre-reads with real analysis, hard questions in the room, minuted commitments.",v:2}]},
  {d:"ADA",t:"A labor reform forces you to restructure the shifts of the entire plant within 90 days. How do you lead it?",o:[
-  {t:"I set up a project team (HR, production, legal), model shift scenarios, involve the workforce in the transition and communicate the why from day one.",v:4},
-  {t:"I wait for corporate's guidelines for all plants before moving anything locally.",v:1},
-  {t:"I hand the shift redesign to HR: it's their specialty and my role is to approve.",v:2},
-  {t:"I implement the minimum change required to comply with the law with the least noise possible.",v:3}]},
+  {t:"A project team (HR, production, legal), shift scenarios modeled, the workforce involved in the transition, and the why communicated from day one.",v:4},
+  {t:"I hold for the group's guideline — diverging locally on labor structure is a liability that outlives any deadline.",v:1},
+  {t:"Legal-first: the minimum compliant change now, and the deeper shift redesign later without a regulatory gun to our head.",v:2},
+  {t:"I benchmark how the strongest plants in the region are solving it and adapt the best design — 90 days is no time to invent.",v:3}]},
  {d:"LID",t:"You notice your management team reports problems only after they've blown up, not when they start. How do you fix it?",o:[
-  {t:"I first examine my own reaction to bad news, and create spaces where raising risks early is recognized instead of punished.",v:4},
-  {t:"I make risk reporting a mandatory item in the weekly meeting to force the conversation.",v:3},
-  {t:"I walk the floor more often myself, so I learn things directly without the management filter.",v:2},
-  {t:"I make it clear that hiding problems will have consequences in their performance review.",v:1}]},
+  {t:"I add a standing 'top three risks' item to the weekly meeting, owned by a rotating manager so it never becomes a formality.",v:3},
+  {t:"I institute regular skip-level meetings — the level below my managers always knows what's brewing before it escalates.",v:1},
+  {t:"I start with how I receive bad news, then build routines where raising a risk early is visibly recognized instead of punished.",v:4},
+  {t:"I build a leading-indicator dashboard so problems surface in the data before they depend on anyone's willingness to speak.",v:2}]},
  {d:"DEC",t:"Sales brings you an urgent, highly profitable order that would saturate your capacity this month and put committed deliveries at risk. What do you decide?",o:[
-  {t:"I turn it down: existing commitments come first and capacity is what it is.",v:2},
-  {t:"I model the real impact with planning (what slips, by how much, for whom), negotiate dates with the affected customers and decide with that full picture.",v:4},
-  {t:"I take it: you don't walk away from profitability like that; the team will find a way, as always.",v:1},
-  {t:"I take it partially: I accept the volume that fits without compromising current deliveries.",v:3}]},
+  {t:"I take it and protect the commitments with premium freight and weekend shifts — the margin covers those costs several times over.",v:2},
+  {t:"I price the disruption with planning — what slips, by how much, for whom — and only take it if the affected customers agree to new dates.",v:4},
+  {t:"I send sales back for the customer's real flexibility on dates and volume before I spend any planning effort on scenarios.",v:1},
+  {t:"I take the portion that fits without touching commitments and offer the balance next month; margin doesn't justify burning promises.",v:3}]},
  {d:"EST",t:"You can close the year above budget, or invest that surplus in automating a bottleneck process. The team's bonus depends on the annual result. What do you do?",o:[
-  {t:"I close the year strong: financial commitments are sacred and the investment can wait for the next budget.",v:2},
-  {t:"I invest: sacrificing one year for future capacity is always the better business.",v:1},
-  {t:"I present both scenarios to corporate with numbers and recommend the investment, negotiating to recognize it outside the bonus baseline.",v:4},
-  {t:"I defer the investment to Q1 of next year and earmark it in the budget starting now.",v:3}]},
+  {t:"I bank the year. Credibility with corporate is the asset that funds every future investment — you don't spend it voluntarily.",v:1},
+  {t:"I secure pre-approval now to execute the investment in Q1: the year closes strong, the bonus stands, and the automation slips only one quarter.",v:3},
+  {t:"I split it: a partial investment that keeps us above budget this year, and the full automation case in next year's plan.",v:2},
+  {t:"I present both scenarios to corporate with numbers and recommend the investment — negotiating to recognize it outside the bonus baseline.",v:4}]},
  {d:"COM",t:"A peer director (another plant in the group) systematically breaks the agreements made between plants, and it hurts your operation. What do you do?",o:[
-  {t:"I talk to him directly, with data on the misses and their impact, and we agree on a follow-up mechanism between the two of us before escalating.",v:4},
-  {t:"I escalate it to our common boss with the documented evidence; that's what the structure is for.",v:2},
-  {t:"I document everything and raise it at the next group review so there's a formal record.",v:1},
-  {t:"I adjust my operation to depend on his plant as little as possible.",v:3}]},
+  {t:"I go to him directly with the data on the misses and their cost, and we agree a follow-up mechanism between the two of us — escalation stays in reserve.",v:4},
+  {t:"I set up a shared tracker with his planning chief where every commitment and miss is visible — transparency does the confronting for me.",v:2},
+  {t:"I propose a formal inter-plant service agreement at the next group review, so compliance stops depending on goodwill.",v:3},
+  {t:"I build buffers and reduce my dependence on his plant; some peers only move when you stop needing them.",v:1}]},
  {d:"OPE",t:"A key improvement project (changeover time reduction) has been stalled for two months. What do you do?",o:[
-  {t:"I diagnose why it stalled (resources, priority, the leader's capacity), fix that cause and restore its cadence with short reviews with me.",v:4},
-  {t:"I replace the project leader: two months without progress speak for themselves.",v:1},
-  {t:"I formally pause it and reactivate it when the operation allows.",v:2},
-  {t:"I step in personally to unblock it until it regains momentum.",v:3}]},
+  {t:"I re-scope it smaller: one line, one visible win in 30 days, and rebuild momentum from there.",v:3},
+  {t:"I diagnose why it stalled — priority, resources, the leader's capacity — fix that specific cause and restore short-cycle reviews with me.",v:4},
+  {t:"I make it the plant's metric of the quarter — visibility on every dashboard will do what routine follow-up hasn't.",v:1},
+  {t:"I bring the changeover specialists from our sister plant for a focused week to re-energize it with outside expertise.",v:2}]},
  {d:"ADA",t:"Corporate is pushing 'Industry 4.0' and your floor still runs on paper records. Where do you start?",o:[
-  {t:"I wait for another plant in the group to implement it first and adopt what works for them.",v:2},
-  {t:"I start with a high-impact pilot process, digitize with the people involved from the design stage, measure the benefit and scale with that proven case.",v:4},
-  {t:"I hire a systems integrator to digitize the whole plant in a single project.",v:1},
-  {t:"I first establish the baseline: what data we capture today, which of it matters and what decisions it would feed.",v:3}]}
+  {t:"I commission a plant digitalization roadmap from a firm that has done this before; this is not a journey to learn by trial and error.",v:2},
+  {t:"I standardize and stabilize the processes on paper first — digitizing an undisciplined process just gives you faster chaos.",v:1},
+  {t:"A high-impact pilot process, digitized with the operators involved from the design stage; measure the benefit, then scale with a proven case.",v:4},
+  {t:"Baseline first: what data we capture today, which of it matters, and what decisions it would feed — then choose where digital actually pays.",v:3}]}
 ];
 
 const NOMBRE_BANDA = [
@@ -962,24 +962,21 @@ function pintarPregunta(){
   document.getElementById("btn-anterior").disabled = (i===0);
   const btnSig = document.getElementById("btn-siguiente");
   btnSig.textContent = (i===PREGUNTAS.length-1) ? "See my results" : "Next →";
-  document.getElementById("aviso-faltan").classList.add("oculto");
+  // no advancing without an answer
+  btnSig.disabled = (estado.respuestas[i]===null);
+  const aviso = document.getElementById("aviso-faltan");
+  aviso.textContent = "Select the option closest to what you would actually do to continue.";
+  aviso.classList.toggle("oculto", estado.respuestas[i]!==null);
 }
 
 document.getElementById("btn-anterior").addEventListener("click", ()=>{
   if(estado.idx>0){ estado.idx--; guardarEstado(); pintarPregunta(); }
 });
 document.getElementById("btn-siguiente").addEventListener("click", ()=>{
+  if(estado.respuestas[estado.idx]===null) return;
   if(estado.idx < PREGUNTAS.length-1){
     estado.idx++; guardarEstado(); pintarPregunta();
   } else {
-    const faltan = estado.respuestas.map((r,k)=>r===null?k+1:null).filter(v=>v!==null);
-    if(faltan.length){
-      const aviso = document.getElementById("aviso-faltan");
-      aviso.textContent = "You have "+faltan.length+" unanswered question(s): "+faltan.join(", ")+". Use “Previous” to go back, or press the button again to finish as is.";
-      if(!aviso.classList.contains("oculto")){ finalizar(false); return; }
-      aviso.classList.remove("oculto");
-      return;
-    }
     finalizar(false);
   }
 });
