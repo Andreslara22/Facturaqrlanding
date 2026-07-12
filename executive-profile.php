@@ -499,12 +499,13 @@ table.tabla-datos{
       <div class="error-acceso oculto" id="error-acceso"></div>
       <div class="campo">
         <label for="campo-email">Corporate email</label>
-        <input id="campo-email" type="email" autocomplete="email" placeholder="name@company.com" required>
+        <input id="campo-email" type="email" autocomplete="email" placeholder="name@company.com">
       </div>
       <div class="campo">
         <label for="campo-codigo">Access code</label>
-        <input id="campo-codigo" type="text" autocomplete="one-time-code" placeholder="MAQ-DIR-0000" style="text-transform:uppercase;letter-spacing:.08em" required>
+        <input id="campo-codigo" type="text" autocomplete="one-time-code" placeholder="MAQ-DIR-0000" style="text-transform:uppercase;letter-spacing:.08em">
         <div class="pista">Provided by Human Resources or the consultant running your assessment process.</div>
+        <div class="pista" style="color:var(--ambar)">Test mode is on: you can leave both fields empty and start right away.</div>
       </div>
       <button class="btn" type="submit" style="width:100%">Begin — the timer starts now</button>
       <div class="pista" style="margin-top:12px;text-align:center">The 25:00 time limit starts as soon as you begin. Make sure you have that time without interruptions.</div>
@@ -892,17 +893,24 @@ document.getElementById("btn-acceso-cta").addEventListener("click", irAcceso);
 
 document.getElementById("form-acceso").addEventListener("submit", function(ev){
   ev.preventDefault();
-  const email = document.getElementById("campo-email").value.trim().toLowerCase();
-  const codigo = document.getElementById("campo-codigo").value.trim().toUpperCase();
+  let email = document.getElementById("campo-email").value.trim().toLowerCase();
+  let codigo = document.getElementById("campo-codigo").value.trim().toUpperCase();
   const err = document.getElementById("error-acceso");
-  const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
-  if(!emailValido){
-    err.textContent = "Enter a valid email address (e.g. name@company.com).";
-    err.classList.remove("oculto"); return;
-  }
-  if(!CODIGOS_ACCESO.includes(codigo)){
-    err.textContent = "That access code isn't valid. Check it with whoever is coordinating your assessment process.";
-    err.classList.remove("oculto"); return;
+  /* MODO_PRUEBA: con true, los campos vacíos entran directo (invitado).
+     Ponlo en false para exigir correo + código otra vez. */
+  const MODO_PRUEBA = true;
+  if(MODO_PRUEBA && !email && !codigo){
+    email = "guest@test"; codigo = "TEST-MODE";
+  } else {
+    const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
+    if(!emailValido){
+      err.textContent = "Enter a valid email address (e.g. name@company.com), or leave both fields empty to start in test mode.";
+      err.classList.remove("oculto"); return;
+    }
+    if(!CODIGOS_ACCESO.includes(codigo)){
+      err.textContent = "That access code isn't valid. Check it with whoever is coordinating your assessment process, or leave both fields empty to start in test mode.";
+      err.classList.remove("oculto"); return;
+    }
   }
   err.classList.add("oculto");
   estado = {
