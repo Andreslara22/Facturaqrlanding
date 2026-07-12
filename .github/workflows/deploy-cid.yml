@@ -1,0 +1,36 @@
+name: Deploy assessment a cidproyectos.com.mx
+
+# Sube SOLO los archivos del assessment (executive-profile*.php) al docroot
+# de cidproyectos.com.mx en SiteGround. Se dispara a mano (workflow_dispatch).
+#
+# Requiere estos secrets en el repo (Settings → Secrets and variables → Actions):
+#   CID_FTP_SERVER    — host FTP del sitio cidproyectos.com.mx (Site Tools → FTP Accounts)
+#   CID_FTP_USERNAME  — usuario FTP
+#   CID_FTP_PASSWORD  — contraseña FTP
+# NUNCA pongas estas credenciales en el chat ni en archivos del repo.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Solo se suben los archivos del assessment; el resto del sitio
+      # cidproyectos no se toca (la acción no borra archivos que no conoce).
+      - name: Preparar archivos a publicar
+        run: |
+          mkdir stage
+          cp executive-profile.php executive-profile-demo.php stage/
+
+      - name: Subir por FTPS a SiteGround
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.CID_FTP_SERVER }}
+          username: ${{ secrets.CID_FTP_USERNAME }}
+          password: ${{ secrets.CID_FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: ./stage/
+          server-dir: cidproyectos.com.mx/public_html/

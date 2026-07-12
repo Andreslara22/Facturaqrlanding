@@ -30,3 +30,5 @@ jobs:
             scripts/**
             README.md
             CLAUDE.md
+            executive-profile.php
+            executive-profile-demo.php
