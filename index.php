@@ -261,9 +261,11 @@ require __DIR__ . '/form-lib.php';
   .step{position:relative;background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px 22px 24px;box-shadow:0 6px 18px rgba(15,23,42,.05)}
   .step .num{counter-increment:s;font-family:'Poppins';font-weight:900;font-size:14px;color:var(--blue);background:var(--blue-soft);width:38px;height:38px;border-radius:11px;display:grid;place-items:center;margin-bottom:16px}
   .step .num::before{content:counter(s,decimal-leading-zero)}
+  .step .foto{margin:-26px -22px 20px;height:180px;overflow:hidden;border-radius:17px 17px 0 0;border-bottom:1px solid var(--line)}
+  .step .foto img{width:100%;height:100%;object-fit:cover;display:block}
   .step b{display:block;font-weight:800;font-size:17px;margin-bottom:7px}
   .step p{color:var(--mute);font-weight:600;font-size:14.5px}
-  .step .arrow{position:absolute;top:44px;right:-13px;width:26px;height:26px;color:var(--mute-2);z-index:2}
+  .step .arrow{position:absolute;top:50%;margin-top:-13px;right:-13px;width:26px;height:26px;color:var(--mute-2);z-index:2;background:#fff;border-radius:50%}
   @media(max-width:780px){.steps{grid-template-columns:1fr}.step .arrow{display:none}}
 
   /* compare: sin / con FacturaQR */
@@ -347,7 +349,15 @@ require __DIR__ . '/form-lib.php';
   .qr{width:172px;height:172px;margin:0 auto;border-radius:16px;padding:12px;background:#fff;border:2px solid var(--ink)}
   .qr svg{width:100%;height:100%}
   .cartel .foot{margin-top:16px;font-family:'Poppins';font-weight:800;font-size:12px;color:var(--ink)}
-  @media(max-width:820px){.dark .wrap{grid-template-columns:1fr;gap:34px}}
+  .qr-visual{position:relative;justify-self:center;width:100%;max-width:520px;padding-bottom:34px}
+  .qr-visual>img{width:100%;height:auto;display:block;border-radius:22px;box-shadow:0 30px 70px rgba(0,0,0,.45)}
+  .qr-visual .cartel{position:absolute;left:-16px;bottom:0;max-width:212px;padding:18px 16px;transform:rotate(-2deg)}
+  .qr-visual .cartel h3{font-size:17px}
+  .qr-visual .cartel p{font-size:11.5px;margin-bottom:12px}
+  .qr-visual .cartel .k{font-size:10.5px}
+  .qr-visual .qr{width:112px;height:112px;padding:9px;border-radius:12px}
+  .qr-visual .cartel .foot{margin-top:11px;font-size:10.5px}
+  @media(max-width:820px){.dark .wrap{grid-template-columns:1fr;gap:34px}.qr-visual .cartel{left:-6px}}
 
   /* panel showcase */
   .split{display:grid;grid-template-columns:.9fr 1.1fr;gap:44px;align-items:center}
@@ -603,18 +613,21 @@ require __DIR__ . '/form-lib.php';
       </div>
       <div class="steps">
         <div class="step reveal">
+          <div class="foto"><img src="img/paso-escanea.webp" alt="<?= tr('Clienta escaneando el cartel QR en el mostrador de un negocio', 'Customer scanning the QR poster at a store counter') ?>" width="1200" height="1600" loading="lazy" style="object-position:50% 62%"></div>
           <div class="num"></div>
           <b><?= tr('Escanea el QR', 'Scan the QR') ?></b>
           <p><?= tr('Desde la cámara de su celular, sin apps ni registro. Se abre el portal con tu logo.', 'Right from their phone camera — no apps, no sign-up. Your branded portal opens.') ?></p>
           <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </div>
         <div class="step reveal">
+          <div class="foto"><img src="img/paso-ticket.webp" alt="<?= tr('Cliente tomando foto de su ticket con el celular', 'Customer photographing their receipt with a phone') ?>" width="1200" height="800" loading="lazy"></div>
           <div class="num"></div>
           <b><?= tr('Toma foto del ticket', 'Snap a photo of the receipt') ?></b>
           <p><?= tr('La inteligencia artificial lee el folio, la fecha y el total al instante. Nadie teclea cantidades.', 'AI reads the receipt number, date and total instantly. Nobody types in amounts.') ?></p>
           <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </div>
         <div class="step reveal">
+          <div class="foto"><img src="img/paso-factura.webp" alt="<?= tr('Cliente contento recibiendo su factura en el celular', 'Happy customer getting their invoice on their phone') ?>" width="1200" height="800" loading="lazy"></div>
           <div class="num"></div>
           <b><?= tr('Recibe su CFDI', 'Get their CFDI') ?></b>
           <p><?= tr('Pone su RFC y correo, y le llega el PDF y el XML timbrados. En segundos, no al día siguiente.', 'They enter their RFC and email, and the certified PDF and XML arrive. In seconds, not the next day.') ?></p>
@@ -686,12 +699,15 @@ require __DIR__ . '/form-lib.php';
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg> <?= tr('También va en tu ticket, recibo o WhatsApp', 'It also fits on your receipt, invoice or WhatsApp') ?></li>
         </ul>
       </div>
-      <div class="cartel">
-        <div class="k"><?= tr('Factura tu ticket', 'Invoice your receipt') ?></div>
-        <h3><?= tr('Escanea y listo', 'Scan and done') ?></h3>
-        <p><?= tr('Toma foto de tu ticket y recibe tu factura CFDI en tu correo.', 'Snap a photo of your receipt and get your CFDI invoice by email.') ?></p>
-        <div class="qr"><svg viewBox="0 0 100 100" style="color:var(--ink)" aria-label="<?= tr('Código QR de ejemplo', 'Sample QR code') ?>"><use href="#qr"/></svg></div>
-        <div class="foot"><?= tr('Tu Negocio', 'Your Business') ?> · CFDI 4.0</div>
+      <div class="qr-visual reveal">
+        <img src="img/duena-qr.webp" alt="<?= tr('Dueña de un negocio con su cartel QR de facturación en el mostrador', 'Business owner with her invoicing QR sign at the counter') ?>" width="1200" height="800" loading="lazy">
+        <div class="cartel">
+          <div class="k"><?= tr('Factura tu ticket', 'Invoice your receipt') ?></div>
+          <h3><?= tr('Escanea y listo', 'Scan and done') ?></h3>
+          <p><?= tr('Toma foto de tu ticket y recibe tu factura CFDI en tu correo.', 'Snap a photo of your receipt and get your CFDI invoice by email.') ?></p>
+          <div class="qr"><svg viewBox="0 0 100 100" style="color:var(--ink)" aria-label="<?= tr('Código QR de ejemplo', 'Sample QR code') ?>"><use href="#qr"/></svg></div>
+          <div class="foot"><?= tr('Tu Negocio', 'Your Business') ?> · CFDI 4.0</div>
+        </div>
       </div>
     </div>
   </section>
