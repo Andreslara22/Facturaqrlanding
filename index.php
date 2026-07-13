@@ -12,6 +12,8 @@ function fq_lang(): string {
 function tr(string $es, string $en): string { return fq_lang() === 'en' ? $en : $es; }
 function lang_url(string $lang): string { $q = $_GET; $q['lang'] = $lang; return '?' . http_build_query($q); }
 fq_lang();
+require __DIR__ . '/form-lib.php';
+[$FT, $FTS] = fq_form_token(); // token anti-spam del formulario de contacto
 ?>
 <!DOCTYPE html>
 <html lang="<?= fq_lang() ?>">
@@ -895,6 +897,7 @@ fq_lang();
       <form class="fcard" id="leadForm" method="post" action="contacto.php">
         <div class="ok" id="formOk" hidden>✓ <?= tr('¡Gracias! Recibimos tus datos y te contactamos muy pronto.', 'Thanks! We got your info and will reach out very soon.') ?></div>
         <input type="text" name="empresa_web" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <input type="hidden" name="t" value="<?= $FT ?>"><input type="hidden" name="ts" value="<?= $FTS ?>"><input type="hidden" name="fjs" value="">
         <label><?= tr('Nombre', 'Name') ?><input type="text" name="nombre" required autocomplete="name" placeholder="<?= tr('Tu nombre', 'Your name') ?>"></label>
         <label><?= tr('Negocio', 'Business') ?><input type="text" name="negocio" required placeholder="<?= tr('Nombre de tu comercio', 'Your business name') ?>"></label>
         <div class="frow">
@@ -1017,6 +1020,7 @@ fq_lang();
   // formulario de contacto (envío sin recargar; fallback a POST normal)
   (function(){
     var f=document.getElementById('leadForm'); if(!f)return;
+    if(f.fjs)f.fjs.value='1'; // verificación de JS: los bots que postean directo no la tienen
     if(location.search.indexOf('enviado=1')>-1){ var ok=document.getElementById('formOk'); if(ok){ok.hidden=false; f.reset();} if(window.fqConv)fqConv((window.FQ_ANALYTICS||{}).CONV_LEAD,'generate_lead'); }
     f.addEventListener('submit',function(ev){
       if(f.empresa_web && f.empresa_web.value){ ev.preventDefault(); return; } // honeypot
