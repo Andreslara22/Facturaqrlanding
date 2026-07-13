@@ -1036,5 +1036,6 @@ require __DIR__ . '/form-lib.php';
     });
   })();
 </script>
+<script src="https://portal.facturaqr.app/chat-widget.js" defer></script>
 </body>
 </html>
