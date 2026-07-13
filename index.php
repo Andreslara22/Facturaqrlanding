@@ -168,6 +168,7 @@ require __DIR__ . '/form-lib.php';
   .nav nav a:hover{color:var(--blue)}
   .nav .cta{margin-left:2px;color:#fff}
   .nav .cta:hover{color:#fff}
+  .nav .cta-login{padding:11px 20px;font-size:14px}
   .nav .burger{display:none;background:none;border:0;font-size:26px;cursor:pointer;color:var(--ink)}
   /* ── selector de idioma ES/EN ── */
   .lang{display:inline-flex;align-items:center;border:1.6px solid var(--line);border-radius:100px;padding:3px;gap:2px}
@@ -516,6 +517,7 @@ require __DIR__ . '/form-lib.php';
       <a class="navlink" href="#precio"><?= tr('Precio', 'Pricing') ?></a>
       <a class="navlink" href="/blog/">Blog</a>
       <div class="lang" aria-label="Idioma / Language"><a href="<?= htmlspecialchars(lang_url('es')) ?>" class="<?= fq_lang()==='es'?'on':'' ?>">ES</a><a href="<?= htmlspecialchars(lang_url('en')) ?>" class="<?= fq_lang()==='en'?'on':'' ?>">EN</a></div>
+      <a class="btn btn-ghost cta-login" href="https://portal.facturaqr.app/" target="_blank" rel="noopener"><?= tr('Iniciar sesión', 'Log in') ?></a>
       <a class="btn btn-blue cta" href="https://portal.facturaqr.app/registro.php" target="_blank" rel="noopener"><?= tr('Prueba gratis', 'Free trial') ?></a>
     </nav>
     <div class="lang lang-m" aria-label="Idioma / Language"><a href="<?= htmlspecialchars(lang_url('es')) ?>" class="<?= fq_lang()==='es'?'on':'' ?>">ES</a><a href="<?= htmlspecialchars(lang_url('en')) ?>" class="<?= fq_lang()==='en'?'on':'' ?>">EN</a></div>
@@ -533,6 +535,7 @@ require __DIR__ . '/form-lib.php';
     <a href="#faq" onclick="document.getElementById('mm').classList.remove('on')"><?= tr('Preguntas', 'FAQ') ?></a>
     <a href="/blog/">Blog</a>
     <a href="https://portal.facturaqr.app/?c=ejemplo&amp;demo=1" target="_blank" rel="noopener"><?= tr('Ver demo en vivo', 'See live demo') ?></a>
+    <a href="https://portal.facturaqr.app/" target="_blank" rel="noopener"><?= tr('Iniciar sesión', 'Log in') ?></a>
     <a class="btn btn-blue" href="https://portal.facturaqr.app/registro.php" target="_blank" rel="noopener"><?= tr('Probar gratis — 10 facturas', 'Try free — 10 invoices') ?></a>
   </div>
 </div>
