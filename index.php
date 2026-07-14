@@ -137,6 +137,9 @@ require __DIR__ . '/form-lib.php';
   }, true);
 </script>
 
+<!-- Hotjar / Contentsquare (mapas de calor y grabaciones) -->
+<script src="https://t.contentsquare.net/uxa/83aa32f14fc94.js" defer></script>
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
