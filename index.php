@@ -195,6 +195,10 @@ require __DIR__ . '/form-lib.php';
   .trust span{display:inline-flex;align-items:center;gap:7px}
   .trust svg{width:16px;height:16px;color:var(--ok);flex:none}
 
+  /* ── hero foto ── */
+  .hero-foto{position:relative;border-radius:26px;overflow:hidden;box-shadow:0 30px 70px rgba(15,23,42,.28);border:1px solid var(--line);aspect-ratio:4/5;animation:floaty 6s ease-in-out infinite}
+  .hero-foto img{width:100%;height:100%;object-fit:cover;display:block}
+
   /* ── phone mock ── */
   .mock{position:relative;justify-self:center;width:100%;max-width:330px}
   .mock::before{content:"";position:absolute;inset:-6% -12% -12% -12%;background:radial-gradient(closest-side,rgba(37,99,235,.28),transparent 72%);filter:blur(8px);z-index:-1;animation:glow 4.5s ease-in-out infinite}
@@ -218,11 +222,11 @@ require __DIR__ . '/form-lib.php';
   .stamp em{font-style:normal;font-size:17px;display:block}
   @keyframes sello{0%{opacity:0;transform:translateX(-50%) rotate(-9deg) scale(2.2)}60%{opacity:1}100%{opacity:1;transform:translateX(-50%) rotate(-9deg) scale(1)}}
   .screen .done{margin-top:24px;background:var(--blue-soft);border-radius:12px;padding:12px;text-align:center;font-family:'Poppins';font-weight:800;font-size:12px;color:var(--blue)}
-  .float{position:absolute;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:11px 14px;display:flex;align-items:center;gap:10px;font-weight:800;font-size:13px}
+  .float{position:absolute;z-index:3;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:11px 14px;display:flex;align-items:center;gap:10px;font-weight:800;font-size:13px}
   .float .ic{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;flex:none;font-size:15px}
   .float small{display:block;color:var(--mute);font-weight:700;font-size:11px}
-  .float.f1{top:4%;left:-14px;animation:bob 5s ease-in-out infinite}
-  .float.f2{bottom:6%;right:-14px;animation:bob 5.6s ease-in-out .6s infinite}
+  .float.f1{top:7%;left:-18px;animation:bob 5s ease-in-out infinite}
+  .float.f2{bottom:8%;right:-18px;animation:bob 5.6s ease-in-out .6s infinite}
   @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
 
   /* ── entrada del hero (con JS; sin JS el contenido siempre queda visible) ── */
@@ -578,20 +582,8 @@ require __DIR__ . '/form-lib.php';
       <div class="mock">
         <div class="float f1"><span class="ic" style="background:var(--blue-soft);color:var(--blue)">📷</span><div><?= tr('Foto del ticket', 'Photo of the receipt') ?><small><?= tr('La IA lo lee sola', 'AI reads it on its own') ?></small></div></div>
         <div class="float f2"><span class="ic" style="background:var(--ok-soft);color:var(--ok)">✓</span><div><?= tr('Factura enviada', 'Invoice sent') ?><small><?= tr('PDF + XML al correo', 'PDF + XML by email') ?></small></div></div>
-        <div class="phone">
-          <div class="screen">
-            <div class="brand"><span class="wm"><span class="qmark"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#qr"/></svg></span>Factura<span class="t2">QR</span></span></div>
-            <div class="prog"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div>
-            <div class="ticket">
-              <div class="bar"></div>
-              <div class="trow"><b><?= tr('Comercio', 'Business') ?></b><span><?= tr('Tu Negocio', 'Your Business') ?></span></div>
-              <div class="trow"><b><?= tr('Folio', 'Receipt no.') ?></b><span>A-6634</span></div>
-              <div class="trow"><b><?= tr('Fecha', 'Date') ?></b><span><?= tr('Hoy', 'Today') ?></span></div>
-              <div class="trow big"><b>Total</b><span>$500.00</span></div>
-              <div class="stamp"><em>✓</em><?= tr('TIMBRADO', 'CERTIFIED') ?></div>
-            </div>
-            <div class="done"><?= tr('Enviamos tu factura por correo ✓', 'We emailed your invoice ✓') ?></div>
-          </div>
+        <div class="hero-foto">
+          <img src="img/hero-foto.webp" alt="<?= tr('Clienta escaneando el cartel QR de facturación en el mostrador de una cafetería', 'Customer scanning the invoicing QR sign at a coffee shop counter') ?>" width="1200" height="1600" fetchpriority="high" style="object-position:50% 30%">
         </div>
       </div>
     </div>
