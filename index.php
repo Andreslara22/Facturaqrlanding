@@ -266,6 +266,8 @@ require __DIR__ . '/form-lib.php';
   .step b{display:block;font-weight:800;font-size:17px;margin-bottom:7px}
   .step p{color:var(--mute);font-weight:600;font-size:14.5px}
   .step .arrow{position:absolute;top:50%;margin-top:-13px;right:-13px;width:26px;height:26px;color:var(--mute-2);z-index:2;background:#fff;border-radius:50%}
+  .promo-video{margin-top:46px;display:grid;place-items:center}
+  .promo-video video{width:min(280px,74vw);display:block;border-radius:24px;border:6px solid var(--ink);box-shadow:0 26px 60px rgba(15,23,42,.28);background:var(--ink)}
   @media(max-width:780px){.steps{grid-template-columns:1fr}.step .arrow{display:none}}
 
   /* compare: sin / con FacturaQR */
@@ -349,15 +351,15 @@ require __DIR__ . '/form-lib.php';
   .qr{width:172px;height:172px;margin:0 auto;border-radius:16px;padding:12px;background:#fff;border:2px solid var(--ink)}
   .qr svg{width:100%;height:100%}
   .cartel .foot{margin-top:16px;font-family:'Poppins';font-weight:800;font-size:12px;color:var(--ink)}
-  .qr-visual{position:relative;justify-self:center;width:100%;max-width:520px;padding-bottom:34px}
+  .qr-visual{position:relative;justify-self:center;width:100%;max-width:520px;padding-bottom:24px}
   .qr-visual>img{width:100%;height:auto;display:block;border-radius:22px;box-shadow:0 30px 70px rgba(0,0,0,.45)}
-  .qr-visual .cartel{position:absolute;left:-16px;bottom:0;max-width:212px;padding:18px 16px;transform:rotate(-2deg)}
-  .qr-visual .cartel h3{font-size:17px}
-  .qr-visual .cartel p{font-size:11.5px;margin-bottom:12px}
-  .qr-visual .cartel .k{font-size:10.5px}
-  .qr-visual .qr{width:112px;height:112px;padding:9px;border-radius:12px}
-  .qr-visual .cartel .foot{margin-top:11px;font-size:10.5px}
-  @media(max-width:820px){.dark .wrap{grid-template-columns:1fr;gap:34px}.qr-visual .cartel{left:-6px}}
+  .qr-visual .cartel{position:absolute;left:-14px;bottom:0;max-width:158px;padding:13px 12px;transform:rotate(-2deg)}
+  .qr-visual .cartel h3{font-size:13.5px}
+  .qr-visual .cartel p{font-size:9.5px;margin-bottom:9px}
+  .qr-visual .cartel .k{font-size:9px;letter-spacing:.09em}
+  .qr-visual .qr{width:80px;height:80px;padding:7px;border-radius:10px;border-width:2px}
+  .qr-visual .cartel .foot{margin-top:8px;font-size:9px}
+  @media(max-width:820px){.dark .wrap{grid-template-columns:1fr;gap:34px}.qr-visual .cartel{display:none}.qr-visual{padding-bottom:0}}
 
   /* panel showcase */
   .split{display:grid;grid-template-columns:.9fr 1.1fr;gap:44px;align-items:center}
@@ -476,6 +478,9 @@ require __DIR__ . '/form-lib.php';
     section{padding:42px 0}
     .sec-head{margin-bottom:28px}
     .hero h1{font-size:clamp(28px,8.4vw,40px)}
+    /* el resaltado no puede ser nowrap: infla el ancho mínimo y desborda la página */
+    .hero h1 .hl{white-space:normal;box-decoration-break:clone;-webkit-box-decoration-break:clone;background:linear-gradient(rgba(37,99,235,.22),rgba(37,99,235,.22)) 0 86%/100% .16em no-repeat}
+    .hero h1 .hl::after{display:none}
     .cards{gap:14px}.steps{gap:14px}.tiers{gap:16px}
     .fcard{padding:22px 18px}.cartel{padding:26px 20px}
     .final .fgrid{gap:22px}
@@ -632,6 +637,9 @@ require __DIR__ . '/form-lib.php';
           <b><?= tr('Recibe su CFDI', 'Get their CFDI') ?></b>
           <p><?= tr('Pone su RFC y correo, y le llega el PDF y el XML timbrados. En segundos, no al día siguiente.', 'They enter their RFC and email, and the certified PDF and XML arrive. In seconds, not the next day.') ?></p>
         </div>
+      </div>
+      <div class="promo-video reveal">
+        <video src="video/facturaqr-promo-cafe.mp4" poster="img/video-poster.jpg" autoplay muted loop playsinline disablepictureinpicture aria-label="<?= tr('Video: una clienta factura su ticket con el QR del mostrador de una cafetería', 'Video: a customer invoices her receipt with the QR at a coffee shop counter') ?>"></video>
       </div>
     </div>
   </section>
