@@ -224,12 +224,15 @@ require __DIR__ . '/form-lib.php';
   .trust span{display:inline-flex;align-items:center;gap:7px}
   .trust svg{width:16px;height:16px;color:var(--ok);flex:none}
 
-  /* ── hero foto ── */
-  .hero-foto{position:relative;border-radius:26px;overflow:hidden;box-shadow:0 30px 70px rgba(15,23,42,.28);border:1px solid var(--line);aspect-ratio:4/5;animation:floaty 6s ease-in-out infinite}
+  /* ── hero foto / video ── */
+  /* En PC (>860px) el hero muestra el VIDEO; la foto se usa en móvil. */
+  .hero-foto{position:relative;border-radius:26px;overflow:hidden;box-shadow:0 30px 70px rgba(15,23,42,.28);border:1px solid var(--line);aspect-ratio:4/5;animation:floaty 6s ease-in-out infinite;display:none}
   .hero-foto img{width:100%;height:100%;object-fit:cover;display:block}
+  .hero-video{position:relative;border-radius:30px;overflow:hidden;border:6px solid var(--ink);box-shadow:0 30px 70px rgba(15,23,42,.3);background:var(--ink);animation:floaty 6s ease-in-out infinite}
+  .hero-video video{display:block;width:100%;height:auto;border-radius:24px}
 
   /* ── phone mock ── */
-  .mock{position:relative;justify-self:center;width:100%;max-width:330px}
+  .mock{position:relative;justify-self:center;width:100%;max-width:300px}
   .mock::before{content:"";position:absolute;inset:-6% -12% -12% -12%;background:radial-gradient(closest-side,rgba(37,99,235,.28),transparent 72%);filter:blur(8px);z-index:-1;animation:glow 4.5s ease-in-out infinite}
   @keyframes glow{0%,100%{opacity:.55;transform:scale(.96)}50%{opacity:1;transform:scale(1.04)}}
   .phone{position:relative;background:#0B1220;border-radius:38px;padding:12px;box-shadow:0 30px 70px rgba(15,23,42,.32);border:1px solid #24304A;animation:floaty 6s ease-in-out infinite}
@@ -274,6 +277,9 @@ require __DIR__ . '/form-lib.php';
     .trust{margin-top:22px;gap:10px 20px}
     .mock{max-width:280px;margin-top:12px}
     .float{display:none}
+    /* móvil: hero con foto (el video del hero se oculta) */
+    .hero-video{display:none}
+    .hero-foto{display:block}
   }
 
   /* ── logos / stat strip ── */
@@ -299,8 +305,10 @@ require __DIR__ . '/form-lib.php';
   .step b{display:block;font-weight:800;font-size:17px;margin-bottom:7px}
   .step p{color:var(--mute);font-weight:600;font-size:14.5px}
   .step .arrow{position:absolute;top:50%;margin-top:-13px;right:-13px;width:26px;height:26px;color:var(--mute-2);z-index:2;background:#fff;border-radius:50%}
-  .promo-video{margin-top:46px;display:grid;place-items:center}
+  /* El video vive en el hero en PC; en móvil se muestra aquí, en "Cómo funciona". */
+  .promo-video{margin-top:46px;display:none;place-items:center}
   .promo-video video{width:min(280px,74vw);display:block;border-radius:24px;border:6px solid var(--ink);box-shadow:0 26px 60px rgba(15,23,42,.28);background:var(--ink)}
+  @media(max-width:860px){.promo-video{display:grid}}
   @media(max-width:780px){.steps{grid-template-columns:1fr}.step .arrow{display:none}}
 
   /* compare: sin / con FacturaQR */
@@ -611,6 +619,9 @@ require __DIR__ . '/form-lib.php';
       <div class="mock">
         <div class="float f1"><span class="ic" style="background:var(--blue-soft);color:var(--blue)">📷</span><div><?= tr('Foto del ticket', 'Photo of the receipt') ?><small><?= tr('La IA lo lee sola', 'AI reads it on its own') ?></small></div></div>
         <div class="float f2"><span class="ic" style="background:var(--ok-soft);color:var(--ok)">✓</span><div><?= tr('Factura enviada', 'Invoice sent') ?><small><?= tr('PDF + XML al correo', 'PDF + XML by email') ?></small></div></div>
+        <div class="hero-video">
+          <video src="video/facturaqr-promo-cafe.mp4" poster="img/video-poster.jpg" autoplay muted loop playsinline disablepictureinpicture aria-label="<?= tr('Video: una clienta factura su ticket con el QR del mostrador de una cafetería', 'Video: a customer invoices her receipt with the QR at a coffee shop counter') ?>"></video>
+        </div>
         <div class="hero-foto">
           <img src="img/hero-foto.webp" alt="<?= tr('Clienta escaneando el cartel QR de facturación en el mostrador de una cafetería', 'Customer scanning the invoicing QR sign at a coffee shop counter') ?>" width="1200" height="1600" fetchpriority="high" style="object-position:50% 30%">
         </div>
