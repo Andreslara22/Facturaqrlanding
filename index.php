@@ -54,7 +54,10 @@ require __DIR__ . '/form-lib.php';
     GA4_ID:      'G-QY5N3VNCTR',
     ADS_ID:      'AW-11259075906',
     CONV_LEAD:   'AW-11259075906/cGiPCNn4xb4YEMK63_gp',
-    CONV_SIGNUP: 'AW-11259075906/3trnCNPH280cEMK63_gp'
+    CONV_SIGNUP: 'AW-11259075906/3trnCNPH280cEMK63_gp',
+    // Pega los IDs cuando los tengas; mientras contengan "XXXX" no cargan nada.
+    META_PIXEL:  'XXXXXXXXXXXXXXX',   // Meta Events Manager → tu pixel (solo números)
+    CLARITY_ID:  'XXXXXXXXXX'         // clarity.microsoft.com → Settings → Project ID
   };
   (function(){
     var A = window.FQ_ANALYTICS, ids = [];
@@ -76,10 +79,32 @@ require __DIR__ . '/form-lib.php';
     if (ga4Event && (A.GA4_ID||'').indexOf('XXXX') < 0) gtag('event', ga4Event);
     if (adsLabel && adsLabel.indexOf('XXXX') < 0) gtag('event', 'conversion', { send_to: adsLabel });
   };
-  // Cuenta como conversión cualquier clic hacia el registro del portal.
+  // ── Meta Pixel (Facebook/Instagram): retargeting y conversiones de anuncios ──
+  (function(){
+    var id = (window.FQ_ANALYTICS||{}).META_PIXEL || '';
+    if (id.indexOf('XXXX') >= 0) return;
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+      n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+      document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', id); fbq('track', 'PageView');
+  })();
+  // ── Microsoft Clarity: mapas de calor y grabaciones de sesión ──
+  (function(){
+    var id = (window.FQ_ANALYTICS||{}).CLARITY_ID || '';
+    if (id.indexOf('XXXX') >= 0) return;
+    (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src='https://www.clarity.ms/tag/'+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,'clarity','script',id);
+  })();
+  // Cuenta como conversión cualquier clic hacia el registro del portal (GA4 + Ads + Meta).
   document.addEventListener('click', function(ev){
     var a = ev.target.closest && ev.target.closest('a[href*="registro.php"]');
-    if (a) fqConv((window.FQ_ANALYTICS||{}).CONV_SIGNUP, 'sign_up');
+    if (a){
+      fqConv((window.FQ_ANALYTICS||{}).CONV_SIGNUP, 'sign_up');
+      if (window.fbq) fbq('track', 'Lead');
+    }
   }, true);
 
   // Mide clics en TODOS los botones/enlaces clave.
