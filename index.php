@@ -81,6 +81,35 @@ require __DIR__ . '/form-lib.php';
     var a = ev.target.closest && ev.target.closest('a[href*="registro.php"]');
     if (a) fqConv((window.FQ_ANALYTICS||{}).CONV_SIGNUP, 'sign_up');
   }, true);
+
+  // Mide clics en TODOS los botones/enlaces clave.
+  // GA4: evento "cta_click" con parámetros cta (qué botón) y destino (a dónde).
+  // En GA4 → Informes → Interacción → Eventos verás "cta_click"; ábrelo y
+  // desglosa por el parámetro "cta" para saber qué botón se pulsa más.
+  document.addEventListener('click', function(ev){
+    var a = ev.target.closest && ev.target.closest('a, button');
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    var cta  = a.getAttribute('data-cta');
+    if (!cta){
+      if (/registro\.php/.test(href))                                cta = 'registro';
+      else if (/wa\.me|whatsapp|api\.whatsapp/i.test(href))          cta = 'whatsapp';
+      else if (/[?&]demo=1/.test(href))                             cta = 'demo';
+      else if (/\/blog\//.test(href))                               cta = 'blog';
+      else if (/portal\.facturaqr\.app\/?(\?|#|$)/.test(href))       cta = 'login';
+      else if (/^#/.test(href))                                     cta = 'nav';
+      else return; // enlaces triviales: no se rastrean
+    }
+    if (window.gtag && ((window.FQ_ANALYTICS||{}).GA4_ID||'').indexOf('XXXX') < 0){
+      var sec = a.closest('section, header, footer');
+      gtag('event', 'cta_click', {
+        cta: cta,
+        destino: href.slice(0, 100),
+        seccion: (sec && (sec.id || sec.className.split(' ')[0])) || 'na',
+        texto: (a.textContent||'').trim().slice(0, 40)
+      });
+    }
+  }, true);
 </script>
 
 <script type="application/ld+json">
