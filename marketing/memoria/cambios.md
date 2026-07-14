@@ -26,3 +26,14 @@ recuerdo por cambio; los agentes lo leen en su protocolo._
   - 3,000
   - $15,000
   - Local — $5,000/mes
+
+## 2026-07-14 — landing (https://facturaqr.app/)
+- 2026-07-14 [cambio] landing: +2/-9 líneas
+  + Iniciar sesión
+  + Iniciar sesión
+  - Tu Negocio
+  - Folio
+  - A-6634
+  - Fecha
+  - Hoy
+  - Total

@@ -5,6 +5,7 @@ Beneficios
 Panel
 Precio
 Blog
+Iniciar sesión
 Prueba gratis
 Cómo funciona
 Beneficios
@@ -13,6 +14,7 @@ Precio
 Preguntas
 Blog
 Ver demo en vivo
+Iniciar sesión
 Probar gratis — 10 facturas
 Autofacturación · CFDI 4.0
 Tus clientes se facturan solos con una
@@ -29,17 +31,6 @@ Foto del ticket
 La IA lo lee sola
 Factura enviada
 PDF + XML al correo
-Factura
-Comercio
-Tu Negocio
-Folio
-A-6634
-Fecha
-Hoy
-Total
-$500.00
-TIMBRADO
-Enviamos tu factura por correo ✓
 < 1 min
 de la foto a la factura
 datos que captura tu cajero

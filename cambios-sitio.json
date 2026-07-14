@@ -1,5 +1,23 @@
 [
  {
+  "fecha": "2026-07-14",
+  "pagina": "landing",
+  "url": "https://facturaqr.app/",
+  "resumen": "+2/-9 líneas · + Iniciar sesión | + Iniciar sesión | - Tu Negocio | - Folio",
+  "agregado": [
+   "Iniciar sesión",
+   "Iniciar sesión"
+  ],
+  "quitado": [
+   "Tu Negocio",
+   "Folio",
+   "A-6634",
+   "Fecha",
+   "Hoy",
+   "Total"
+  ]
+ },
+ {
   "fecha": "2026-07-11",
   "pagina": "landing",
   "url": "https://facturaqr.app/",
