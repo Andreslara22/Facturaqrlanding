@@ -1,5 +1,19 @@
 [
  {
+  "fecha": "2026-07-16",
+  "pagina": "portal-registro",
+  "url": "https://portal.facturaqr.app/registro.php",
+  "resumen": "+3/-1 líneas · + Continuar por WhatsApp | + o regístrate con tu correo | + RFC de tu negocio o persona física | - RFC de tu negocio",
+  "agregado": [
+   "Continuar por WhatsApp",
+   "o regístrate con tu correo",
+   "RFC de tu negocio o persona física"
+  ],
+  "quitado": [
+   "RFC de tu negocio"
+  ]
+ },
+ {
   "fecha": "2026-07-14",
   "pagina": "landing",
   "url": "https://facturaqr.app/",

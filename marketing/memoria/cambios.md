@@ -37,3 +37,10 @@ recuerdo por cambio; los agentes lo leen en su protocolo._
   - Fecha
   - Hoy
   - Total
+
+## 2026-07-16 — portal-registro (https://portal.facturaqr.app/registro.php)
+- 2026-07-16 [cambio] portal-registro: +3/-1 líneas
+  + Continuar por WhatsApp
+  + o regístrate con tu correo
+  + RFC de tu negocio o persona física
+  - RFC de tu negocio
